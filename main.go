@@ -1,9 +1,9 @@
 package main
 
 import (
-	"arabiya-syari-fiber/database"
+	"arabiya-syari-fiber/internals/database"
 	// "arabiya-syari-fiber/models"
-	"arabiya-syari-fiber/routes"
+	"arabiya-syari-fiber/internals/routes"
 	"log"
 
 	// "myapp/database"
@@ -31,7 +31,7 @@ func main() {
     // AllowCredentials: true, // Jangan gunakan ini bersamaan dengan "*"
 }))
 	// Setup routes
-	routes.SetupUserRoutes(app)
+	routes.SetupUserRoutes(app, database.DB)
 
 	// Start server
 	port := ":8080"
