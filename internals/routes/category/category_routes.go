@@ -3,7 +3,7 @@ package category
 import (
 	// "arabiya-syari-fiber/internals/models"
 	// "arabiya-syari-fiber/internals/database"
-	"arabiya-syari-fiber/internals/controllers"
+	controllers "arabiya-syari-fiber/internals/controllers/category"
 
 	// db "arabiya-syari-fiber/internals/database"
 
@@ -42,4 +42,16 @@ func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 	apicategory.Post("/", categoryController.CreateCategory)
 	apicategory.Put("/:id", categoryController.UpdateCategory)
 	apicategory.Delete("/:id", categoryController.DeleteCategory)
+
+
+subcategoryController := controllers.NewSubcategoryController(db)
+
+apisubcategory := app.Group("/api/subcategories")
+apisubcategory.Get("/", subcategoryController.GetSubcategories) 
+apisubcategory.Get("/:id", subcategoryController.GetSubcategory) 
+apisubcategory.Get("/category/:category_id", subcategoryController.GetSubcategoriesByCategory) 
+apisubcategory.Post("/", subcategoryController.CreateSubcategory) 
+apisubcategory.Put("/:id", subcategoryController.UpdateSubcategory) 
+apisubcategory.Delete("/:id", subcategoryController.DeleteSubcategory)
+
 }
