@@ -44,14 +44,22 @@ func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 	apicategory.Delete("/:id", categoryController.DeleteCategory)
 
 
-subcategoryController := controllers.NewSubcategoryController(db)
+	subcategoryController := controllers.NewSubcategoryController(db)
 
-apisubcategory := app.Group("/api/subcategories")
-apisubcategory.Get("/", subcategoryController.GetSubcategories) 
-apisubcategory.Get("/:id", subcategoryController.GetSubcategory) 
-apisubcategory.Get("/category/:category_id", subcategoryController.GetSubcategoriesByCategory) 
-apisubcategory.Post("/", subcategoryController.CreateSubcategory) 
-apisubcategory.Put("/:id", subcategoryController.UpdateSubcategory) 
-apisubcategory.Delete("/:id", subcategoryController.DeleteSubcategory)
+	apisubcategory := app.Group("/api/subcategories")
+	apisubcategory.Get("/", subcategoryController.GetSubcategories) 
+	apisubcategory.Get("/:id", subcategoryController.GetSubcategory) 
+	apisubcategory.Get("/category/:category_id", subcategoryController.GetSubcategoriesByCategory) 
+	apisubcategory.Post("/", subcategoryController.CreateSubcategory) 
+	apisubcategory.Put("/:id", subcategoryController.UpdateSubcategory) 
+	apisubcategory.Delete("/:id", subcategoryController.DeleteSubcategory)
+
+	controller := controllers.NewThemeOrLevelController(db)
+	apithemesorlevels := app.Group("/api/themes-or-levels")
+	apithemesorlevels.Get("/", controller.GetThemesOrLevels)
+	apithemesorlevels.Get("/:id", controller.GetThemeOrLevel)
+	apithemesorlevels.Post("/", controller.CreateThemeOrLevel)
+	apithemesorlevels.Put("/:id", controller.UpdateThemeOrLevel)
+	apithemesorlevels.Delete("/:id", controller.DeleteThemeOrLevel)
 
 }

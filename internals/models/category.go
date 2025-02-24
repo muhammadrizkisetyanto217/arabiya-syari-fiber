@@ -9,7 +9,7 @@ type Category struct {
 	Name             string    `json:"name"`
 	DescriptionShort string    `json:"description_short"`
 	DescriptionLong  string    `json:"description_long"`
-	TotalCategories  int       `json:"total_categories"`
+	TotalSubcategories  int       `json:"total_subcategories"`
 	Status           string    `json:"status" gorm:"type:varchar(10);check:status IN ('active', 'pending', 'archived')"`
 	CreatedAt        time.Time `json:"created_at" gorm:"default:CURRENT_TIMESTAMP"`
 	UpdatedAt        time.Time `json:"updated_at"`

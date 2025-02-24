@@ -1,0 +1,1 @@
+DROP TABLE themes_or_levels;

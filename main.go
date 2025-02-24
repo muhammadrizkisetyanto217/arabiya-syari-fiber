@@ -28,7 +28,8 @@ func main() {
 	app.Use(logger.New()) // Logging request
 	app.Use(cors.New(cors.Config{
     AllowOrigins: "*", // Mengizinkan semua origin
-    // AllowCredentials: true, // Jangan gunakan ini bersamaan dengan "*"
+    AllowMethods: "*",  // Mengizinkan semua metode (GET, POST, PUT, DELETE, dll.)
+    AllowHeaders: "*",  // Mengizinkan semua header
 }))
 	// Setup routes
 	routes.SetupUserRoutes(app, database.DB)
