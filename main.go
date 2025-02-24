@@ -30,7 +30,7 @@ func main() {
     AllowOrigins: "*", // Mengizinkan semua origin
     AllowMethods: "GET, POST, PUT, DELETE, OPTIONS",
     AllowHeaders: "Origin, Content-Type, Accept, Authorization",
-    AllowCredentials: true,
+    // AllowCredentials: true,
 }))
 	// Setup routes
 	routes.SetupUserRoutes(app, database.DB)
