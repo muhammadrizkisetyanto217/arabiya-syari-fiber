@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"arabiya-syari-fiber/internals/controllers"
+	controllers "arabiya-syari-fiber/internals/controllers/user"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
@@ -12,4 +12,13 @@ func UserRoutes(app *fiber.App, db *gorm.DB) {
 	auth := app.Group("/auth")
 	auth.Post("/register", authController.Register)
 	auth.Post("/login", authController.Login)
+
+	userController := controllers.NewUserController(db)
+
+	api := app.Group("/api/users", controllers.AuthMiddleware)
+	api.Get("/", userController.GetUsers)
+	api.Get("/:id", userController.GetUser)
+	api.Post("/", userController.CreateUser)
+	api.Put("/:id", userController.UpdateUser)
+	api.Delete("/:id", userController.DeleteUser)
 }
