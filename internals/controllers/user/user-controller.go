@@ -3,7 +3,7 @@ package controllers
 import (
 	"github.com/gofiber/fiber/v2"
 
-	"arabiya-syari-fiber/internals/models"
+	"arabiya-syari-fiber/internals/models/user"
 	"gorm.io/gorm"
 )
 

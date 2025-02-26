@@ -12,4 +12,6 @@ import (
 func SetupUserRoutes(app *fiber.App, db *gorm.DB) {
 	authRoutes.UserRoutes(app, db)
 	categoryRoutes.CategoryRoutes(app, db)
+	categoryRoutes.QuizzesRoutes(app, db)
+
 }

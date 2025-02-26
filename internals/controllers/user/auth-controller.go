@@ -9,7 +9,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 
-	"arabiya-syari-fiber/internals/models"
+	"arabiya-syari-fiber/internals/models/user"
 )
 
 const SecretKey = "your_secret_key"

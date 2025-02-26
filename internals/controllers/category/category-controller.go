@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"log"
-	"arabiya-syari-fiber/internals/models"
+	"arabiya-syari-fiber/internals/models/category"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
