@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS donation_levels_type;

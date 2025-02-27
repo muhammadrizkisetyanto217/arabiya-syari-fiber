@@ -33,7 +33,7 @@ func main() {
     // AllowCredentials: true,
 }))
 	// Setup routes
-	routes.SetupUserRoutes(app, database.DB)
+	routes.SetupRoutes(app, database.DB)
 
 	// Start server
 	port := ":8080"
