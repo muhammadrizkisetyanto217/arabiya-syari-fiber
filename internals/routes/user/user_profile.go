@@ -13,7 +13,7 @@ func SetupRoutes(app *fiber.App, db *gorm.DB) {
 	usersProfileController := controllers.NewUsersProfileController(db)
 
 	// Grouping routes untuk Users Profile
-	usersProfileRoutes := app.Group("/users-profiles")
+	usersProfileRoutes := app.Group("api/users-profiles")
 	usersProfileRoutes.Get("/", usersProfileController.GetProfiles)
 	usersProfileRoutes.Get("/:id", usersProfileController.GetProfile)
 	usersProfileRoutes.Post("/", usersProfileController.CreateProfile)
