@@ -1,10 +1,11 @@
 package controllers
 
 import (
-	"arabiya-syari-fiber/internals/models/category"
+	models "arabiya-syari-fiber/internals/models/category"
+	"log"
+
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
-	"log"
 )
 
 type UnitController struct {
@@ -66,19 +67,25 @@ func (uc *UnitController) CreateUnit(c *fiber.Ctx) error {
 func (uc *UnitController) UpdateUnit(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Updating unit with ID:", id)
+
 	var unit models.Unit
 	if err := uc.DB.First(&unit, id).Error; err != nil {
 		log.Println("Unit not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Unit not found"})
 	}
-	if err := c.BodyParser(&unit); err != nil {
+
+	// Menggunakan map agar hanya field yang dikirim yang diperbarui
+	var requestData map[string]interface{}
+	if err := c.BodyParser(&requestData); err != nil {
 		log.Println("Invalid request body:", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
 	}
-	if err := uc.DB.Save(&unit).Error; err != nil {
+
+	if err := uc.DB.Model(&unit).Updates(requestData).Error; err != nil {
 		log.Println("Error updating unit:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to update unit"})
 	}
+
 	return c.JSON(unit)
 }
 
