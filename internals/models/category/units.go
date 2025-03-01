@@ -1,6 +1,7 @@
 package models
 
 import (
+	models "arabiya-syari-fiber/internals/models/quizzes"
 	"time"
 
 	"gorm.io/gorm"
@@ -18,4 +19,6 @@ type Unit struct {
 	DeletedAt           gorm.DeletedAt `gorm:"index" json:"deleted_at"`
 	ThemesOrLevelID     uint           `json:"themes_or_level_id"`
 	CreatedBy           uint           `json:"created_by"`
+
+	SectionQuizzes []models.SectionQuiz `gorm:"foreignKey:UnitID" json:"section_quizzes"`
 }

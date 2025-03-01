@@ -10,99 +10,99 @@ import (
 	"gorm.io/gorm"
 )
 
-type UsersDonationStatsController struct {
+type UserDonationLogsController struct {
 	DB *gorm.DB
 }
 
-func NewUsersDonationStatsController(db *gorm.DB) *UsersDonationStatsController {
-	return &UsersDonationStatsController{DB: db}
+func NewUserDonationLogsController(db *gorm.DB) *UserDonationLogsController {
+	return &UserDonationLogsController{DB: db}
 }
 
-// Get all donation stats
-func (udsc *UsersDonationStatsController) GetAll(c *fiber.Ctx) error {
-	log.Println("Fetching all user donation stats")
-	var stats []models.UsersDonationStat
-	if err := udsc.DB.Find(&stats).Error; err != nil {
-		log.Println("Error fetching donation stats:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch donation stats"})
+// Get all donation logs
+func (udlc *UserDonationLogsController) GetAll(c *fiber.Ctx) error {
+	log.Println("Fetching all user donation logs")
+	var logs []models.UserDonationLog
+	if err := udlc.DB.Find(&logs).Error; err != nil {
+		log.Println("Error fetching donation logs:", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch donation logs"})
 	}
-	return c.JSON(stats)
+	return c.JSON(logs)
 }
 
-// Get a specific donation stat by ID
-func (udsc *UsersDonationStatsController) GetByID(c *fiber.Ctx) error {
+// Get a specific donation log by ID
+func (udlc *UserDonationLogsController) GetByID(c *fiber.Ctx) error {
 	id, err := c.ParamsInt("id")
 	if err != nil {
 		log.Println("Invalid ID format:", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid ID"})
 	}
 
-	log.Println("Fetching donation stat with ID:", id)
-	var stat models.UsersDonationStat
-	if err := udsc.DB.First(&stat, id).Error; err != nil {
-		log.Println("Donation stat not found:", err)
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Donation stat not found"})
+	log.Println("Fetching donation log with ID:", id)
+	var logEntry models.UserDonationLog
+	if err := udlc.DB.First(&logEntry, id).Error; err != nil {
+		log.Println("Donation log not found:", err)
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Donation log not found"})
 	}
-	return c.JSON(stat)
+	return c.JSON(logEntry)
 }
 
-// Create a new donation stat
-func (udsc *UsersDonationStatsController) Create(c *fiber.Ctx) error {
-	log.Println("Creating a new user donation stat")
-	var stat models.UsersDonationStat
+// Create a new donation log
+func (udlc *UserDonationLogsController) Create(c *fiber.Ctx) error {
+	log.Println("Creating a new user donation log")
+	var logEntry models.UserDonationLog
 
-	if err := c.BodyParser(&stat); err != nil {
+	if err := c.BodyParser(&logEntry); err != nil {
 		log.Println("Invalid request body:", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
 	}
 
-	if err := udsc.DB.Create(&stat).Error; err != nil {
-		log.Println("Error creating donation stat:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to create donation stat"})
+	if err := udlc.DB.Create(&logEntry).Error; err != nil {
+		log.Println("Error creating donation log:", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to create donation log"})
 	}
-	return c.Status(fiber.StatusCreated).JSON(stat)
+	return c.Status(fiber.StatusCreated).JSON(logEntry)
 }
 
-// Update a donation stat
-func (udsc *UsersDonationStatsController) Update(c *fiber.Ctx) error {
+// Update a donation log
+func (udlc *UserDonationLogsController) Update(c *fiber.Ctx) error {
 	id, err := c.ParamsInt("id")
 	if err != nil {
 		log.Println("Invalid ID format:", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid ID"})
 	}
 
-	log.Println("Updating donation stat with ID:", id)
-	var stat models.UsersDonationStat
-	if err := udsc.DB.First(&stat, id).Error; err != nil {
-		log.Println("Donation stat not found:", err)
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Donation stat not found"})
+	log.Println("Updating donation log with ID:", id)
+	var logEntry models.UserDonationLog
+	if err := udlc.DB.First(&logEntry, id).Error; err != nil {
+		log.Println("Donation log not found:", err)
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Donation log not found"})
 	}
 
-	var input models.UsersDonationStat
+	var input models.UserDonationLog
 	if err := c.BodyParser(&input); err != nil {
 		log.Println("Invalid request body:", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
 	}
 
-	if err := udsc.DB.Model(&stat).Updates(input).Error; err != nil {
-		log.Println("Error updating donation stat:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to update donation stat"})
+	if err := udlc.DB.Model(&logEntry).Updates(input).Error; err != nil {
+		log.Println("Error updating donation log:", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to update donation log"})
 	}
-	return c.JSON(stat)
+	return c.JSON(logEntry)
 }
 
-// Soft delete a donation stat
-func (udsc *UsersDonationStatsController) Delete(c *fiber.Ctx) error {
+// Soft delete a donation log
+func (udlc *UserDonationLogsController) Delete(c *fiber.Ctx) error {
 	id, err := c.ParamsInt("id")
 	if err != nil {
 		log.Println("Invalid ID format:", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid ID"})
 	}
 
-	log.Println("Deleting donation stat with ID:", id)
-	if err := udsc.DB.Model(&models.UsersDonationStat{}).Where("id = ?", id).Update("deleted_at", time.Now()).Error; err != nil {
-		log.Println("Error deleting donation stat:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete donation stat"})
+	log.Println("Deleting donation log with ID:", id)
+	if err := udlc.DB.Model(&models.UserDonationLog{}).Where("id = ?", id).Update("deleted_at", time.Now()).Error; err != nil {
+		log.Println("Error deleting donation log:", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete donation log"})
 	}
-	return c.JSON(fiber.Map{"message": "Donation stat deleted successfully"})
+	return c.JSON(fiber.Map{"message": "Donation log deleted successfully"})
 }

@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-type UsersDonationStat struct {
+type UserDonationLog struct {
 	ID             int       `json:"id"`
 	Amount         int       `json:"amount"`
 	DonatableType  string    `json:"donatable_type" gorm:"default:pending"` // Tambah default

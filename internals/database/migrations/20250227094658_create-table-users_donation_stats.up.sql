@@ -1,4 +1,4 @@
-CREATE TABLE users_donation_stats (
+CREATE TABLE IF NOT EXISTS users_donation_stats (
     id SERIAL PRIMARY KEY,
     amount INT NOT NULL,
     donatable_type VARCHAR(10) CHECK (donatable_type IN ('quiz', 'article', 'exam', 'other', 'pending')) DEFAULT 'pending',

@@ -19,7 +19,7 @@ func NewUnitController(db *gorm.DB) *UnitController {
 func (uc *UnitController) GetUnits(c *fiber.Ctx) error {
 	log.Println("Fetching all units")
 	var units []models.Unit
-	if err := uc.DB.Find(&units).Error; err != nil {
+	if err := uc.DB.Preload("SectionQuizzes").Find(&units).Error; err != nil {
 		log.Println("Error fetching units:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch units"})
 	}
@@ -30,7 +30,7 @@ func (uc *UnitController) GetUnit(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Fetching unit with ID:", id)
 	var unit models.Unit
-	if err := uc.DB.First(&unit, id).Error; err != nil {
+	if err := uc.DB.Preload("SectionQuizzes").First(&unit, id).Error; err != nil {
 		log.Println("Unit not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Unit not found"})
 	}
@@ -42,7 +42,7 @@ func (uc *UnitController) GetUnitByThemesOrLevels(c *fiber.Ctx) error {
 	log.Printf("[INFO] Fetching units with themes_or_level_id: %s\n", themesOrLevelID)
 
 	var units []models.Unit
-	if err := uc.DB.Where("themes_or_level_id = ?", themesOrLevelID).Find(&units).Error; err != nil {
+	if err := uc.DB.Preload("SectionQuizzes").Where("themes_or_level_id = ?", themesOrLevelID).Find(&units).Error; err != nil {
 		log.Printf("[ERROR] Failed to fetch units for themes_or_level_id %s: %v\n", themesOrLevelID, err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch units"})
 	}

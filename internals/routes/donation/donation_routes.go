@@ -20,9 +20,9 @@ func DonationRoutes(app *fiber.App, db *gorm.DB) {
 	donationLevelsGroup.Delete("/:id", donationLevelsController.Delete)
 	
 
-	donationStatsController := controllers.NewUsersDonationStatsController(db)
+	donationStatsController := controllers.NewUserDonationLogsController(db)
 
-	api := app.Group("/api/user-donation-stats")
+	api := app.Group("/api/user-donation-logs")
 
 	// Donation Stats API
 	api.Get("/", donationStatsController.GetAll)
