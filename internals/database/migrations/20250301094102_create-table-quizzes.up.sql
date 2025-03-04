@@ -8,7 +8,8 @@ CREATE TABLE quizzes (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP,
-    section_quizzes_Id INT REFERENCES section_quizzes(id) ON DELETE CASCADE,
+    section_quizzes_id INT REFERENCES section_quizzes(id) ON DELETE CASCADE,
     unit_Id INT REFERENCES units(id) ON DELETE CASCADE,
     created_by INT REFERENCES users(id) ON DELETE CASCADE
 );
+cc

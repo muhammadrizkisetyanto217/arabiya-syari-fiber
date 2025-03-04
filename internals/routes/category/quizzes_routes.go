@@ -43,4 +43,16 @@ func QuizzesRoutes(app *fiber.App, db *gorm.DB) {
 	quizGroup.Post("/", quizController.CreateQuiz)
 	quizGroup.Put("/:id", quizController.UpdateQuiz)
 	quizGroup.Delete("/:id", quizController.DeleteQuiz)
+
+
+	// Quizzes Questions routes
+	quizQuestionController := controllers.NewQuizQuestionController(db)
+
+	quizQuestionGroup := app.Group("/api/quiz-questions")
+	quizQuestionGroup.Get("/", quizQuestionController.GetQuizQuestions)
+	quizQuestionGroup.Get("/:id", quizQuestionController.GetQuizQuestion)
+	quizQuestionGroup.Get("/quizzes/:quizId", quizQuestionController.GetQuizQuestionsByQuizID)
+	quizQuestionGroup.Post("/", quizQuestionController.CreateQuizQuestion)
+	quizQuestionGroup.Put("/:id", quizQuestionController.UpdateQuizQuestion)
+	quizQuestionGroup.Delete("/:id", quizQuestionController.DeleteQuizQuestion)
 }
