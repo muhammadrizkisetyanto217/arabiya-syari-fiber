@@ -3,9 +3,10 @@ package controllers
 import (
 	"log"
 
+	models "arabiya-syari-fiber/internals/models/quizzes"
+
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
-	"arabiya-syari-fiber/internals/models/quizzes"
 )
 
 type QuizController struct {
@@ -39,20 +40,25 @@ func (qc *QuizController) GetQuiz(c *fiber.Ctx) error {
 	return c.JSON(quiz)
 }
 
-// Get quizzes by unit ID
-func (qc *QuizController) GetQuizzesByUnit(c *fiber.Ctx) error {
-	unitID := c.Params("unitId")
-	log.Printf("[INFO] Fetching quizzes for unit_id: %s\n", unitID)
+func (qc *QuizController) GetQuizzesBySection(c *fiber.Ctx) error {
+	sectionID := c.Params("sectionId")
+	log.Printf("[INFO] Fetching quizzes for section_id: %s\n", sectionID)
 
 	var quizzes []models.Quiz
-	if err := qc.DB.Where("unit_id = ?", unitID).Find(&quizzes).Error; err != nil {
-		log.Printf("[ERROR] Failed to fetch quizzes for unit_id %s: %v\n", unitID, err)
+	if err := qc.DB.
+		Joins("JOIN section_quizzes ON quizzes.section_quizzes_id = section_quizzes.id").
+		Where("section_quizzes.id = ?", sectionID).
+		Find(&quizzes).Error; err != nil {
+		log.Printf("[ERROR] Failed to fetch quizzes for section_id %s: %v\n", sectionID, err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch quizzes"})
 	}
 
-	log.Printf("[SUCCESS] Retrieved %d quizzes for unit_id %s\n", len(quizzes), unitID)
+	log.Printf("[SUCCESS] Retrieved %d quizzes for section_id %s\n", len(quizzes), sectionID)
 	return c.JSON(quizzes)
 }
+
+
+
 
 // Create a new quiz
 func (qc *QuizController) CreateQuiz(c *fiber.Ctx) error {
