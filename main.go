@@ -35,6 +35,12 @@ func main() {
 	// Setup routes
 	routes.SetupRoutes(app, database.DB)
 
+	app.Get("/test", func(c *fiber.Ctx) error {
+    log.Println("[INFO] Test route hit")
+    return c.JSON(fiber.Map{"message": "Test route working"})
+})
+
+
 	// Start server
 	port := ":8080"
 	log.Println("Server running on port", port)
