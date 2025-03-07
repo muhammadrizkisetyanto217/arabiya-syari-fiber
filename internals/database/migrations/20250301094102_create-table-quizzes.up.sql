@@ -1,4 +1,4 @@
-CREATE TABLE quizzes (
+CREATE TABLE IF NOT EXISTS quizzes (
     id SERIAL PRIMARY KEY,
     name_quizzes VARCHAR(50) UNIQUE NOT NULL,
     status VARCHAR(10) CHECK (status IN ('active', 'pending', 'archived')) DEFAULT 'pending',
@@ -12,4 +12,3 @@ CREATE TABLE quizzes (
     unit_Id INT REFERENCES units(id) ON DELETE CASCADE,
     created_by INT REFERENCES users(id) ON DELETE CASCADE
 );
-cc

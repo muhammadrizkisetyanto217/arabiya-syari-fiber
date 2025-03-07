@@ -55,4 +55,15 @@ func QuizzesRoutes(app *fiber.App, db *gorm.DB) {
 	quizQuestionGroup.Post("/", quizQuestionController.CreateQuizQuestion)
 	quizQuestionGroup.Put("/:id", quizQuestionController.UpdateQuizQuestion)
 	quizQuestionGroup.Delete("/:id", quizQuestionController.DeleteQuizQuestion)
+
+
+	examController := controllers.NewExamController(db)
+
+	examGroup := app.Group("/api/exams")
+	examGroup.Get("/", examController.GetExams)                            // Get all exams
+	examGroup.Get("/:id", examController.GetExam)                         // Get exam by ID
+	examGroup.Get("/unit/:unitId", examController.GetExamsByUnitID) // Get exams by section_quizzes_id
+	examGroup.Post("/", examController.CreateExam)                        // Create exam
+	examGroup.Put("/:id", examController.UpdateExam)                      // Update exam
+	examGroup.Delete("/:id", examController.DeleteExam)                   // Delete exam
 }

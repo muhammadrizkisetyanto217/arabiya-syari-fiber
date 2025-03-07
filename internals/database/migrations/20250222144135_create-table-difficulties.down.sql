@@ -1,1 +1,1 @@
-DROP TABLE difficulties;
+DROP TABLE IF EXISTS difficulties;

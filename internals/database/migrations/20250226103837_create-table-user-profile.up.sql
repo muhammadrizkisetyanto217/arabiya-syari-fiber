@@ -1,4 +1,4 @@
-CREATE TABLE users_profile (
+CREATE TABLE IF NOT EXISTS users_profile (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id) ON DELETE CASCADE,
     donation_name VARCHAR(50),

@@ -1,5 +1,5 @@
 -- Up Migration
-CREATE TABLE units (
+CREATE TABLE IF NOT EXISTS units (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) UNIQUE NOT NULL,
     status VARCHAR(10) CHECK (status IN ('active', 'pending', 'archived')) DEFAULT 'pending',

@@ -1,1 +1,1 @@
-DROP TABLE themes_or_levels;
+DROP TABLE IF EXISTS themes_or_levels;

@@ -1,4 +1,4 @@
-CREATE TABLE donation_levels_type (
+CREATE TABLE IF NOT EXISTS donation_levels_type (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) UNIQUE NOT NULL,
     description VARCHAR(250) NOT NULL, -- Menghapus UNIQUE agar lebih fleksibel

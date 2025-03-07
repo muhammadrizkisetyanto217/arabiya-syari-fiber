@@ -1,4 +1,4 @@
-CREATE TABLE quizzes_questions (
+CREATE TABLE IF NOT EXISTS quizzes_questions (
     id SERIAL PRIMARY KEY,
     question_text VARCHAR(200) NOT NULL,
     question_answer TEXT[] NOT NULL,
@@ -12,17 +12,3 @@ CREATE TABLE quizzes_questions (
     deleted_at TIMESTAMP NULL,
     quizzes_id INT REFERENCES quizzes(id) ON DELETE CASCADE
 );
-
--- TRIGGER untuk mengupdate updated_at secara otomatis
-CREATE OR REPLACE FUNCTION update_updated_at_column()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.updated_at = CURRENT_TIMESTAMP;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER trigger_update_updated_at
-BEFORE UPDATE ON quizzes_questions
-FOR EACH ROW
-EXECUTE FUNCTION update_updated_at_column();

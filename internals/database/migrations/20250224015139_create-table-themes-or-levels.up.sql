@@ -1,4 +1,4 @@
-CREATE TABLE themes_or_levels (
+CREATE TABLE IF NOT EXISTS themes_or_levels (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
     status VARCHAR(10) CHECK (status IN ('active', 'pending', 'archived')) DEFAULT 'pending',

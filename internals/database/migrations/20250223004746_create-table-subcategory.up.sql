@@ -1,4 +1,4 @@
-CREATE TABLE subcategories (
+CREATE TABLE IF NOT EXISTS subcategories (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
     status VARCHAR(10) CHECK (status IN ('active', 'pending', 'archived')) DEFAULT 'pending',

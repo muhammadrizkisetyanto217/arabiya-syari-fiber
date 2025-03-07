@@ -1,11 +1,13 @@
-CREATE TABLE IF NOT EXISTS readings (
+CREATE TABLE IF NOT EXISTS exams (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(50) UNIQUE NOT NULL,
+    name_exams VARCHAR(50) NOT NULL,
     status VARCHAR(10) CHECK (status IN ('active', 'pending', 'archived')) DEFAULT 'pending',
-    description_long TEXT NOT NULL,
+    point INT NOT NULL DEFAULT 30,
+    total_question INT,
+    icon_url VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    deleted_at TIMESTAMP NULL,
-    unit_id INT REFERENCES units(id) ON DELETE CASCADE,
+    deleted_at TIMESTAMP,
+    unit_id INT REFERENCES units(id) ON DELETE CASCADE, -- ✅ Perbaiki "unit_Id" menjadi "unit_id"
     created_by INT REFERENCES users(id) ON DELETE CASCADE
 );

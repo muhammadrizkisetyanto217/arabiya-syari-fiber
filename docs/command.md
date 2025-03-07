@@ -17,3 +17,9 @@ muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % migrate creat
 kill -9 $(lsof -t -i:8080)
 
 
+# Hapus Versi Migrasi yang Bermasalah dari Database
+Jika ingin menghapus versi 20250306232632 dari database secara manual, jalankan perintah SQL berikut di PostgreSQL:
+
+DELETE FROM schema_migrations WHERE version = 20250306232632;
+
+Kemudian jalankan ulang migrasi:

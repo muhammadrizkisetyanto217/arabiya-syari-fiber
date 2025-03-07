@@ -1,1 +1,1 @@
-DROP TABLE subcategories;
+DROP TABLE IF EXISTS subcategories;
