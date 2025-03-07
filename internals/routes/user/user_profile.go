@@ -1,31 +1,25 @@
 package user
 
 import (
-	controllers "arabiya-syari-fiber/internals/controllers/user"
-	"log"
+	userController "arabiya-syari-fiber/internals/controllers/user" // ✅ Hanya satu alias
 
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
 
+// SetupRoutes: Register semua routes terkait Users Profile
 func SetupRoutes(app *fiber.App, db *gorm.DB) {
 	// Inisialisasi controller
-	usersProfileController := controllers.NewUsersProfileController(db)
+	usersProfileController := userController.NewUsersProfileController(db)
 
-	// Grouping routes untuk Users Profile
-	usersProfileRoutes := app.Group("api/users-profiles")
+	// 🔒 Gunakan Middleware Auth untuk melindungi semua route `/api/*`
+	api := app.Group("/api", userController.AuthMiddleware)
+
+	// 🎯 Users Profile Routes
+	usersProfileRoutes := api.Group("/users-profiles")
 	usersProfileRoutes.Get("/", usersProfileController.GetProfiles)
 	usersProfileRoutes.Get("/:id", usersProfileController.GetProfile)
 	usersProfileRoutes.Post("/", usersProfileController.CreateProfile)
 	usersProfileRoutes.Put("/:id", usersProfileController.UpdateProfile)
 	usersProfileRoutes.Delete("/:id", usersProfileController.DeleteProfile)
-
-	// Log semua route yang terdaftar
-	// Log semua route yang terdaftar
-	for _, routes := range app.Stack() {
-		for _, route := range routes {
-			log.Println("Method:", route.Method, "Path:", route.Path)
-		}
-	}
-
 }

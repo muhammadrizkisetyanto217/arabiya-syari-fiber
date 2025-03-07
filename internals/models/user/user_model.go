@@ -22,9 +22,3 @@ func (u *User) BeforeCreate(tx *gorm.DB) error {
 	u.CreatedAt = time.Now()
 	return nil
 }
-
-// BeforeUpdate hook untuk memastikan UpdatedAt diatur saat record diupdate
-// func (u *User) BeforeUpdate(tx *gorm.DB) error {
-// 	u.UpdatedAt = time.Now()
-// 	return nil
-// }

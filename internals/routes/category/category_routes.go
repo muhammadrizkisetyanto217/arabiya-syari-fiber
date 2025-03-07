@@ -8,50 +8,57 @@ import (
 	"gorm.io/gorm"
 )
 
-// Register routes
+// Register category-related routes
 func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 
+	// 🔥 Proteksi seluruh kategori API dengan Middleware
+	api := app.Group("/api", authControllers.AuthMiddleware)
+
+	// 🎯 Difficulty Routes
 	difficultyController := controllers.NewDifficultyController(db)
-	apidifficulty := app.Group("/api/difficulties", authControllers.AuthMiddleware)
-	apidifficulty.Get("/", difficultyController.GetDifficulties)
-	apidifficulty.Get("/:id", difficultyController.GetDifficulty)
-	apidifficulty.Post("/", difficultyController.CreateDifficulty)
-	apidifficulty.Put("/:id", difficultyController.UpdateDifficulty)
-	apidifficulty.Delete("/:id", difficultyController.DeleteDifficulty)
+	difficultyRoutes := api.Group("/difficulties")
+	difficultyRoutes.Get("/", difficultyController.GetDifficulties)
+	difficultyRoutes.Get("/:id", difficultyController.GetDifficulty)
+	difficultyRoutes.Post("/", difficultyController.CreateDifficulty)
+	difficultyRoutes.Put("/:id", difficultyController.UpdateDifficulty)
+	difficultyRoutes.Delete("/:id", difficultyController.DeleteDifficulty)
 
+	// 🎯 Category Routes
 	categoryController := controllers.NewCategoryController(db)
-	apicategory := app.Group("/api/categories", authControllers.AuthMiddleware)
-	apicategory.Get("/", categoryController.GetCategories)
-	apicategory.Get("/:id", categoryController.GetCategory)
-	apicategory.Get("/difficulty/:difficulty_id", categoryController.GetCategoriesByDifficulty)
-	apicategory.Post("/", categoryController.CreateCategory)
-	apicategory.Put("/:id", categoryController.UpdateCategory)
-	apicategory.Delete("/:id", categoryController.DeleteCategory)
+	categoryRoutes := api.Group("/categories")
+	categoryRoutes.Get("/", categoryController.GetCategories)
+	categoryRoutes.Get("/:id", categoryController.GetCategory)
+	categoryRoutes.Get("/difficulty/:difficulty_id", categoryController.GetCategoriesByDifficulty)
+	categoryRoutes.Post("/", categoryController.CreateCategory)
+	categoryRoutes.Put("/:id", categoryController.UpdateCategory)
+	categoryRoutes.Delete("/:id", categoryController.DeleteCategory)
 
+	// 🎯 Subcategory Routes
 	subcategoryController := controllers.NewSubcategoryController(db)
-	apisubcategory := app.Group("/api/subcategories", authControllers.AuthMiddleware)
-	apisubcategory.Get("/", subcategoryController.GetSubcategories)
-	apisubcategory.Get("/:id", subcategoryController.GetSubcategory)
-	apisubcategory.Get("/category/:category_id", subcategoryController.GetSubcategoriesByCategory)
-	apisubcategory.Post("/", subcategoryController.CreateSubcategory)
-	apisubcategory.Put("/:id", subcategoryController.UpdateSubcategory)
-	apisubcategory.Delete("/:id", subcategoryController.DeleteSubcategory)
+	subcategoryRoutes := api.Group("/subcategories")
+	subcategoryRoutes.Get("/", subcategoryController.GetSubcategories)
+	subcategoryRoutes.Get("/:id", subcategoryController.GetSubcategory)
+	subcategoryRoutes.Get("/category/:category_id", subcategoryController.GetSubcategoriesByCategory)
+	subcategoryRoutes.Post("/", subcategoryController.CreateSubcategory)
+	subcategoryRoutes.Put("/:id", subcategoryController.UpdateSubcategory)
+	subcategoryRoutes.Delete("/:id", subcategoryController.DeleteSubcategory)
 
+	// 🎯 Themes or Levels Routes
 	themeOrLevelController := controllers.NewThemeOrLevelController(db)
-	apithemesorlevels := app.Group("/api/themes-or-levels", authControllers.AuthMiddleware)
-	apithemesorlevels.Get("/", themeOrLevelController.GetThemesOrLevels)
-	apithemesorlevels.Get("/:id", themeOrLevelController.GetThemeOrLevel)
-	apithemesorlevels.Post("/", themeOrLevelController.CreateThemeOrLevel)
-	apithemesorlevels.Put("/:id", themeOrLevelController.UpdateThemeOrLevel)
-	apithemesorlevels.Delete("/:id", themeOrLevelController.DeleteThemeOrLevel)
+	themeOrLevelRoutes := api.Group("/themes-or-levels")
+	themeOrLevelRoutes.Get("/", themeOrLevelController.GetThemesOrLevels)
+	themeOrLevelRoutes.Get("/:id", themeOrLevelController.GetThemeOrLevel)
+	themeOrLevelRoutes.Post("/", themeOrLevelController.CreateThemeOrLevel)
+	themeOrLevelRoutes.Put("/:id", themeOrLevelController.UpdateThemeOrLevel)
+	themeOrLevelRoutes.Delete("/:id", themeOrLevelController.DeleteThemeOrLevel)
 
-	// Unit Routes
+	// 🎯 Unit Routes
 	unitController := controllers.NewUnitController(db)
-	apiunit := app.Group("/api/units", authControllers.AuthMiddleware)
-	apiunit.Get("/", unitController.GetUnits)
-	apiunit.Get("/:id", unitController.GetUnit)
-	apiunit.Get("/themes_or_levels/:themesOrLevelId", unitController.GetUnitByThemesOrLevels)
-	apiunit.Post("/", unitController.CreateUnit)
-	apiunit.Put("/:id", unitController.UpdateUnit)
-	apiunit.Delete("/:id", unitController.DeleteUnit)
+	unitRoutes := api.Group("/units")
+	unitRoutes.Get("/", unitController.GetUnits)
+	unitRoutes.Get("/:id", unitController.GetUnit)
+	unitRoutes.Get("/themes-or-levels/:themesOrLevelId", unitController.GetUnitByThemesOrLevels) // ✅ Gunakan `-` bukan `_`
+	unitRoutes.Post("/", unitController.CreateUnit)
+	unitRoutes.Put("/:id", unitController.UpdateUnit)
+	unitRoutes.Delete("/:id", unitController.DeleteUnit)
 }
