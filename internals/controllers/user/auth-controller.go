@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"strings"
 	"time"
 
@@ -9,10 +10,21 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 
-	"arabiya-syari-fiber/internals/models/user"
+	config "arabiya-syari-fiber/internals/configs"
+	models "arabiya-syari-fiber/internals/models/user"
 )
 
-const SecretKey = "your_secret_key"
+// JWT token = kartu akses
+// Secret Key = stempel resmi dari gedung
+// Server backend = petugas keamanan yang mengecek kartu akses
+// Durasi token (exp) = batas waktu berlakunya kartu akses
+// Secret Key diambil dari environment, aplikasi akan exit jika tidak ditemukan
+var SecretKey = config.GetEnv("JWT_SECRET")
+
+
+func init() {
+	fmt.Println("🔐 JWT_SECRET:", SecretKey) // ✅ Tambahkan log untuk debug
+}
 
 type AuthController struct {
 	DB *gorm.DB
@@ -65,7 +77,7 @@ func (ac *AuthController) Login(c *fiber.Ctx) error {
 	}
 
 	// Generate JWT token
-	expirationTime := time.Now().Add(time.Hour * 24)
+	expirationTime := time.Now().Add(time.Hour * 96)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"id":  user.ID,
 		"exp": expirationTime.Unix(),

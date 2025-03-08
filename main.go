@@ -1,48 +1,37 @@
 package main
 
 import (
-	"arabiya-syari-fiber/internals/database"
-	// "arabiya-syari-fiber/models"
-	"arabiya-syari-fiber/internals/routes"
 	"log"
 
-	// "myapp/database"
-	// "myapp/models"
-	// "myapp/routes"
+	"arabiya-syari-fiber/internals/configs"
+	"arabiya-syari-fiber/internals/database"
+	"arabiya-syari-fiber/internals/middleware"
+	"arabiya-syari-fiber/internals/routes"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
 func main() {
-	// Koneksi ke database
+	// ✅ Load environment variables
+	configs.LoadEnv()
+
+	// ✅ Koneksi ke database
 	database.ConnectDB()
 
-	// Auto-migrate model ke database
-	// database.DB.AutoMigrate(&models.User{})
-
+	// ✅ Inisialisasi Fiber App
 	app := fiber.New()
 
-	// Middleware
-	app.Use(logger.New()) // Logging request
-	app.Use(cors.New(cors.Config{
-    AllowOrigins: "*", // Mengizinkan semua origin
-    AllowMethods: "GET, POST, PUT, DELETE, OPTIONS",
-    AllowHeaders: "Origin, Content-Type, Accept, Authorization",
-    // AllowCredentials: true,
-}))
-	// Setup routes
+	// ✅ Setup Middleware
+	middleware.SetupMiddleware(app)
+
+	// ✅ Setup Routes
 	routes.SetupRoutes(app, database.DB)
 
-	app.Get("/test", func(c *fiber.Ctx) error {
-    log.Println("[INFO] Test route hit")
-    return c.JSON(fiber.Map{"message": "Test route working"})
-})
+	// ✅ Ambil PORT dari .env atau default 8080
+	port := configs.GetEnv("PORT")
+	serverAddress := ":" + port
 
-
-	// Start server
-	port := ":8080"
-	log.Println("Server running on port", port)
-	log.Fatal(app.Listen(port))
+	// ✅ Start Server
+	log.Println("🚀 Server running on", serverAddress)
+	log.Fatal(app.Listen(serverAddress))
 }
