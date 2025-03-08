@@ -1,4 +1,4 @@
-package controllers
+package quizzes
 
 import (
 	"log"
@@ -20,7 +20,7 @@ func NewQuizController(db *gorm.DB) *QuizController {
 // Get all quizzes
 func (qc *QuizController) GetQuizzes(c *fiber.Ctx) error {
 	log.Println("Fetching all quizzes")
-	var quizzes []models.Quiz
+	var quizzes []models.QuizModel
 	if err := qc.DB.Find(&quizzes).Error; err != nil {
 		log.Println("Error fetching quizzes:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch quizzes"})
@@ -32,7 +32,7 @@ func (qc *QuizController) GetQuizzes(c *fiber.Ctx) error {
 func (qc *QuizController) GetQuiz(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Fetching quiz with ID:", id)
-	var quiz models.Quiz
+	var quiz models.QuizModel
 	if err := qc.DB.First(&quiz, id).Error; err != nil {
 		log.Println("Quiz not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Quiz not found"})
@@ -44,7 +44,7 @@ func (qc *QuizController) GetQuizzesBySection(c *fiber.Ctx) error {
 	sectionID := c.Params("sectionId")
 	log.Printf("[INFO] Fetching quizzes for section_id: %s\n", sectionID)
 
-	var quizzes []models.Quiz
+	var quizzes []models.QuizModel
 	if err := qc.DB.
 		Joins("JOIN section_quizzes ON quizzes.section_quizzes_id = section_quizzes.id").
 		Where("section_quizzes.id = ?", sectionID).
@@ -63,7 +63,7 @@ func (qc *QuizController) GetQuizzesBySection(c *fiber.Ctx) error {
 // Create a new quiz
 func (qc *QuizController) CreateQuiz(c *fiber.Ctx) error {
 	log.Println("Creating a new quiz")
-	var quiz models.Quiz
+	var quiz models.QuizModel
 	if err := c.BodyParser(&quiz); err != nil {
 		log.Println("Invalid request body:", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
@@ -80,7 +80,7 @@ func (qc *QuizController) UpdateQuiz(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Updating quiz with ID:", id)
 
-	var quiz models.Quiz
+	var quiz models.QuizModel
 	if err := qc.DB.First(&quiz, id).Error; err != nil {
 		log.Println("Quiz not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Quiz not found"})
@@ -104,7 +104,7 @@ func (qc *QuizController) UpdateQuiz(c *fiber.Ctx) error {
 func (qc *QuizController) DeleteQuiz(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Deleting quiz with ID:", id)
-	if err := qc.DB.Delete(&models.Quiz{}, id).Error; err != nil {
+	if err := qc.DB.Delete(&models.QuizModel{}, id).Error; err != nil {
 		log.Println("Error deleting quiz:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete quiz"})
 	}

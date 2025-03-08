@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-type Category struct {
+type CategoryModel struct {
 	ID               uint      `json:"id" gorm:"primaryKey"`
 	Name             string    `json:"name"`
 	DescriptionShort string    `json:"description_short"`
@@ -14,4 +14,9 @@ type Category struct {
 	CreatedAt        time.Time `json:"created_at" gorm:"default:CURRENT_TIMESTAMP"`
 	UpdatedAt        time.Time `json:"updated_at"`
 	DifficultyID     uint      `json:"difficulty_id"`
+}
+
+
+func (CategoryModel) TableName() string {
+	return "categories"
 }

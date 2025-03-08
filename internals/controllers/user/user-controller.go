@@ -1,4 +1,4 @@
-package controllers
+package user
 
 import (
 	"github.com/gofiber/fiber/v2"
@@ -30,7 +30,7 @@ func NewUserController(db *gorm.DB) *UserController {
 
 // Get all users
 func (uc *UserController) GetUsers(c *fiber.Ctx) error {
-	var users []models.User
+	var users []models.UserModel
 	if err := uc.DB.Find(&users).Error; err != nil {
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to retrieve users"})
 	}
@@ -40,7 +40,7 @@ func (uc *UserController) GetUsers(c *fiber.Ctx) error {
 // Get user by ID
 func (uc *UserController) GetUser(c *fiber.Ctx) error {
 	id := c.Params("id")
-	var user models.User
+	var user models.UserModel
 	if err := uc.DB.First(&user, id).Error; err != nil {
 		return c.Status(404).JSON(fiber.Map{"error": "User not found"})
 	}
@@ -49,7 +49,7 @@ func (uc *UserController) GetUser(c *fiber.Ctx) error {
 
 // Create new user
 func (uc *UserController) CreateUser(c *fiber.Ctx) error {
-	var user models.User
+	var user models.UserModel
 	if err := c.BodyParser(&user); err != nil {
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid input"})
 	}
@@ -64,7 +64,7 @@ func (uc *UserController) CreateUser(c *fiber.Ctx) error {
 // Update user by ID
 func (uc *UserController) UpdateUser(c *fiber.Ctx) error {
 	id := c.Params("id")
-	var user models.User
+	var user models.UserModel
 	if err := uc.DB.First(&user, id).Error; err != nil {
 		return c.Status(404).JSON(fiber.Map{"error": "User not found"})
 	}
@@ -80,7 +80,7 @@ func (uc *UserController) UpdateUser(c *fiber.Ctx) error {
 // Delete user by ID
 func (uc *UserController) DeleteUser(c *fiber.Ctx) error {
 	id := c.Params("id")
-	if err := uc.DB.Delete(&models.User{}, id).Error; err != nil {
+	if err := uc.DB.Delete(&models.UserModel{}, id).Error; err != nil {
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to delete user"})
 	}
 	return c.JSON(fiber.Map{"message": "User deleted successfully"})

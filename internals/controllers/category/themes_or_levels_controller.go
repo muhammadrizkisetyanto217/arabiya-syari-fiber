@@ -1,4 +1,4 @@
-package controllers
+package category
 
 import (
 	"arabiya-syari-fiber/internals/models/category"
@@ -17,7 +17,7 @@ func NewThemeOrLevelController(db *gorm.DB) *ThemeOrLevelController {
 
 func (tc *ThemeOrLevelController) GetThemesOrLevels(c *fiber.Ctx) error {
 	log.Println("Fetching all themes or levels")
-	var themesOrLevels []models.ThemesOrLevel
+	var themesOrLevels []models.ThemesOrLevelModel
 	if err := tc.DB.Find(&themesOrLevels).Error; err != nil {
 		log.Println("Error fetching themes or levels:", err)
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to fetch themes or levels"})
@@ -28,7 +28,7 @@ func (tc *ThemeOrLevelController) GetThemesOrLevels(c *fiber.Ctx) error {
 func (tc *ThemeOrLevelController) GetThemeOrLevel(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Fetching theme or level with ID:", id)
-	var themeOrLevel models.ThemesOrLevel
+	var themeOrLevel models.ThemesOrLevelModel
 	if err := tc.DB.First(&themeOrLevel, id).Error; err != nil {
 		log.Println("Theme or level not found:", err)
 		return c.Status(404).JSON(fiber.Map{"error": "Theme or level not found"})
@@ -38,7 +38,7 @@ func (tc *ThemeOrLevelController) GetThemeOrLevel(c *fiber.Ctx) error {
 
 func (tc *ThemeOrLevelController) CreateThemeOrLevel(c *fiber.Ctx) error {
 	log.Println("Creating a new theme or level")
-	var themeOrLevel models.ThemesOrLevel
+	var themeOrLevel models.ThemesOrLevelModel
 	if err := c.BodyParser(&themeOrLevel); err != nil {
 		log.Println("Invalid request body:", err)
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid request"})
@@ -53,7 +53,7 @@ func (tc *ThemeOrLevelController) CreateThemeOrLevel(c *fiber.Ctx) error {
 func (tc *ThemeOrLevelController) UpdateThemeOrLevel(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Updating theme or level with ID:", id)
-	var themeOrLevel models.ThemesOrLevel
+	var themeOrLevel models.ThemesOrLevelModel
 	if err := tc.DB.First(&themeOrLevel, id).Error; err != nil {
 		log.Println("Theme or level not found:", err)
 		return c.Status(404).JSON(fiber.Map{"error": "Theme or level not found"})
@@ -75,7 +75,7 @@ func (tc *ThemeOrLevelController) UpdateThemeOrLevel(c *fiber.Ctx) error {
 func (tc *ThemeOrLevelController) DeleteThemeOrLevel(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Deleting theme or level with ID:", id)
-	if err := tc.DB.Delete(&models.ThemesOrLevel{}, id).Error; err != nil {
+	if err := tc.DB.Delete(&models.ThemesOrLevelModel{}, id).Error; err != nil {
 		log.Println("Error deleting theme or level:", err)
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to delete theme or level"})
 	}

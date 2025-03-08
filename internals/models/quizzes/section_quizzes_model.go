@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type SectionQuiz struct {
+type SectionQuizModel struct {
 	ID               uint           `gorm:"primaryKey" json:"id"`
 	NameQuizzes      string         `gorm:"size:50;not null" json:"name_quizzes"`
 	Status           string         `gorm:"size:10;default:'pending';check:status IN ('active', 'pending', 'archived')" json:"status"`
@@ -21,6 +21,6 @@ type SectionQuiz struct {
 
 }
 
-func (SectionQuiz) TableName() string {
+func (SectionQuizModel) TableName() string {
 	return "section_quizzes"
 }

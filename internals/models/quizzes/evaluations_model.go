@@ -7,7 +7,7 @@ import (
 )
 
 // Evaluation struct merepresentasikan tabel evaluations di database
-type Evaluation struct {
+type EvaluationModel struct {
 	ID            uint           `gorm:"primaryKey" json:"id"`
 	NameEvaluation string        `gorm:"size:50;not null" json:"name_evaluation" validate:"required,max=50"`
 	Status        string         `gorm:"type:varchar(10);default:'pending';check:status IN ('active', 'pending', 'archived')" json:"status" validate:"required,oneof=active pending archived"`
@@ -22,6 +22,6 @@ type Evaluation struct {
 }
 
 // TableName mengatur nama tabel agar sesuai dengan skema database
-func (Evaluation) TableName() string {
+func (EvaluationModel) TableName() string {
 	return "evaluations"
 }

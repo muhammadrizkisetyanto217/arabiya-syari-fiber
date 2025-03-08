@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type Subcategory struct {
+type SubcategoryModel struct {
 	ID                           uint           `json:"id" gorm:"primaryKey"`
 	Name                         string         `json:"name"`
 	Status                       string         `json:"status" gorm:"type:VARCHAR(10);check:status IN ('active', 'pending', 'archived')"`
@@ -21,7 +21,6 @@ type Subcategory struct {
 	CategoriesID                 int            `json:"categories_id"`
 }
 
-func (s *Subcategory) BeforeCreate(tx *gorm.DB) error {
-	s.CreatedAt = time.Now()
-	return nil
+func (SubcategoryModel) TableName() string {
+	return "subcategories"
 }

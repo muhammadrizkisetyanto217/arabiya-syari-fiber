@@ -1,4 +1,4 @@
-package controllers
+package quizzes
 
 import (
 	"log"
@@ -20,7 +20,7 @@ func NewExamController(db *gorm.DB) *ExamController {
 // ✅ Get all exams
 func (ec *ExamController) GetExams(c *fiber.Ctx) error {
 	log.Println("[INFO] Fetching all exams")
-	var exams []models.Exam
+	var exams []models.ExamModel
 	if err := ec.DB.Find(&exams).Error; err != nil {
 		log.Println("[ERROR] Failed to fetch exams:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch exams"})
@@ -33,7 +33,7 @@ func (ec *ExamController) GetExam(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("[INFO] Fetching exam with ID:", id)
 
-	var exam models.Exam
+	var exam models.ExamModel
 	if err := ec.DB.First(&exam, id).Error; err != nil {
 		log.Println("[ERROR] Exam not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Exam not found"})
@@ -46,7 +46,7 @@ func (ec *ExamController) GetExamsByUnitID(c *fiber.Ctx) error {
 	unitID := c.Params("unitId")
 	log.Printf("[INFO] Fetching exams for unit_id: %s\n", unitID)
 
-	var exams []models.Exam
+	var exams []models.ExamModel
 	if err := ec.DB.Where("unit_id = ?", unitID).Find(&exams).Error; err != nil {
 		log.Printf("[ERROR] Failed to fetch exams for unit_id %s: %v\n", unitID, err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch exams"})
@@ -60,7 +60,7 @@ func (ec *ExamController) GetExamsByUnitID(c *fiber.Ctx) error {
 // ✅ Create a new exam
 func (ec *ExamController) CreateExam(c *fiber.Ctx) error {
 	log.Println("[INFO] Creating a new exam")
-	var exam models.Exam
+	var exam models.ExamModel
 
 	// Parsing JSON ke model
 	if err := c.BodyParser(&exam); err != nil {
@@ -87,13 +87,13 @@ func (ec *ExamController) UpdateExam(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("[INFO] Updating exam with ID:", id)
 
-	var exam models.Exam
+	var exam models.ExamModel
 	if err := ec.DB.First(&exam, id).Error; err != nil {
 		log.Println("[ERROR] Exam not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Exam not found"})
 	}
 
-	var requestData models.Exam
+	var requestData models.ExamModel
 	if err := c.BodyParser(&requestData); err != nil {
 		log.Println("[ERROR] Invalid request body:", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
@@ -118,7 +118,7 @@ func (ec *ExamController) DeleteExam(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("[INFO] Deleting exam with ID:", id)
 
-	if err := ec.DB.Delete(&models.Exam{}, id).Error; err != nil {
+	if err := ec.DB.Delete(&models.ExamModel{}, id).Error; err != nil {
 		log.Println("[ERROR] Failed to delete exam:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete exam"})
 	}

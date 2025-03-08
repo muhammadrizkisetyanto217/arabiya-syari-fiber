@@ -13,7 +13,7 @@ const (
 	Female Gender = "female"
 )
 
-type UsersProfile struct {
+type UsersProfileModel struct {
 	ID           uint           `gorm:"primaryKey" json:"id"`
 	UserID       uint           `gorm:"not null;index" json:"user_id"`
 	DonationName string         `gorm:"size:50" json:"donation_name"`
@@ -30,6 +30,6 @@ type UsersProfile struct {
 }
 
 // Pastikan tabel bernama `users_profile`
-func (UsersProfile) TableName() string {
+func (UsersProfileModel) TableName() string {
 	return "users_profile"
 }

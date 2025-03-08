@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type Unit struct {
+type UnitModel struct {
 	ID                  uint           `gorm:"primaryKey" json:"id"`
 	Name                string         `gorm:"unique;not null" json:"name"`
 	Status              string         `gorm:"type:varchar(10);default:'pending'" json:"status"`
@@ -20,5 +20,9 @@ type Unit struct {
 	ThemesOrLevelID     uint           `json:"themes_or_level_id"`
 	CreatedBy           uint           `json:"created_by"`
 
-	SectionQuizzes []models.SectionQuiz `gorm:"foreignKey:UnitID" json:"section_quizzes"`
+	SectionQuizzes []models.SectionQuizModel `gorm:"foreignKey:UnitID" json:"section_quizzes"`
+}
+
+func (UnitModel) TableName() string {
+	return "units"
 }

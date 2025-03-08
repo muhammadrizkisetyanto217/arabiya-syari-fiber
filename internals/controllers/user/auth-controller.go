@@ -1,4 +1,4 @@
-package controllers
+package user
 
 import (
 	"fmt"
@@ -36,7 +36,7 @@ func NewAuthController(db *gorm.DB) *AuthController {
 
 // Register User
 func (ac *AuthController) Register(c *fiber.Ctx) error {
-	var input models.User
+	var input models.UserModel
 	if err := c.BodyParser(&input); err != nil {
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid input"})
 	}
@@ -66,7 +66,7 @@ func (ac *AuthController) Login(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid input"})
 	}
 
-	var user models.User
+	var user models.UserModel
 	if err := ac.DB.Where("email = ?", input.Email).First(&user).Error; err != nil {
 		return c.Status(401).JSON(fiber.Map{"error": "Invalid email or password"})
 	}

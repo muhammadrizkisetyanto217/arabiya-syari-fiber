@@ -1,7 +1,7 @@
 package routes
 
 import (
-	controllers "arabiya-syari-fiber/internals/controllers/donation"
+	"arabiya-syari-fiber/internals/controllers/donation"
 	authControllers "arabiya-syari-fiber/internals/controllers/user" // Middleware Auth
 
 	"github.com/gofiber/fiber/v2"
@@ -15,7 +15,7 @@ func DonationRoutes(app *fiber.App, db *gorm.DB) {
 	api := app.Group("/api", authControllers.AuthMiddleware)
 
 	// 🎯 Donation Levels Routes
-	donationLevelsController := controllers.NewDonationLevelsController(db)
+	donationLevelsController := donation.NewDonationLevelsController(db)
 	donationLevelsRoutes := api.Group("/donation-levels")
 	donationLevelsRoutes.Get("/", donationLevelsController.GetAll)
 	donationLevelsRoutes.Get("/:id", donationLevelsController.GetByID)
@@ -24,7 +24,7 @@ func DonationRoutes(app *fiber.App, db *gorm.DB) {
 	donationLevelsRoutes.Delete("/:id", donationLevelsController.Delete)
 
 	// 💰 User Donation Logs Routes
-	donationLogsController := controllers.NewUserDonationLogsController(db)
+	donationLogsController := donation.NewUserDonationLogsController(db)
 	donationLogsRoutes := api.Group("/user-donation-logs")
 	donationLogsRoutes.Get("/", donationLogsController.GetAll)
 	donationLogsRoutes.Get("/:id", donationLogsController.GetByID)

@@ -1,7 +1,7 @@
 package category
 
 import (
-	controllers "arabiya-syari-fiber/internals/controllers/category"
+	"arabiya-syari-fiber/internals/controllers/category"
 	authControllers "arabiya-syari-fiber/internals/controllers/user" // Import AuthMiddleware
 
 	"github.com/gofiber/fiber/v2"
@@ -15,7 +15,7 @@ func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 	api := app.Group("/api", authControllers.AuthMiddleware)
 
 	// 🎯 Difficulty Routes
-	difficultyController := controllers.NewDifficultyController(db)
+	difficultyController := category.NewDifficultyController(db)
 	difficultyRoutes := api.Group("/difficulties")
 	difficultyRoutes.Get("/", difficultyController.GetDifficulties)
 	difficultyRoutes.Get("/:id", difficultyController.GetDifficulty)
@@ -24,7 +24,7 @@ func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 	difficultyRoutes.Delete("/:id", difficultyController.DeleteDifficulty)
 
 	// 🎯 Category Routes
-	categoryController := controllers.NewCategoryController(db)
+	categoryController := category.NewCategoryController(db)
 	categoryRoutes := api.Group("/categories")
 	categoryRoutes.Get("/", categoryController.GetCategories)
 	categoryRoutes.Get("/:id", categoryController.GetCategory)
@@ -34,7 +34,7 @@ func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 	categoryRoutes.Delete("/:id", categoryController.DeleteCategory)
 
 	// 🎯 Subcategory Routes
-	subcategoryController := controllers.NewSubcategoryController(db)
+	subcategoryController := category.NewSubcategoryController(db)
 	subcategoryRoutes := api.Group("/subcategories")
 	subcategoryRoutes.Get("/", subcategoryController.GetSubcategories)
 	subcategoryRoutes.Get("/:id", subcategoryController.GetSubcategory)
@@ -44,7 +44,7 @@ func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 	subcategoryRoutes.Delete("/:id", subcategoryController.DeleteSubcategory)
 
 	// 🎯 Themes or Levels Routes
-	themeOrLevelController := controllers.NewThemeOrLevelController(db)
+	themeOrLevelController := category.NewThemeOrLevelController(db)
 	themeOrLevelRoutes := api.Group("/themes-or-levels")
 	themeOrLevelRoutes.Get("/", themeOrLevelController.GetThemesOrLevels)
 	themeOrLevelRoutes.Get("/:id", themeOrLevelController.GetThemeOrLevel)
@@ -53,7 +53,7 @@ func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 	themeOrLevelRoutes.Delete("/:id", themeOrLevelController.DeleteThemeOrLevel)
 
 	// 🎯 Unit Routes
-	unitController := controllers.NewUnitController(db)
+	unitController := category.NewUnitController(db)
 	unitRoutes := api.Group("/units")
 	unitRoutes.Get("/", unitController.GetUnits)
 	unitRoutes.Get("/:id", unitController.GetUnit)

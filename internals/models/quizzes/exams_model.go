@@ -7,7 +7,7 @@ import (
 	"errors"
 )
 
-type Exam struct {
+type ExamModel struct {
 	ID             uint           `gorm:"primaryKey" json:"id"`
 	NameExams      string         `gorm:"size:50;not null" json:"name_exams" validate:"required,max=50"`
 	Status         string         `gorm:"type:varchar(10);default:'pending';check:status IN ('active', 'pending', 'archived')" json:"status" validate:"required,oneof=active pending archived"`
@@ -22,12 +22,12 @@ type Exam struct {
 }
 
 // TableName mengatur nama tabel agar sesuai dengan skema database
-func (Exam) TableName() string {
+func (ExamModel) TableName() string {
 	return "exams"
 }
 
 
-func (e *Exam) Validate() error {
+func (e *ExamModel) Validate() error {
 	if e.NameExams == "" || len(e.NameExams) > 50 {
 		return errors.New("name_exams is required and must be less than or equal to 50 characters")
 	}

@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type Reading struct {
+type ReadingModel struct {
     ID              uint           `gorm:"primaryKey" json:"id"`
     Title           string         `gorm:"type:varchar(50);unique;not null" json:"title"`
     Status         string         `gorm:"type:varchar(10);default:'pending';check:status IN ('active', 'pending', 'archived')" json:"status"`
@@ -16,4 +16,8 @@ type Reading struct {
     DeletedAt       gorm.DeletedAt `gorm:"index" json:"deleted_at"`
     UnitID          uint           `json:"unit_id"`
     CreatedBy       uint           `json:"created_by"`
+}
+
+func (ReadingModel) TableName() string {
+    return "readings"
 }

@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type DonationLevelsType struct {
+type DonationLevelsTypeModel struct {
     ID           uint           `gorm:"primaryKey" json:"id"`
     Name         string         `gorm:"size:50;unique;not null" json:"name"`
     Description  string         `gorm:"size:250;not null" json:"description"`
@@ -18,6 +18,6 @@ type DonationLevelsType struct {
     DeletedAt    gorm.DeletedAt `gorm:"index" json:"deleted_at,omitempty"`
 }
 
-func (DonationLevelsType) TableName() string {
+func (DonationLevelsTypeModel) TableName() string {
 	return "donation_levels_type"
 }

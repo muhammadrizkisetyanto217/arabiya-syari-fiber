@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-type UserDonationLog struct {
+type UserDonationLogModel struct {
 	ID             int       `json:"id"`
 	Amount         int       `json:"amount"`
 	DonatableType  string    `json:"donatable_type" gorm:"default:pending"` // Tambah default
@@ -15,4 +15,8 @@ type UserDonationLog struct {
 	DonatableID    string    `json:"donatable_id"`
 	DonatedAt      time.Time `json:"donated_at" gorm:"default:CURRENT_TIMESTAMP"`
 	UserID         int       `json:"user_id"`
+}
+
+func (UserDonationLogModel) TableName() string {
+	return "user_donation_logs"
 }

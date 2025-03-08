@@ -1,4 +1,4 @@
-package controllers
+package donation
 
 import (
 	"log"
@@ -21,7 +21,7 @@ func NewDonationLevelsController(db *gorm.DB) *DonationLevelsController {
 // Get all donation levels
 func (dlc *DonationLevelsController) GetAll(c *fiber.Ctx) error {
 	log.Println("Fetching all donation levels")
-	var levels []models.DonationLevelsType
+	var levels []models.DonationLevelsTypeModel
 	if err := dlc.DB.Find(&levels).Error; err != nil {
 		log.Println("Error fetching donation levels:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch donation levels"})
@@ -38,7 +38,7 @@ func (dlc *DonationLevelsController) GetByID(c *fiber.Ctx) error {
 	}
 
 	log.Println("Fetching donation level with ID:", id)
-	var level models.DonationLevelsType
+	var level models.DonationLevelsTypeModel
 	if err := dlc.DB.First(&level, id).Error; err != nil {
 		log.Println("Donation level not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Donation level not found"})
@@ -49,7 +49,7 @@ func (dlc *DonationLevelsController) GetByID(c *fiber.Ctx) error {
 // Create a new donation level
 func (dlc *DonationLevelsController) Create(c *fiber.Ctx) error {
 	log.Println("Creating a new donation level")
-	var level models.DonationLevelsType
+	var level models.DonationLevelsTypeModel
 
 	if err := c.BodyParser(&level); err != nil {
 		log.Println("Invalid request body:", err)
@@ -72,13 +72,13 @@ func (dlc *DonationLevelsController) Update(c *fiber.Ctx) error {
 	}
 
 	log.Println("Updating donation level with ID:", id)
-	var level models.DonationLevelsType
+	var level models.DonationLevelsTypeModel
 	if err := dlc.DB.First(&level, id).Error; err != nil {
 		log.Println("Donation level not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Donation level not found"})
 	}
 
-	var input models.DonationLevelsType
+	var input models.DonationLevelsTypeModel
 	if err := c.BodyParser(&input); err != nil {
 		log.Println("Invalid request body:", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
@@ -101,7 +101,7 @@ func (dlc *DonationLevelsController) Delete(c *fiber.Ctx) error {
 	}
 
 	log.Println("Deleting donation level with ID:", id)
-	if err := dlc.DB.Model(&models.DonationLevelsType{}).Where("id = ?", id).Update("deleted_at", time.Now()).Error; err != nil {
+	if err := dlc.DB.Model(&models.DonationLevelsTypeModel{}).Where("id = ?", id).Update("deleted_at", time.Now()).Error; err != nil {
 		log.Println("Error deleting donation level:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete donation level"})
 	}

@@ -3,10 +3,9 @@ package models
 import (
 	"time"
 
-	"gorm.io/gorm"
 )
 
-type ThemesOrLevel struct {
+type ThemesOrLevelModel struct {
 	ID               uint           `gorm:"primaryKey" json:"id"`
 	Name             string         `json:"name"`
 	Status           string         `gorm:"type:VARCHAR(10);check:status IN ('active', 'pending', 'archived')" json:"status"`
@@ -21,7 +20,6 @@ type ThemesOrLevel struct {
 	SubcategoriesID int `gorm:"column:subcategories_id" json:"subcategories_id"`
 }
 
-func (s *ThemesOrLevel) BeforeCreate(tx *gorm.DB) error {
-	s.CreatedAt = time.Now()
-	return nil
+func (ThemesOrLevelModel) TableName() string {
+	return "themes_or_levels"
 }

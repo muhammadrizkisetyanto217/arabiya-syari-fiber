@@ -1,4 +1,4 @@
-package controllers
+package category
 
 import (
 	"log"
@@ -17,7 +17,7 @@ func NewDifficultyController(db *gorm.DB) *DifficultyController {
 
 // Get all difficulties
 func (dc *DifficultyController) GetDifficulties(c *fiber.Ctx) error {
-	var difficulties []models.Difficulty
+	var difficulties []models.DifficultyModel
 	log.Println("[INFO] Received request to fetch all difficulties")
 
 	if err := dc.DB.Find(&difficulties).Error; err != nil {
@@ -34,7 +34,7 @@ func (dc *DifficultyController) GetDifficulty(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Printf("[INFO] Fetching difficulty with ID: %s\n", id)
 
-	var difficulty models.Difficulty
+	var difficulty models.DifficultyModel
 	if err := dc.DB.First(&difficulty, id).Error; err != nil {
 		log.Printf("[ERROR] Difficulty with ID %s not found\n", id)
 		return c.Status(404).JSON(fiber.Map{"error": "Difficulty not found"})
@@ -47,7 +47,7 @@ func (dc *DifficultyController) GetDifficulty(c *fiber.Ctx) error {
 // Create difficulty
 func (dc *DifficultyController) CreateDifficulty(c *fiber.Ctx) error {
 	log.Println("[INFO] Received request to create difficulty")
-	difficulty := new(models.Difficulty)
+	difficulty := new(models.DifficultyModel)
 	if err := c.BodyParser(difficulty); err != nil {
 		log.Printf("[ERROR] Failed to parse JSON: %v\n", err)
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid input"})
@@ -69,13 +69,13 @@ func (dc *DifficultyController) UpdateDifficulty(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Printf("[INFO] Updating difficulty with ID: %s\n", id)
 
-	var difficulty models.Difficulty
+	var difficulty models.DifficultyModel
 	if err := dc.DB.First(&difficulty, id).Error; err != nil {
 		log.Printf("[ERROR] Difficulty with ID %s not found\n", id)
 		return c.Status(404).JSON(fiber.Map{"error": "Difficulty not found"})
 	}
 
-	var input models.Difficulty
+	var input models.DifficultyModel
 	if err := c.BodyParser(&input); err != nil {
 		log.Printf("[ERROR] Invalid JSON input: %v\n", err)
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid input"})
@@ -95,7 +95,7 @@ func (dc *DifficultyController) DeleteDifficulty(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Printf("[INFO] Deleting difficulty with ID: %s\n", id)
 
-	if err := dc.DB.Delete(&models.Difficulty{}, id).Error; err != nil {
+	if err := dc.DB.Delete(&models.DifficultyModel{}, id).Error; err != nil {
 		log.Printf("[ERROR] Failed to delete difficulty: %v\n", err)
 		return c.Status(500).JSON(fiber.Map{"error": err.Error()})
 	}

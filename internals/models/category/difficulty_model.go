@@ -3,10 +3,9 @@ package models
 import (
 	"time"
 
-	"gorm.io/gorm"
 )
 
-type Difficulty struct {
+type DifficultyModel struct {
 	ID                uint      `gorm:"primaryKey" json:"id"`
 	Name              string    `gorm:"size:255;not null" json:"name"`
 	DescriptionShort  string    `gorm:"size:100" json:"description_short"`
@@ -18,7 +17,6 @@ type Difficulty struct {
 }
 
 
-func (u *Difficulty) BeforeCreate(tx *gorm.DB) error {
-	u.CreatedAt = time.Now()
-	return nil
+func (DifficultyModel) TableName() string {
+	return "difficulties"
 }

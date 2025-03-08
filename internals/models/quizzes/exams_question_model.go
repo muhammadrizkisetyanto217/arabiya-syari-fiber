@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type ExamsQuestion struct {
+type ExamsQuestionModel struct {
 	ID              uint           `gorm:"primaryKey" json:"id"`
 	QuestionText    string         `gorm:"size:200;not null" json:"question_text"`
 	QuestionAnswer  pq.StringArray `gorm:"type:text[];not null" json:"question_answer"`
@@ -23,6 +23,6 @@ type ExamsQuestion struct {
 }
 
 // TableName memastikan nama tabel sesuai dengan skema database
-func (ExamsQuestion) TableName() string {
+func (ExamsQuestionModel) TableName() string {
 	return "exams_questions"
 }

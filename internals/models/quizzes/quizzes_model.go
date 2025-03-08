@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-type Quiz struct {
+type QuizModel struct {
     ID              int        `json:"id" gorm:"primaryKey"`
     Name            string     `json:"name_quizzes" gorm:"type:varchar(50);unique;not null;column:name_quizzes"`
     Status          string     `json:"status" gorm:"type:varchar(10);default:pending;check:status IN ('active', 'pending', 'archived')"`
@@ -22,6 +22,6 @@ type Quiz struct {
 
 
 // TableName memastikan Gorm menggunakan tabel "quizzes"
-func (Quiz) TableName() string {
+func (QuizModel) TableName() string {
 	return "quizzes"
 }

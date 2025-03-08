@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type QuizQuestion struct {
+type QuizQuestionModel struct {
 	ID              uint           `gorm:"primaryKey" json:"id"`
 	QuestionText    string         `gorm:"type:varchar(200);not null" json:"question_text"`   // ✅ Ubah menjadi string biasa
 	QuestionAnswer  pq.StringArray `gorm:"type:text[];not null" json:"question_answer"`       // ✅ Tetap dalam format array TEXT[]
@@ -23,6 +23,6 @@ type QuizQuestion struct {
 }
 
 // TableName mengatur nama tabel agar sesuai dengan skema database
-func (QuizQuestion) TableName() string {
+func (QuizQuestionModel) TableName() string {
 	return "quizzes_questions"
 }

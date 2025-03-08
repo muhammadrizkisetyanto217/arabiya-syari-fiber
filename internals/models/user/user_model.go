@@ -2,11 +2,9 @@ package models
 
 import (
 	"time"
-
-	"gorm.io/gorm"
 )
 
-type User struct {
+type UserModel struct {
 	ID        uint       `gorm:"primaryKey" json:"id"`
 	Name      string     `gorm:"size:50;not null" json:"name"`
 	Email     string     `gorm:"size:255;unique;not null" json:"email"`
@@ -17,8 +15,7 @@ type User struct {
 	UpdatedAt time.Time  `gorm:"autoUpdateTime" json:"updated_at"`
 }
 
-// BeforeCreate hook untuk memastikan CreatedAt diatur saat record dibuat
-func (u *User) BeforeCreate(tx *gorm.DB) error {
-	u.CreatedAt = time.Now()
-	return nil
+// TableName memastikan nama tabel sesuai dengan skema database
+func (UserModel) TableName() string {
+	return "users"
 }

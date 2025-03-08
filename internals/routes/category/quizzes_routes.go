@@ -1,7 +1,7 @@
 package category
 
 import (
-	controllers "arabiya-syari-fiber/internals/controllers/quizzes"
+	"arabiya-syari-fiber/internals/controllers/quizzes"
 	authControllers "arabiya-syari-fiber/internals/controllers/user" // Middleware Auth
 
 	"github.com/gofiber/fiber/v2"
@@ -15,7 +15,7 @@ func QuizzesRoutes(app *fiber.App, db *gorm.DB) {
 	api := app.Group("/api", authControllers.AuthMiddleware)
 
 	// 📖 Reading Routes
-	readingController := controllers.NewReadingController(db)
+	readingController := quizzes.NewReadingController(db)
 	readingRoutes := api.Group("/readings")
 	readingRoutes.Get("/", readingController.GetReadings)
 	readingRoutes.Get("/:id", readingController.GetReading)
@@ -25,7 +25,7 @@ func QuizzesRoutes(app *fiber.App, db *gorm.DB) {
 	readingRoutes.Delete("/:id", readingController.DeleteReading)
 
 	// 🔥 Section Quizzes Routes
-	sectionQuizzesController := controllers.NewSectionQuizController(db)
+	sectionQuizzesController := quizzes.NewSectionQuizController(db)
 	sectionQuizzesRoutes := api.Group("/section-quizzes")
 	sectionQuizzesRoutes.Get("/", sectionQuizzesController.GetSectionQuizzes)
 	sectionQuizzesRoutes.Get("/:id", sectionQuizzesController.GetSectionQuiz)
@@ -35,7 +35,7 @@ func QuizzesRoutes(app *fiber.App, db *gorm.DB) {
 	sectionQuizzesRoutes.Delete("/:id", sectionQuizzesController.DeleteSectionQuiz)
 
 	// 🧠 Quiz Routes
-	quizController := controllers.NewQuizController(db)
+	quizController := quizzes.NewQuizController(db)
 	quizRoutes := api.Group("/quizzes")
 	quizRoutes.Get("/", quizController.GetQuizzes)
 	quizRoutes.Get("/:id", quizController.GetQuiz)
@@ -45,7 +45,7 @@ func QuizzesRoutes(app *fiber.App, db *gorm.DB) {
 	quizRoutes.Delete("/:id", quizController.DeleteQuiz)
 
 	// 📝 Quiz Questions Routes
-	quizQuestionController := controllers.NewQuizQuestionController(db)
+	quizQuestionController := quizzes.NewQuizQuestionController(db)
 	quizQuestionRoutes := api.Group("/quiz-questions")
 	quizQuestionRoutes.Get("/", quizQuestionController.GetQuizQuestions)
 	quizQuestionRoutes.Get("/:id", quizQuestionController.GetQuizQuestion)
@@ -55,7 +55,7 @@ func QuizzesRoutes(app *fiber.App, db *gorm.DB) {
 	quizQuestionRoutes.Delete("/:id", quizQuestionController.DeleteQuizQuestion)
 
 	// 🎓 Exam Routes
-	examController := controllers.NewExamController(db)
+	examController := quizzes.NewExamController(db)
 	examRoutes := api.Group("/exams")
 	examRoutes.Get("/", examController.GetExams)
 	examRoutes.Get("/:id", examController.GetExam)
@@ -65,7 +65,7 @@ func QuizzesRoutes(app *fiber.App, db *gorm.DB) {
 	examRoutes.Delete("/:id", examController.DeleteExam)
 
 	// 📋 Exam Questions Routes
-	examQuestionController := controllers.NewExamsQuestionController(db)
+	examQuestionController := quizzes.NewExamsQuestionController(db)
 	examQuestionRoutes := api.Group("/exam-questions")
 	examQuestionRoutes.Get("/", examQuestionController.GetExamsQuestions)
 	examQuestionRoutes.Get("/:id", examQuestionController.GetExamsQuestion)
@@ -75,7 +75,7 @@ func QuizzesRoutes(app *fiber.App, db *gorm.DB) {
 	examQuestionRoutes.Delete("/:id", examQuestionController.DeleteExamsQuestion)
 
 	// 🏆 Evaluation Routes
-	evaluationController := controllers.NewEvaluationController(db)
+	evaluationController := quizzes.NewEvaluationController(db)
 	evaluationRoutes := api.Group("/evaluations")
 	evaluationRoutes.Get("/", evaluationController.GetEvaluations)
 	evaluationRoutes.Get("/:id", evaluationController.GetEvaluation)
@@ -85,7 +85,7 @@ func QuizzesRoutes(app *fiber.App, db *gorm.DB) {
 	evaluationRoutes.Delete("/:id", evaluationController.DeleteEvaluation)
 
 	// 🎯 Evaluation Questions Routes
-	evaluationQuestionController := controllers.NewEvaluationsQuestionController(db)
+	evaluationQuestionController := quizzes.NewEvaluationsQuestionController(db)
 	evaluationQuestionRoutes := api.Group("/evaluation-questions")
 	evaluationQuestionRoutes.Get("/", evaluationQuestionController.GetEvaluationsQuestions)
 	evaluationQuestionRoutes.Get("/:id", evaluationQuestionController.GetEvaluationQuestion)
