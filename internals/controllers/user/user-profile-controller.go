@@ -20,7 +20,7 @@ func NewUsersProfileController(db *gorm.DB) *UsersProfileController {
 
 func (upc *UsersProfileController) GetProfiles(c *fiber.Ctx) error {
 	log.Println("Fetching all user profiles")
-	var profiles []models.UsersProfileModel
+	var profiles []user.UsersProfileModel
 	if err := upc.DB.Find(&profiles).Error; err != nil {
 		log.Println("Error fetching user profiles:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch user profiles"})
@@ -31,7 +31,7 @@ func (upc *UsersProfileController) GetProfiles(c *fiber.Ctx) error {
 func (upc *UsersProfileController) GetProfile(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Fetching user profile with ID:", id)
-	var profile models.UsersProfileModel
+	var profile user.UsersProfileModel
 	if err := upc.DB.First(&profile, id).Error; err != nil {
 		log.Println("User profile not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "User profile not found"})
@@ -43,7 +43,7 @@ func (upc *UsersProfileController) CreateProfile(c *fiber.Ctx) error {
 	log.Println("Creating or updating user profile")
 
 	// Parse request body
-	var input models.UsersProfileModel
+	var input user.UsersProfileModel
 	if err := c.BodyParser(&input); err != nil {
 		log.Println("Invalid request body:", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
@@ -56,7 +56,7 @@ func (upc *UsersProfileController) CreateProfile(c *fiber.Ctx) error {
 	}
 
 	// Cari apakah user_id sudah ada di database
-	var existingProfile models.UsersProfileModel
+	var existingProfile user.UsersProfileModel
 	result := upc.DB.Where("user_id = ?", input.UserID).First(&existingProfile)
 
 	if result.RowsAffected > 0 {
@@ -82,7 +82,7 @@ func (upc *UsersProfileController) CreateProfile(c *fiber.Ctx) error {
 func (upc *UsersProfileController) UpdateProfile(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Updating user profile with ID:", id)
-	var profile models.UsersProfileModel
+	var profile user.UsersProfileModel
 
 	idInt, err := strconv.Atoi(id)
 	if err != nil {
@@ -113,7 +113,7 @@ func (upc *UsersProfileController) DeleteProfile(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Deleting user profile with ID:", id)
 
-	if err := upc.DB.Delete(&models.UsersProfileModel{}, id).Error; err != nil {
+	if err := upc.DB.Delete(&user.UsersProfileModel{}, id).Error; err != nil {
 		log.Println("Error deleting user profile:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete user profile"})
 	}
