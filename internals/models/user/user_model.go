@@ -18,6 +18,8 @@ type UserModel struct {
 	Password  string         `gorm:"not null" json:"password" validate:"required,min=8"`
 	GoogleID  *string        `gorm:"size:255;unique" json:"google_id,omitempty"`
 	Role      string         `gorm:"type:varchar(20);not null;default:'user'" json:"role" validate:"required,oneof=owner user teacher treasurer admin"`
+	SecurityQuestion string    `gorm:"not null" json:"security_question"`
+    SecurityAnswer  string    `gorm:"size:255;not null" json:"security_answer"`
 	CreatedAt time.Time      `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt time.Time      `gorm:"autoUpdateTime" json:"updated_at"`
 }
