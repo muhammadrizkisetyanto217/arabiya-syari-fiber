@@ -137,9 +137,86 @@ func (ac *AuthController) Logout(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(fiber.Map{"message": "Logged out successfully"})
-
 	
 }
+
+
+// 🔥 CHANGE PASSWORD
+func (ac *AuthController) ChangePassword(c *fiber.Ctx) error {
+	// Ambil token dari request
+	authHeader := c.Get("Authorization")
+	if authHeader == "" {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Unauthorized - No token provided"})
+	}
+
+	// Pisahkan "Bearer" dan tokennya
+	tokenParts := strings.Split(authHeader, " ")
+	if len(tokenParts) != 2 || tokenParts[0] != "Bearer" {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Unauthorized - Invalid token format"})
+	}
+	tokenString := tokenParts[1]
+
+	// Validasi JWT Token
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		return []byte(SecretKey), nil
+	})
+	if err != nil || !token.Valid {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Unauthorized - Invalid token"})
+	}
+
+	// Ambil User ID dari JWT Claims
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Unauthorized - Invalid token claims"})
+	}
+
+	userID := uint(claims["id"].(float64))
+
+	// Parsing request body
+	var input struct {
+		OldPassword string `json:"old_password"`
+		NewPassword string `json:"new_password"`
+	}
+
+	if err := c.BodyParser(&input); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request format"})
+	}
+
+	// Validasi input
+	if input.OldPassword == "" || input.NewPassword == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Both old and new passwords are required"})
+	}
+
+	// Cek apakah user ada di database
+	var user models.UserModel
+	if err := ac.DB.First(&user, userID).Error; err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "User not found"})
+	}
+
+	// Cek apakah password lama benar
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(input.OldPassword)); err != nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Old password is incorrect"})
+	}
+
+	// Cek apakah password baru sama dengan yang lama
+	if input.OldPassword == input.NewPassword {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "New password must be different from old password"})
+	}
+
+	// Hash password baru
+	newHashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.NewPassword), bcrypt.DefaultCost)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to hash new password"})
+	}
+
+	// Update password di database
+	if err := ac.DB.Model(&user).Update("password", string(newHashedPassword)).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to update password"})
+	}
+
+	return c.JSON(fiber.Map{"message": "Password changed successfully"})
+}
+
 
 
 // 🔥 Middleware untuk proteksi route
