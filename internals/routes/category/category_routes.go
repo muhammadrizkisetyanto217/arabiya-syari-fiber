@@ -12,7 +12,7 @@ import (
 func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 
 	// 🔥 Proteksi seluruh kategori API dengan Middleware
-	api := app.Group("/api", authControllers.AuthMiddleware)
+	api := app.Group("/api", authControllers.AuthMiddleware(db))
 
 	// 🎯 Difficulty Routes
 	difficultyController := category.NewDifficultyController(db)

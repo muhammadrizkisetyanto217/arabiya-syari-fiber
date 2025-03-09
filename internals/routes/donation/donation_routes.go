@@ -12,7 +12,7 @@ import (
 func DonationRoutes(app *fiber.App, db *gorm.DB) {
 
 	// 🔒 Middleware Auth diterapkan untuk seluruh API /api/*
-	api := app.Group("/api", authControllers.AuthMiddleware)
+	api := app.Group("/api", authControllers.AuthMiddleware(db))
 
 	// 🎯 Donation Levels Routes
 	donationLevelsController := donation.NewDonationLevelsController(db)

@@ -12,7 +12,7 @@ import (
 func QuizzesRoutes(app *fiber.App, db *gorm.DB) {
 
 	// 🔒 Middleware Auth diaktifkan untuk seluruh API /api/*
-	api := app.Group("/api", authControllers.AuthMiddleware)
+	api := app.Group("/api", authControllers.AuthMiddleware(db))
 
 	// 📖 Reading Routes
 	readingController := quizzes.NewReadingController(db)

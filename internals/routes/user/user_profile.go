@@ -13,7 +13,7 @@ func SetupRoutes(app *fiber.App, db *gorm.DB) {
 	usersProfileController := user.NewUsersProfileController(db)
 
 	// 🔒 Gunakan Middleware Auth untuk melindungi semua route `/api/*`
-	api := app.Group("/api", user.AuthMiddleware)
+	api := app.Group("/api", user.AuthMiddleware(db))
 
 	// 🎯 Users Profile Routes
 	usersProfileRoutes := api.Group("/users-profiles")

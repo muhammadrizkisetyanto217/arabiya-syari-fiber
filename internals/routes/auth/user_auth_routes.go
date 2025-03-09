@@ -20,10 +20,11 @@ func UserRoutes(app *fiber.App, db *gorm.DB) {
 	auth := app.Group("/auth") 
 	auth.Post("/register", authController.Register) // ✅ Register user baru
 	auth.Post("/login", authController.Login)       // ✅ Login user
+	auth.Post("/logout", authController.Logout)    // ✅ Logout user
 
 	// 🔥 Setup UserController (dengan middleware untuk proteksi API)
 	userController := user.NewUserController(db)
-	userRoutes := app.Group("/api/users", user.AuthMiddleware) // ✅ Proteksi semua user route
+	userRoutes := app.Group("/api/users", user.AuthMiddleware(db)) // ✅ Proteksi semua user route
 	userRoutes.Get("/", userController.GetUsers)   // ✅ Get semua users (Hanya Admin)
 	userRoutes.Get("/:id", userController.GetUser) // ✅ Get satu user berdasarkan ID
 	userRoutes.Put("/:id", userController.UpdateUser) // ✅ Update user
