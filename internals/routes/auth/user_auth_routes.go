@@ -21,13 +21,11 @@ func UserRoutes(app *fiber.App, db *gorm.DB) {
 	auth.Post("/register", authController.Register) // ✅ Register user baru
 	auth.Post("/login", authController.Login)       // ✅ Login user
 	auth.Post("/logout", authController.Logout)    // ✅ Logout user
-	auth.Post("/change-password", authController.ChangePassword) // ✅ Ganti password user
 
-
-	// 🔥 Setup LogoutUser (dengan proteksi middleware)
-	app.Post("/api/logout", user.AuthMiddleware(db), authController.Logout)
-
-	
+	// 🔥 Setup AuthController with middleware
+	protectedRoutes := app.Group("/api/auth", user.AuthMiddleware(db))
+	protectedRoutes.Post("/logout", authController.Logout)            // ✅ Logout User
+	protectedRoutes.Post("/change-password", authController.ChangePassword) // ✅ Ganti Password User
 
 	// 🔥 Setup UserController (dengan middleware untuk proteksi API)
 	userController := user.NewUserController(db)
