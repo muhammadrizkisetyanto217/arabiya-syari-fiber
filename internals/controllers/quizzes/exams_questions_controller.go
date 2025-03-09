@@ -3,7 +3,7 @@ package quizzes
 import (
 	"log"
 
-	models "arabiya-syari-fiber/internals/models/quizzes"
+	"arabiya-syari-fiber/internals/models/quizzes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/lib/pq"
 	"gorm.io/gorm"
@@ -21,7 +21,7 @@ func NewExamsQuestionController(db *gorm.DB) *ExamsQuestionController {
 // ✅ **Get All Questions**
 func (eqc *ExamsQuestionController) GetExamsQuestions(c *fiber.Ctx) error {
 	log.Println("[INFO] Fetching all exam questions")
-	var questions []models.ExamsQuestionModel
+	var questions []quizzes.ExamsQuestionModel
 	if err := eqc.DB.Find(&questions).Error; err != nil {
 		log.Printf("[ERROR] Failed to fetch questions: %v\n", err)
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to fetch questions"})
@@ -34,7 +34,7 @@ func (eqc *ExamsQuestionController) GetExamsQuestion(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Printf("[INFO] Fetching question with ID: %s\n", id)
 
-	var question models.ExamsQuestionModel
+	var question quizzes.ExamsQuestionModel
 	if err := eqc.DB.First(&question, id).Error; err != nil {
 		log.Printf("[ERROR] Question not found: %v\n", err)
 		return c.Status(404).JSON(fiber.Map{"error": "Question not found"})
@@ -47,7 +47,7 @@ func (eqc *ExamsQuestionController) GetQuestionsByExamID(c *fiber.Ctx) error {
 	examID := c.Params("examId")
 	log.Printf("[INFO] Fetching questions for exam_id: %s\n", examID)
 
-	var questions []models.ExamsQuestionModel
+	var questions []quizzes.ExamsQuestionModel
 	if err := eqc.DB.Where("exam_id = ?", examID).Find(&questions).Error; err != nil {
 		log.Printf("[ERROR] Failed to fetch questions for exam_id %s: %v\n", examID, err)
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to fetch questions"})
@@ -59,7 +59,7 @@ func (eqc *ExamsQuestionController) GetQuestionsByExamID(c *fiber.Ctx) error {
 // ✅ **Create a New Question**
 func (eqc *ExamsQuestionController) CreateExamsQuestion(c *fiber.Ctx) error {
 	log.Println("[INFO] Creating a new exam question")
-	var question models.ExamsQuestionModel
+	var question quizzes.ExamsQuestionModel
 
 	// Parsing request JSON ke struct
 	if err := c.BodyParser(&question); err != nil {
@@ -85,13 +85,13 @@ func (eqc *ExamsQuestionController) UpdateExamsQuestion(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Printf("[INFO] Updating question with ID: %s\n", id)
 
-	var question models.ExamsQuestionModel
+	var question quizzes.ExamsQuestionModel
 	if err := eqc.DB.First(&question, id).Error; err != nil {
 		log.Printf("[ERROR] Question not found: %v\n", err)
 		return c.Status(404).JSON(fiber.Map{"error": "Question not found"})
 	}
 
-	var requestData models.ExamsQuestionModel
+	var requestData quizzes.ExamsQuestionModel
 	if err := c.BodyParser(&requestData); err != nil {
 		log.Printf("[ERROR] Invalid request body: %v\n", err)
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid request"})
@@ -115,7 +115,7 @@ func (eqc *ExamsQuestionController) DeleteExamsQuestion(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Printf("[INFO] Deleting question with ID: %s\n", id)
 
-	if err := eqc.DB.Delete(&models.ExamsQuestionModel{}, id).Error; err != nil {
+	if err := eqc.DB.Delete(&quizzes.ExamsQuestionModel{}, id).Error; err != nil {
 		log.Printf("[ERROR] Failed to delete question: %v\n", err)
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to delete question"})
 	}

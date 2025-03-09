@@ -2,7 +2,7 @@ package category
 
 import (
 	"arabiya-syari-fiber/internals/controllers/category"
-	authControllers "arabiya-syari-fiber/internals/controllers/user" // Import AuthMiddleware
+	"arabiya-syari-fiber/internals/controllers/user" // Import AuthMiddleware
 
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
@@ -12,7 +12,7 @@ import (
 func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 
 	// 🔥 Proteksi seluruh kategori API dengan Middleware
-	api := app.Group("/api", authControllers.AuthMiddleware(db))
+	api := app.Group("/api", user.AuthMiddleware(db))
 
 	// 🎯 Difficulty Routes
 	difficultyController := category.NewDifficultyController(db)

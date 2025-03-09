@@ -3,7 +3,7 @@ package quizzes
 import (
 	"log"
 
-	models "arabiya-syari-fiber/internals/models/quizzes"
+	"arabiya-syari-fiber/internals/models/quizzes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/lib/pq"
 	"gorm.io/gorm"
@@ -20,7 +20,7 @@ func NewEvaluationsQuestionController(db *gorm.DB) *EvaluationsQuestionControlle
 // ✅ Get all evaluations questions
 func (eqc *EvaluationsQuestionController) GetEvaluationsQuestions(c *fiber.Ctx) error {
 	log.Println("[INFO] Fetching all evaluations questions")
-	var questions []models.EvaluationsQuestionModel
+	var questions []quizzes.EvaluationsQuestionModel
 	if err := eqc.DB.Find(&questions).Error; err != nil {
 		log.Println("[ERROR] Failed to fetch evaluations questions:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch evaluations questions"})
@@ -33,7 +33,7 @@ func (eqc *EvaluationsQuestionController) GetEvaluationQuestion(c *fiber.Ctx) er
 	id := c.Params("id")
 	log.Println("[INFO] Fetching evaluation question with ID:", id)
 
-	var question models.EvaluationsQuestionModel
+	var question quizzes.EvaluationsQuestionModel
 	if err := eqc.DB.First(&question, id).Error; err != nil {
 		log.Println("[ERROR] Evaluation question not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Evaluation question not found"})
@@ -46,7 +46,7 @@ func (eqc *EvaluationsQuestionController) GetQuestionsByEvaluationID(c *fiber.Ct
 	evaluationID := c.Params("evaluationId")
 	log.Printf("[INFO] Fetching questions for evaluation_id: %s\n", evaluationID)
 
-	var questions []models.EvaluationsQuestionModel
+	var questions []quizzes.EvaluationsQuestionModel
 	if err := eqc.DB.Where("evaluation_id = ?", evaluationID).Find(&questions).Error; err != nil {
 		log.Printf("[ERROR] Failed to fetch questions for evaluation_id %s: %v\n", evaluationID, err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch questions"})
@@ -59,7 +59,7 @@ func (eqc *EvaluationsQuestionController) GetQuestionsByEvaluationID(c *fiber.Ct
 // ✅ Create a new evaluation question
 func (eqc *EvaluationsQuestionController) CreateEvaluationQuestion(c *fiber.Ctx) error {
 	log.Println("[INFO] Creating a new evaluation question")
-	var question models.EvaluationsQuestionModel
+	var question quizzes.EvaluationsQuestionModel
 
 	// Parsing JSON ke struct
 	if err := c.BodyParser(&question); err != nil {
@@ -83,7 +83,7 @@ func (eqc *EvaluationsQuestionController) UpdateEvaluationQuestion(c *fiber.Ctx)
 	id := c.Params("id")
 	log.Println("[INFO] Updating evaluation question with ID:", id)
 
-	var question models.EvaluationsQuestionModel
+	var question quizzes.EvaluationsQuestionModel
 	if err := eqc.DB.First(&question, id).Error; err != nil {
 		log.Println("[ERROR] Evaluation question not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Evaluation question not found"})
@@ -111,7 +111,7 @@ func (eqc *EvaluationsQuestionController) DeleteEvaluationQuestion(c *fiber.Ctx)
 	id := c.Params("id")
 	log.Println("[INFO] Deleting evaluation question with ID:", id)
 
-	if err := eqc.DB.Delete(&models.EvaluationsQuestionModel{}, id).Error; err != nil {
+	if err := eqc.DB.Delete(&quizzes.EvaluationsQuestionModel{}, id).Error; err != nil {
 		log.Println("[ERROR] Failed to delete evaluation question:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete evaluation question"})
 	}

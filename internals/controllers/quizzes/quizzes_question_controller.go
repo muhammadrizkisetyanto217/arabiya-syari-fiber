@@ -3,7 +3,7 @@ package quizzes
 import (
 	"log"
 
-	models "arabiya-syari-fiber/internals/models/quizzes"
+	"arabiya-syari-fiber/internals/models/quizzes"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/lib/pq" // Untuk TEXT[] dalam PostgreSQL
@@ -21,7 +21,7 @@ func NewQuizQuestionController(db *gorm.DB) *QuizQuestionController {
 // Get all quiz questions
 func (qqc *QuizQuestionController) GetQuizQuestions(c *fiber.Ctx) error {
 	log.Println("[INFO] Fetching all quiz questions")
-	var questions []models.QuizQuestionModel
+	var questions []quizzes.QuizQuestionModel
 	if err := qqc.DB.Find(&questions).Error; err != nil {
 		log.Println("[ERROR] Failed to fetch quiz questions:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch quiz questions"})
@@ -34,7 +34,7 @@ func (qqc *QuizQuestionController) GetQuizQuestion(c *fiber.Ctx) error {
 	id := c.Params("id") // ✅ Pastikan `id` hanya dideklarasikan sekali
 	log.Println("[INFO] Fetching quiz question with ID:", id)
 
-	var question models.QuizQuestionModel
+	var question quizzes.QuizQuestionModel
 	err := qqc.DB.First(&question, id).Error
 	if err != nil {
 		log.Println("[ERROR] Quiz question not found:", err)
@@ -49,7 +49,7 @@ func (qqc *QuizQuestionController) GetQuizQuestionsByQuizID(c *fiber.Ctx) error 
 	quizID := c.Params("quizId") // ✅ Pastikan `quizID` hanya dideklarasikan sekali
 	log.Printf("[INFO] Fetching questions for quiz_id: %s\n", quizID)
 
-	var questions []models.QuizQuestionModel
+	var questions []quizzes.QuizQuestionModel
 	err := qqc.DB.Where("quizzes_id = ?", quizID).Find(&questions).Error
 	if err != nil {
 		log.Printf("[ERROR] Failed to fetch questions for quiz_id %s: %v\n", quizID, err)
@@ -64,7 +64,7 @@ func (qqc *QuizQuestionController) GetQuizQuestionsByQuizID(c *fiber.Ctx) error 
 func (qqc *QuizQuestionController) CreateQuizQuestion(c *fiber.Ctx) error {
 	log.Println("[INFO] Creating a new quiz question")
 
-	var question models.QuizQuestionModel
+	var question quizzes.QuizQuestionModel
 	if err := c.BodyParser(&question); err != nil {
 		log.Println("[ERROR] Invalid request body:", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
@@ -86,7 +86,7 @@ func (qqc *QuizQuestionController) UpdateQuizQuestion(c *fiber.Ctx) error {
 	id := c.Params("id") // ✅ Pastikan `id` hanya dideklarasikan sekali
 	log.Println("[INFO] Updating quiz question with ID:", id)
 
-	var question models.QuizQuestionModel
+	var question quizzes.QuizQuestionModel
 	err := qqc.DB.First(&question, id).Error
 	if err != nil {
 		log.Println("[ERROR] Quiz question not found:", err)
@@ -114,7 +114,7 @@ func (qqc *QuizQuestionController) DeleteQuizQuestion(c *fiber.Ctx) error {
 	id := c.Params("id") // ✅ Pastikan `id` hanya dideklarasikan sekali
 	log.Println("[INFO] Deleting quiz question with ID:", id)
 
-	err := qqc.DB.Delete(&models.QuizQuestionModel{}, id).Error
+	err := qqc.DB.Delete(&quizzes.QuizQuestionModel{}, id).Error
 	if err != nil {
 		log.Println("[ERROR] Failed to delete quiz question:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete quiz question"})

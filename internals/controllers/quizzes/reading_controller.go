@@ -18,7 +18,7 @@ func NewReadingController(db *gorm.DB) *ReadingController {
 // Get all readings
 func (rc *ReadingController) GetReadings(c *fiber.Ctx) error {
 	log.Println("Fetching all readings")
-	var readings []models.ReadingModel
+	var readings []quizzes.ReadingModel
 	if err := rc.DB.Find(&readings).Error; err != nil {
 		log.Println("Error fetching readings:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch readings"})
@@ -30,7 +30,7 @@ func (rc *ReadingController) GetReadings(c *fiber.Ctx) error {
 func (rc *ReadingController) GetReading(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Fetching reading with ID:", id)
-	var reading models.ReadingModel
+	var reading quizzes.ReadingModel
 	if err := rc.DB.First(&reading, id).Error; err != nil {
 		log.Println("Reading not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Reading not found"})
@@ -43,7 +43,7 @@ func (rc *ReadingController) GetReadingsByUnit(c *fiber.Ctx) error {
 	unitID := c.Params("unitId")
 	log.Printf("[INFO] Fetching readings for unit_id: %s\n", unitID)
 
-	var readings []models.ReadingModel
+	var readings []quizzes.ReadingModel
 	if err := rc.DB.Where("unit_id = ?", unitID).Find(&readings).Error; err != nil {
 		log.Printf("[ERROR] Failed to fetch readings for unit_id %s: %v\n", unitID, err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch readings"})
@@ -55,7 +55,7 @@ func (rc *ReadingController) GetReadingsByUnit(c *fiber.Ctx) error {
 // Create a new reading
 func (rc *ReadingController) CreateReading(c *fiber.Ctx) error {
 	log.Println("Creating a new reading")
-	var reading models.ReadingModel
+	var reading quizzes.ReadingModel
 	if err := c.BodyParser(&reading); err != nil {
 		log.Println("Invalid request body:", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
@@ -71,7 +71,7 @@ func (rc *ReadingController) CreateReading(c *fiber.Ctx) error {
 func (rc *ReadingController) UpdateReading(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Updating reading with ID:", id)
-	var reading models.ReadingModel
+	var reading quizzes.ReadingModel
 	if err := rc.DB.First(&reading, id).Error; err != nil {
 		log.Println("Reading not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Reading not found"})
@@ -91,7 +91,7 @@ func (rc *ReadingController) UpdateReading(c *fiber.Ctx) error {
 func (rc *ReadingController) DeleteReading(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Deleting reading with ID:", id)
-	if err := rc.DB.Delete(&models.ReadingModel{}, id).Error; err != nil {
+	if err := rc.DB.Delete(&quizzes.ReadingModel{}, id).Error; err != nil {
 		log.Println("Error deleting reading:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete reading"})
 	}

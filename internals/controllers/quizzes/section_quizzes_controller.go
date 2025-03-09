@@ -18,7 +18,7 @@ func NewSectionQuizController(db *gorm.DB) *SectionQuizController {
 
 func (sqc *SectionQuizController) GetSectionQuizzes(c *fiber.Ctx) error {
 	log.Println("Fetching all section quizzes")
-	var quizzes []models.SectionQuizModel
+	var quizzes []quizzes.SectionQuizModel
 	if err := sqc.DB.Find(&quizzes).Error; err != nil {
 		log.Println("Error fetching section quizzes:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch section quizzes"})
@@ -29,7 +29,7 @@ func (sqc *SectionQuizController) GetSectionQuizzes(c *fiber.Ctx) error {
 func (sqc *SectionQuizController) GetSectionQuiz(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Fetching section quiz with ID:", id)
-	var quiz models.SectionQuizModel
+	var quiz quizzes.SectionQuizModel
 	if err := sqc.DB.First(&quiz, id).Error; err != nil {
 		log.Println("Section quiz not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Section quiz not found"})
@@ -41,7 +41,7 @@ func (sqc *SectionQuizController) GetSectionQuizzesByUnit(c *fiber.Ctx) error {
 	unitID := c.Params("unitId")
 	log.Printf("[INFO] Fetching section_quizzes for unit_id: %s\n", unitID)
 
-	var sectionQuizzes []models.SectionQuizModel
+	var sectionQuizzes []quizzes.SectionQuizModel
 	if err := sqc.DB.Where("unit_id = ?", unitID).Find(&sectionQuizzes).Error; err != nil {
 		log.Printf("[ERROR] Failed to fetch section_quizzes for unit_id %s: %v\n", unitID, err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch section_quizzes"})
@@ -54,7 +54,7 @@ func (sqc *SectionQuizController) GetSectionQuizzesByUnit(c *fiber.Ctx) error {
 
 func (sqc *SectionQuizController) CreateSectionQuiz(c *fiber.Ctx) error {
 	log.Println("Creating a new section quiz")
-	var quiz models.SectionQuizModel
+	var quiz quizzes.SectionQuizModel
 	if err := c.BodyParser(&quiz); err != nil {
 		log.Println("Invalid request body:", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
@@ -70,7 +70,7 @@ func (sqc *SectionQuizController) UpdateSectionQuiz(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Updating section quiz with ID:", id)
 
-	var quiz models.SectionQuizModel
+	var quiz quizzes.SectionQuizModel
 	if err := sqc.DB.First(&quiz, id).Error; err != nil {
 		log.Println("Section quiz not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Section quiz not found"})
@@ -93,7 +93,7 @@ func (sqc *SectionQuizController) UpdateSectionQuiz(c *fiber.Ctx) error {
 func (sqc *SectionQuizController) DeleteSectionQuiz(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("Deleting section quiz with ID:", id)
-	if err := sqc.DB.Delete(&models.SectionQuizModel{}, id).Error; err != nil {
+	if err := sqc.DB.Delete(&quizzes.SectionQuizModel{}, id).Error; err != nil {
 		log.Println("Error deleting section quiz:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete section quiz"})
 	}

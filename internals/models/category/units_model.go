@@ -1,7 +1,7 @@
-package models
+package category
 
 import (
-	models "arabiya-syari-fiber/internals/models/quizzes"
+	"arabiya-syari-fiber/internals/models/quizzes"
 	"time"
 
 	"gorm.io/gorm"
@@ -20,7 +20,7 @@ type UnitModel struct {
 	ThemesOrLevelID     uint           `json:"themes_or_level_id"`
 	CreatedBy           uint           `json:"created_by"`
 
-	SectionQuizzes []models.SectionQuizModel `gorm:"foreignKey:UnitID" json:"section_quizzes"`
+	SectionQuizzes []quizzes.SectionQuizModel `gorm:"foreignKey:UnitID" json:"section_quizzes"`
 }
 
 func (UnitModel) TableName() string {

@@ -1,8 +1,8 @@
-package routes
+package donation
 
 import (
 	"arabiya-syari-fiber/internals/controllers/donation"
-	authControllers "arabiya-syari-fiber/internals/controllers/user" // Middleware Auth
+	"arabiya-syari-fiber/internals/controllers/user" // Middleware Auth
 
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
@@ -12,7 +12,7 @@ import (
 func DonationRoutes(app *fiber.App, db *gorm.DB) {
 
 	// 🔒 Middleware Auth diterapkan untuk seluruh API /api/*
-	api := app.Group("/api", authControllers.AuthMiddleware(db))
+	api := app.Group("/api", user.AuthMiddleware(db))
 
 	// 🎯 Donation Levels Routes
 	donationLevelsController := donation.NewDonationLevelsController(db)

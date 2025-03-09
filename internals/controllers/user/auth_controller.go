@@ -12,13 +12,13 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 
-	config "arabiya-syari-fiber/internals/configs"
+	"arabiya-syari-fiber/internals/configs"
 	"arabiya-syari-fiber/internals/models/auth"
-	models "arabiya-syari-fiber/internals/models/user"
+	"arabiya-syari-fiber/internals/models/user"
 )
 
 // 🔑 Load Secret Key dari Environment
-var SecretKey = config.GetEnv("JWT_SECRET")
+var SecretKey = configs.GetEnv("JWT_SECRET")
 
 type AuthController struct {
 	DB *gorm.DB
@@ -30,7 +30,7 @@ func NewAuthController(db *gorm.DB) *AuthController {
 
 // 🔥 REGISTER USER
 func (ac *AuthController) Register(c *fiber.Ctx) error {
-	var input models.UserModel
+	var input user.UserModel
 
 	if err := c.BodyParser(&input); err != nil {
 		log.Printf("[ERROR] Failed to parse request body: %v", err)
@@ -77,7 +77,7 @@ func (ac *AuthController) Login(c *fiber.Ctx) error {
 	}
 
 	// Cek user berdasarkan Email atau Nama
-	var user models.UserModel
+	var user user.UserModel
 	if err := ac.DB.Where("email = ? OR name = ?", input.Identifier, input.Identifier).First(&user).Error; err != nil {
 		log.Printf("[ERROR] User not found: Identifier=%s", input.Identifier)
 		return c.Status(401).JSON(fiber.Map{"error": "Invalid email, username, or password"})
@@ -168,7 +168,7 @@ func (ac *AuthController) ChangePassword(c *fiber.Ctx) error {
 	}
 
 	// 🔍 Cari user di database
-	var user models.UserModel
+	var user user.UserModel
 	if err := ac.DB.First(&user, userID).Error; err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "User not found"})
 	}
@@ -211,7 +211,7 @@ func (ac *AuthController) ForgotPassword(c *fiber.Ctx) error {
 	}
 
 	// 📌 Cek apakah user ada di database
-	var user models.UserModel
+	var user user.UserModel
 	if err := ac.DB.Where("email = ?", input.Email).First(&user).Error; err != nil {
 		return c.Status(404).JSON(fiber.Map{"error": "User not found"})
 	}

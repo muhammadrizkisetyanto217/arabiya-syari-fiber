@@ -2,7 +2,7 @@
 
 import (
 	"log"
-	models "arabiya-syari-fiber/internals/models/quizzes"
+	"arabiya-syari-fiber/internals/models/quizzes"
 
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
@@ -20,7 +20,7 @@ func NewEvaluationController(db *gorm.DB) *EvaluationController {
 // ✅ Get all evaluations
 func (ec *EvaluationController) GetEvaluations(c *fiber.Ctx) error {
 	log.Println("[INFO] Fetching all evaluations")
-	var evaluations []models.EvaluationModel
+	var evaluations []quizzes.EvaluationModel
 	if err := ec.DB.Find(&evaluations).Error; err != nil {
 		log.Printf("[ERROR] Failed to fetch evaluations: %v\n", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch evaluations"})
@@ -34,7 +34,7 @@ func (ec *EvaluationController) GetEvaluation(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Printf("[INFO] Fetching evaluation with ID: %s\n", id)
 
-	var evaluation models.EvaluationModel
+	var evaluation quizzes.EvaluationModel
 	if err := ec.DB.First(&evaluation, id).Error; err != nil {
 		log.Printf("[ERROR] Evaluation with ID %s not found\n", id)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Evaluation not found"})
@@ -48,7 +48,7 @@ func (ec *EvaluationController) GetEvaluationsByUnitID(c *fiber.Ctx) error {
 	unitID := c.Params("unitId")
 	log.Printf("[INFO] Fetching evaluations with unit ID: %s\n", unitID)
 
-	var evaluations []models.EvaluationModel
+	var evaluations []quizzes.EvaluationModel
 	if err := ec.DB.Where("unit_id = ?", unitID).Find(&evaluations).Error; err != nil {
 		log.Printf("[ERROR] Failed to fetch evaluations for unit ID %s: %v\n", unitID, err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch evaluations"})
@@ -60,7 +60,7 @@ func (ec *EvaluationController) GetEvaluationsByUnitID(c *fiber.Ctx) error {
 // ✅ Create new evaluation
 func (ec *EvaluationController) CreateEvaluation(c *fiber.Ctx) error {
 	log.Println("[INFO] Creating a new evaluation")
-	var evaluation models.EvaluationModel
+	var evaluation quizzes.EvaluationModel
 
 	if err := c.BodyParser(&evaluation); err != nil {
 		log.Printf("[ERROR] Invalid input: %v\n", err)
@@ -80,7 +80,7 @@ func (ec *EvaluationController) UpdateEvaluation(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Printf("[INFO] Updating evaluation with ID: %s\n", id)
 
-	var evaluation models.EvaluationModel
+	var evaluation quizzes.EvaluationModel
 	if err := ec.DB.First(&evaluation, id).Error; err != nil {
 		log.Printf("[ERROR] Evaluation with ID %s not found\n", id)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Evaluation not found"})
@@ -104,7 +104,7 @@ func (ec *EvaluationController) DeleteEvaluation(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Printf("[INFO] Deleting evaluation with ID: %s\n", id)
 
-	if err := ec.DB.Delete(&models.EvaluationModel{}, id).Error; err != nil {
+	if err := ec.DB.Delete(&quizzes.EvaluationModel{}, id).Error; err != nil {
 		log.Printf("[ERROR] Failed to delete evaluation: %v\n", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete evaluation"})
 	}

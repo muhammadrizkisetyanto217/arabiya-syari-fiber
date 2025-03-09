@@ -1,4 +1,4 @@
-package routes
+package auth
 
 import (
 	"arabiya-syari-fiber/internals/controllers/user"
