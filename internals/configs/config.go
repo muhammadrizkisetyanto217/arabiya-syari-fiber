@@ -13,6 +13,7 @@ func LoadEnv() {
 	if err != nil {
 		log.Fatal("❌ Gagal memuat .env file. Pastikan file .env tersedia!")
 	}
+	log.Println("✅ .env file berhasil dimuat!")
 }
 
 // GetEnv mengambil nilai dari .env dengan default value

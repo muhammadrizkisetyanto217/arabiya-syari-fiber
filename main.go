@@ -15,6 +15,9 @@ func main() {
 	// ✅ Load environment variables
 	configs.LoadEnv()
 
+	// ✅ Debug: Cek apakah JWT_SECRET terbaca
+	log.Println("JWT_SECRET:", configs.GetEnv("JWT_SECRET"))
+
 	// ✅ Koneksi ke database
 	database.ConnectDB()
 

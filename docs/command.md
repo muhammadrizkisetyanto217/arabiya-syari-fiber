@@ -25,3 +25,11 @@ Jika ingin menghapus versi 20250306232632 dari database secara manual, jalankan 
 DELETE FROM schema_migrations WHERE version = 20250306232632;
 
 Kemudian jalankan ulang migrasi:
+
+
+# JWT
+muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % export JWT_SECRET=rahasia_dong
+
+muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % echo $JWT_SECRET
+
+rahasia_dong

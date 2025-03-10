@@ -1,8 +1,4 @@
 CREATE TABLE IF NOT EXISTS difficulties (
--- 20250222144135
-
-/*************  ✨ Smart Paste 📚  *************/
-/******  fa015b7e-ae89-45aa-9f09-73ddfb448935  *******/
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
     description_short VARCHAR(200),

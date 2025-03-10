@@ -2,7 +2,9 @@ package user
 
 import (
 	// "errors"
+	"errors"
 	"log"
+	"os"
 	// "os"
 	"strings"
 	"time"
@@ -137,7 +139,7 @@ func (ac *AuthController) Logout(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(fiber.Map{"message": "Logged out successfully"})
-	
+
 }
 
 // 🔥 CHANGE PASSWORD (Menggunakan c.Locals dan Transaksi)
@@ -196,7 +198,6 @@ func (ac *AuthController) ChangePassword(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"message": "Password changed successfully"})
 }
 
-
 // 🔥 FORGOT PASSWORD DENGAN PERTANYAAN KEAMANAN
 func (ac *AuthController) ForgotPassword(c *fiber.Ctx) error {
 	var input struct {
@@ -236,6 +237,7 @@ func (ac *AuthController) ForgotPassword(c *fiber.Ctx) error {
 }
 
 
+
 // 🔥 Middleware untuk proteksi route
 func AuthMiddleware(db *gorm.DB) fiber.Handler {
 	return func(c *fiber.Ctx) error {
@@ -252,28 +254,59 @@ func AuthMiddleware(db *gorm.DB) fiber.Handler {
 
 		tokenString := tokenParts[1]
 
-		// Cek blacklist token
+		// 🔍 Cek apakah token sudah di blacklist
 		var existingToken auth.TokenBlacklist
-		if err := db.Where("token = ?", tokenString).First(&existingToken).Error; err == nil {
+		err := db.Where("token = ?", tokenString).First(&existingToken).Error
+
+		if err == nil {
+			log.Println("[WARNING] Token ditemukan di blacklist, akses ditolak.")
 			return c.Status(401).JSON(fiber.Map{"error": "Unauthorized - Token is blacklisted"})
+		} else if !errors.Is(err, gorm.ErrRecordNotFound) {
+			log.Println("[ERROR] Database error saat cek token blacklist:", err)
+			return c.Status(500).JSON(fiber.Map{"error": "Internal Server Error"})
 		}
 
-		// Validasi JWT token
+		// ✅ Ambil Secret Key dari Environment Variables
+		secretKey := os.Getenv("JWT_SECRET")
+		if secretKey == "" {
+			log.Println("[ERROR] JWT_SECRET tidak ditemukan di environment")
+			return c.Status(500).JSON(fiber.Map{"error": "Internal Server Error - Missing JWT Secret"})
+		}
+
+		// 🔍 Validasi JWT token
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-			return []byte(SecretKey), nil
+			return []byte(secretKey), nil
 		})
 
 		if err != nil || !token.Valid {
+			log.Println("[ERROR] Token tidak valid:", err)
 			return c.Status(401).JSON(fiber.Map{"error": "Unauthorized - Invalid token"})
 		}
 
-		// Cek Expired
-		claims := token.Claims.(jwt.MapClaims)
-		exp := int64(claims["exp"].(float64))
-		if time.Now().Unix() > exp {
+		// 🔍 Cek apakah token sudah expired
+		claims, ok := token.Claims.(jwt.MapClaims)
+		if !ok {
+			log.Println("[ERROR] Token claims tidak valid")
+			return c.Status(401).JSON(fiber.Map{"error": "Unauthorized - Invalid token claims"})
+		}
+
+		exp, exists := claims["exp"].(float64)
+		if !exists {
+			log.Println("[ERROR] Token tidak memiliki exp")
+			return c.Status(401).JSON(fiber.Map{"error": "Unauthorized - Token has no expiration"})
+		}
+
+		// 🔍 Log waktu expired token untuk debugging
+		expTime := time.Unix(int64(exp), 0)
+		log.Printf("[INFO] Token Expiration Time: %v", expTime)
+
+		if time.Now().Unix() > int64(exp) {
+			log.Println("[ERROR] Token sudah expired")
 			return c.Status(401).JSON(fiber.Map{"error": "Unauthorized - Token expired"})
 		}
 
+		// 🔥 Lanjut ke route berikutnya jika token valid
+		log.Println("[SUCCESS] Token valid, lanjutkan request")
 		return c.Next()
 	}
 }
