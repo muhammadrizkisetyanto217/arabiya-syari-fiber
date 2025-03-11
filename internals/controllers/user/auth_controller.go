@@ -5,6 +5,7 @@ import (
 	"errors"
 	"log"
 	"os"
+
 	// "os"
 	"strings"
 	"time"
@@ -139,7 +140,6 @@ func (ac *AuthController) Logout(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(fiber.Map{"message": "Logged out successfully"})
-
 }
 
 // 🔥 CHANGE PASSWORD (Menggunakan c.Locals dan Transaksi)
@@ -236,12 +236,13 @@ func (ac *AuthController) ForgotPassword(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"message": "Password reset successfully"})
 }
 
-
-
 // 🔥 Middleware untuk proteksi route
 func AuthMiddleware(db *gorm.DB) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		authHeader := c.Get("Authorization")
+
+		// Debugging: Cek apakah Authorization Header diterima
+		log.Println("[DEBUG] Authorization Header:", authHeader)
 
 		if authHeader == "" {
 			return c.Status(401).JSON(fiber.Map{"error": "Unauthorized - No token provided"})
@@ -295,6 +296,21 @@ func AuthMiddleware(db *gorm.DB) fiber.Handler {
 			log.Println("[ERROR] Token tidak memiliki exp")
 			return c.Status(401).JSON(fiber.Map{"error": "Unauthorized - Token has no expiration"})
 		}
+
+		// ✅ Tambahkan debugging untuk melihat isi token claims
+		log.Println("[DEBUG] Token Claims:", claims)
+
+		// Ambil `id` dari token (biasanya disimpan sebagai float64)
+		userID, exists := claims["id"].(float64)
+		if !exists {
+			log.Println("[ERROR] User ID not found in token claims")
+			return c.Status(401).JSON(fiber.Map{"error": "Unauthorized - No user ID in token"})
+		}
+
+		
+		// Simpan `user_id` ke context
+		c.Locals("user_id", uint(userID))
+		log.Println("[SUCCESS] User ID stored in context:", uint(userID))
 
 		// 🔍 Log waktu expired token untuk debugging
 		expTime := time.Unix(int64(exp), 0)
