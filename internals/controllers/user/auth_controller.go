@@ -198,20 +198,19 @@ func (ac *AuthController) ChangePassword(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"message": "Password changed successfully"})
 }
 
-// 🔥 FORGOT PASSWORD DENGAN PERTANYAAN KEAMANAN
-func (ac *AuthController) ForgotPassword(c *fiber.Ctx) error {
+// 🔥 CHECK SECURITY ANSWER
+func (ac *AuthController) CheckSecurityAnswer(c *fiber.Ctx) error {
 	var input struct {
-		Email       string `json:"email"`
-		Answer      string `json:"security_answer"`
-		NewPassword string `json:"new_password"`
+		Email  string `json:"email"`
+		Answer string `json:"security_answer"`
 	}
 
-	// 📌 Parsing body JSON
+	// 📌 Parsing JSON input
 	if err := c.BodyParser(&input); err != nil {
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid request format"})
 	}
 
-	// 📌 Cek apakah user ada di database
+	// 📌 Cek user berdasarkan email
 	var user user.UserModel
 	if err := ac.DB.Where("email = ?", input.Email).First(&user).Error; err != nil {
 		return c.Status(404).JSON(fiber.Map{"error": "User not found"})
@@ -222,19 +221,50 @@ func (ac *AuthController) ForgotPassword(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"error": "Incorrect security answer"})
 	}
 
-	// 📌 Hash password baru sebelum disimpan
+	// 📌 Response berhasil validasi
+	return c.JSON(fiber.Map{
+		"message": "Security answer correct",
+		"email":   user.Email,
+	})
+}
+
+
+// 🔥 RESET PASSWORD
+func (ac *AuthController) ResetPassword(c *fiber.Ctx) error {
+	var input struct {
+		Email       string `json:"email"`
+		NewPassword string `json:"new_password"`
+	}
+
+	// 📌 Parsing JSON input
+	if err := c.BodyParser(&input); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid request format"})
+	}
+
+	// 📌 Cek user berdasarkan email kembali untuk memastikan
+	var user user.UserModel
+	if err := ac.DB.Where("email = ?", input.Email).First(&user).Error; err != nil {
+		return c.Status(404).JSON(fiber.Map{"error": "User not found"})
+	}
+
+	// 📌 Hashing password baru
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.NewPassword), bcrypt.DefaultCost)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to hash new password"})
 	}
 
-	// 📌 Update password user di database
+	// 📌 Update password di database
 	if err := ac.DB.Model(&user).Update("password", string(hashedPassword)).Error; err != nil {
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to update password"})
 	}
 
-	return c.JSON(fiber.Map{"message": "Password reset successfully"})
+	// 📌 Response sukses reset password
+	return c.JSON(fiber.Map{
+		"message": "Password reset successfully",
+	})
 }
+
+
 
 // 🔥 Middleware untuk proteksi route
 func AuthMiddleware(db *gorm.DB) fiber.Handler {
@@ -307,7 +337,7 @@ func AuthMiddleware(db *gorm.DB) fiber.Handler {
 			return c.Status(401).JSON(fiber.Map{"error": "Unauthorized - No user ID in token"})
 		}
 
-		
+
 		// Simpan `user_id` ke context
 		c.Locals("user_id", uint(userID))
 		log.Println("[SUCCESS] User ID stored in context:", uint(userID))
