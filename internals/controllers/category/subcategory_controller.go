@@ -37,11 +37,11 @@ func (sc *SubcategoryController) GetSubcategory(c *fiber.Ctx) error {
 }
 
 func (sc *SubcategoryController) GetSubcategoriesByCategory(c *fiber.Ctx) error {
-	categoryID := c.Params("category_id")
+	categoryID := c.Params("categories_id")
 	log.Printf("[INFO] Fetching subcategories with category ID: %s\n", categoryID)
 
 	var subcategories []category.SubcategoryModel
-	if err := sc.DB.Where("category_id = ?", categoryID).Find(&subcategories).Error; err != nil {
+	if err := sc.DB.Where("categories_id = ?", categoryID).Find(&subcategories).Error; err != nil {
 		log.Printf("[ERROR] Failed to fetch subcategories for category ID %s: %v\n", categoryID, err)
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to fetch subcategories"})
 	}

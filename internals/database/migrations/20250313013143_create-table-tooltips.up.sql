@@ -1,0 +1,8 @@
+CREATE TABLE tooltips (
+    id SERIAL PRIMARY KEY,
+    keyword VARCHAR(100) UNIQUE NOT NULL,
+    description_short VARCHAR(200) NOT NULL,
+    description_long TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

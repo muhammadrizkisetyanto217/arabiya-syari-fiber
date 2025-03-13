@@ -5,6 +5,7 @@ import (
 	categoryRoutes "arabiya-syari-fiber/internals/routes/category"
 	DonationRoutes "arabiya-syari-fiber/internals/routes/donation"
 	UserRoutes "arabiya-syari-fiber/internals/routes/user"
+	utilsRoutes "arabiya-syari-fiber/internals/routes/utils" // Add this line.
 
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
@@ -17,6 +18,6 @@ func SetupRoutes(app *fiber.App, db *gorm.DB) {
 	categoryRoutes.QuizzesRoutes(app, db)
 	UserRoutes.SetupRoutes(app, db)
 	DonationRoutes.DonationRoutes(app, db)
-
+	utilsRoutes.UtilsRoutes(app, db) // Add this line.
 
 }

@@ -38,7 +38,7 @@ func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 	subcategoryRoutes := api.Group("/subcategories")
 	subcategoryRoutes.Get("/", subcategoryController.GetSubcategories)
 	subcategoryRoutes.Get("/:id", subcategoryController.GetSubcategory)
-	subcategoryRoutes.Get("/category/:category_id", subcategoryController.GetSubcategoriesByCategory)
+	subcategoryRoutes.Get("/category/:categories_id", subcategoryController.GetSubcategoriesByCategory)
 	subcategoryRoutes.Post("/", subcategoryController.CreateSubcategory)
 	subcategoryRoutes.Put("/:id", subcategoryController.UpdateSubcategory)
 	subcategoryRoutes.Delete("/:id", subcategoryController.DeleteSubcategory)
@@ -46,9 +46,10 @@ func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 	// 🎯 Themes or Levels Routes
 	themeOrLevelController := category.NewThemeOrLevelController(db)
 	themeOrLevelRoutes := api.Group("/themes-or-levels")
-	themeOrLevelRoutes.Get("/", themeOrLevelController.GetThemesOrLevels)
+	themeOrLevelRoutes.Get("/", themeOrLevelController.GetThemeOrLevels)
 	themeOrLevelRoutes.Get("/:id", themeOrLevelController.GetThemeOrLevel)
 	themeOrLevelRoutes.Post("/", themeOrLevelController.CreateThemeOrLevel)
+	themeOrLevelRoutes.Get("/subcategories/:subcategories_id", themeOrLevelController.GetThemesOrLevelsBySubcategory)
 	themeOrLevelRoutes.Put("/:id", themeOrLevelController.UpdateThemeOrLevel)
 	themeOrLevelRoutes.Delete("/:id", themeOrLevelController.DeleteThemeOrLevel)
 

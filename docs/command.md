@@ -5,7 +5,7 @@ muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % migrate creat
 
 
 # Up-Down migrasi
-muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % migrate -database "postgresql://postgres:qXdMRsMSGEgQvVrLuBjmUAGkytJwsaWk@trolley.proxy.rlwy.net:59123/railway" -path internals/database/migrations/user up
+muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % migrate -database "postgresql://postgres:qXdMRsMSGEgQvVrLuBjmUAGkytJwsaWk@trolley.proxy.rlwy.net:59123/railway" -path internals/database/migrations up
 
 # Dirty migrasi
 muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % migrate -database "postgresql://postgres:qXdMRsMSGEgQvVrLuBjmUAGkytJwsaWk@trolley.proxy.rlwy.net:59123/railway" -path internals/database/migrations force 20250221005048
@@ -33,3 +33,7 @@ muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % export JWT_SE
 muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % echo $JWT_SECRET
 
 rahasia_dong
+
+
+# Mencari kata 
+muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % grep -r "subategories_id" .
