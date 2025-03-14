@@ -5,6 +5,11 @@ muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % migrate creat
 
 
 # Up-Down migrasi
+Masukan number untuk mengarahkan mau berapa banyak file yang di up/down. Misal 1,2,3 dst
+**UP**
+muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % migrate -database "postgresql://postgres:qXdMRsMSGEgQvVrLuBjmUAGkytJwsaWk@trolley.proxy.rlwy.net:59123/railway" -path internals/database/migrations up
+
+**DOWN**
 muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % migrate -database "postgresql://postgres:qXdMRsMSGEgQvVrLuBjmUAGkytJwsaWk@trolley.proxy.rlwy.net:59123/railway" -path internals/database/migrations up
 
 # Dirty migrasi

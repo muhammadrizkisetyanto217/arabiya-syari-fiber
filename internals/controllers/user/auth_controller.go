@@ -68,6 +68,7 @@ func (ac *AuthController) Register(c *fiber.Ctx) error {
 }
 
 // 🔥 LOGIN USER
+// 🔥 LOGIN USER
 func (ac *AuthController) Login(c *fiber.Ctx) error {
 	var input struct {
 		Identifier string `json:"identifier"` // Bisa Email atau Nama
@@ -81,7 +82,7 @@ func (ac *AuthController) Login(c *fiber.Ctx) error {
 
 	// Cek user berdasarkan Email atau Nama
 	var user user.UserModel
-	if err := ac.DB.Where("email = ? OR name = ?", input.Identifier, input.Identifier).First(&user).Error; err != nil {
+	if err := ac.DB.Where("email = ? OR user_name = ?", input.Identifier, input.Identifier).First(&user).Error; err != nil {
 		log.Printf("[ERROR] User not found: Identifier=%s", input.Identifier)
 		return c.Status(401).JSON(fiber.Map{"error": "Invalid email, username, or password"})
 	}
@@ -105,8 +106,25 @@ func (ac *AuthController) Login(c *fiber.Ctx) error {
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to generate token"})
 	}
 
+	// 🔥 Hapus password sebelum mengembalikan data
+	user.Password = ""
+
+	// 🔥 Format response JSON
 	log.Printf("[SUCCESS] User logged in: ID=%d, Email=%s", user.ID, user.Email)
-	return c.JSON(fiber.Map{"token": tokenString})
+	return c.JSON(fiber.Map{
+		"token": tokenString,
+		"user": fiber.Map{
+			"id":             user.ID,
+			"user_name":      user.UserName,
+			"email":          user.Email,
+			"google_id":      user.GoogleID,
+			"role":           user.Role,
+			"donation_name":  user.DonationName,
+			"original_name":  user.OriginalName,
+			"created_at":     user.CreatedAt,
+			"updated_at":     user.UpdatedAt,
+		},
+	})
 }
 
 // 🔥 LOGOUT USER

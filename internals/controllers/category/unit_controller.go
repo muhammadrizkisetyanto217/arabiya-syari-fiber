@@ -16,6 +16,7 @@ func NewUnitController(db *gorm.DB) *UnitController {
 	return &UnitController{DB: db}
 }
 
+//* GET ALL UNITS
 func (uc *UnitController) GetUnits(c *fiber.Ctx) error {
 	log.Println("Fetching all units")
 	var units []category.UnitModel

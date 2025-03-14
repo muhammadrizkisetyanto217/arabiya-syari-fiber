@@ -1,1 +1,0 @@
-DROP COLUMN IF EXISTS tooltips_id;

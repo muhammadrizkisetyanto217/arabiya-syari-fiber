@@ -11,17 +11,20 @@ import (
 // Validator instance
 var validate = validator.New()
 
+// UserModel merepresentasikan tabel users di database
 type UserModel struct {
-	ID        uint           `gorm:"primaryKey" json:"id"`
-	Name      string         `gorm:"size:50;not null" json:"name" validate:"required,min=3,max=50"`
-	Email     string         `gorm:"size:255;unique;not null" json:"email" validate:"required,email"`
-	Password  string         `gorm:"not null" json:"password" validate:"required,min=8"`
-	GoogleID  *string        `gorm:"size:255;unique" json:"google_id,omitempty"`
-	Role      string         `gorm:"type:varchar(20);not null;default:'user'" json:"role" validate:"required,oneof=owner user teacher treasurer admin"`
+	ID               uint      `gorm:"primaryKey" json:"id"`
+	UserName         string    `gorm:"size:50;not null" json:"user_name" validate:"required,min=3,max=50"`
+	Email            string    `gorm:"size:255;unique;not null" json:"email" validate:"required,email"`
+	Password         string    `gorm:"not null" json:"password" validate:"required,min=8"`
+	GoogleID         *string   `gorm:"size:255;unique" json:"google_id,omitempty"`
+	Role             string    `gorm:"type:varchar(20);not null;default:'user'" json:"role" validate:"required,oneof=owner user teacher treasurer admin"`
 	SecurityQuestion string    `gorm:"not null" json:"security_question"`
-    SecurityAnswer  string    `gorm:"size:255;not null" json:"security_answer"`
-	CreatedAt time.Time      `gorm:"autoCreateTime" json:"created_at"`
-	UpdatedAt time.Time      `gorm:"autoUpdateTime" json:"updated_at"`
+	SecurityAnswer   string    `gorm:"size:255;not null" json:"security_answer"`
+	DonationName     *string   `gorm:"size:100" json:"donation_name,omitempty"` // ✅ Ditambahkan
+	OriginalName     *string   `gorm:"size:100" json:"original_name,omitempty"` // ✅ Ditambahkan
+	CreatedAt        time.Time `gorm:"autoCreateTime" json:"created_at"`
+	UpdatedAt        time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }
 
 // TableName memastikan nama tabel sesuai dengan skema database
