@@ -38,7 +38,7 @@ func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 	subcategoryRoutes := api.Group("/subcategories")
 	subcategoryRoutes.Get("/", subcategoryController.GetSubcategories)
 	subcategoryRoutes.Get("/:id", subcategoryController.GetSubcategory)
-	subcategoryRoutes.Get("/category/:categories_id", subcategoryController.GetSubcategoriesByCategory)
+	subcategoryRoutes.Get("/category/:category_id", subcategoryController.GetSubcategoriesByCategory)
 	subcategoryRoutes.Post("/", subcategoryController.CreateSubcategory)
 	subcategoryRoutes.Put("/:id", subcategoryController.UpdateSubcategory)
 	subcategoryRoutes.Delete("/:id", subcategoryController.DeleteSubcategory)
@@ -49,7 +49,7 @@ func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 	themeOrLevelRoutes.Get("/", themeOrLevelController.GetThemeOrLevels)
 	themeOrLevelRoutes.Get("/:id", themeOrLevelController.GetThemeOrLevel)
 	themeOrLevelRoutes.Post("/", themeOrLevelController.CreateThemeOrLevel)
-	themeOrLevelRoutes.Get("/subcategories/:subcategories_id", themeOrLevelController.GetThemesOrLevelsBySubcategory)
+	themeOrLevelRoutes.Get("/subcategories/:subcategory_id", themeOrLevelController.GetThemesOrLevelsBySubcategory)
 	themeOrLevelRoutes.Put("/:id", themeOrLevelController.UpdateThemeOrLevel)
 	themeOrLevelRoutes.Delete("/:id", themeOrLevelController.DeleteThemeOrLevel)
 
@@ -58,7 +58,7 @@ func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 	unitRoutes := api.Group("/units")
 	unitRoutes.Get("/", unitController.GetUnits)
 	unitRoutes.Get("/:id", unitController.GetUnit)
-	unitRoutes.Get("/themes-or-levels/:themesOrLevelId", unitController.GetUnitByThemesOrLevels) // ✅ Gunakan `-` bukan `_`
+	unitRoutes.Get("/themes-or-levels/:themesOrLevelId", unitController.GetUnitByThemesOrLevels)
 	unitRoutes.Post("/", unitController.CreateUnit)
 	unitRoutes.Put("/:id", unitController.UpdateUnit)
 	unitRoutes.Delete("/:id", unitController.DeleteUnit)

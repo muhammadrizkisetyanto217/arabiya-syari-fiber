@@ -23,6 +23,10 @@ func QuizzesRoutes(app *fiber.App, db *gorm.DB) {
 	readingRoutes.Post("/", readingController.CreateReading)
 	readingRoutes.Put("/:id", readingController.UpdateReading)
 	readingRoutes.Delete("/:id", readingController.DeleteReading)
+	readingRoutes.Get("/:id/readingTooltips", readingController.GetReadingWithTooltips)
+	readingRoutes.Get("/:id/convertTooltips", readingController.ConvertReadingWithTooltipsId)
+	readingRoutes.Get("/:id/onlyTooltips", readingController.GetOnlyReadingTooltips)
+
 
 	// 🔥 Section Quizzes Routes
 	sectionQuizzesController := quizzes.NewSectionQuizController(db)

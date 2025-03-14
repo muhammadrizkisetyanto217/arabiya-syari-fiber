@@ -1,9 +1,10 @@
-package tooltips
+package utils
 
 import (
 	"log"
 	"time"
 
+	"arabiya-syari-fiber/internals/database"
 	tooltips "arabiya-syari-fiber/internals/models/utils"
 
 	"github.com/gofiber/fiber/v2"
@@ -20,7 +21,6 @@ func NewTooltipsController(db *gorm.DB) *TooltipsController {
 	return &TooltipsController{DB: db}
 }
 
-// GetTooltips menangani permintaan untuk mendapatkan tooltips berdasarkan keyword
 func (tc *TooltipsController) GetTooltips(c *fiber.Ctx) error {
 	log.Println("Fetching tooltips for given keywords")
 
@@ -34,21 +34,21 @@ func (tc *TooltipsController) GetTooltips(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
 	}
 
-	// Inisialisasi hasil
-	tooltipsMap := make(map[string]map[string]string)
+	// Inisialisasi array untuk menyimpan ID tooltips
+	var tooltipIDs []uint
 
 	// Loop pencarian keyword dalam database
 	for _, keyword := range request.Keywords {
 		var tooltip tooltips.Tooltip
-		if err := tc.DB.Where("keyword = ?", keyword).First(&tooltip).Error; err == nil {
-			tooltipsMap[keyword] = map[string]string{
-				"description_short": tooltip.DescriptionShort,
-				"description_long":  tooltip.DescriptionLong,
-			}
+		if err := database.DB.Select("id").Where("keyword = ?", keyword).First(&tooltip).Error; err == nil {
+			tooltipIDs = append(tooltipIDs, tooltip.ID)
 		}
 	}
 
-	return c.JSON(tooltipsMap)
+	// Mengembalikan array ID tooltips
+	return c.JSON(fiber.Map{
+		"tooltips_id": tooltipIDs,
+	})
 }
 
 // InsertTooltip menangani permintaan untuk menambahkan tooltips baru
@@ -105,3 +105,7 @@ func (tc *TooltipsController) GetAllTooltips(c *fiber.Ctx) error {
 
 	return c.JSON(tooltips)
 }
+
+
+
+

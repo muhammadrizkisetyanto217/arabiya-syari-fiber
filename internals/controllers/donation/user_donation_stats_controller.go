@@ -2,7 +2,6 @@ package donation
 
 import (
 	"log"
-	"time"
 
 	"arabiya-syari-fiber/internals/models/donation"
 
@@ -91,7 +90,7 @@ func (udlc *UserDonationLogsController) Update(c *fiber.Ctx) error {
 	return c.JSON(logEntry)
 }
 
-// Soft delete a donation log
+// Hard delete a donation log (Permanent Delete)
 func (udlc *UserDonationLogsController) Delete(c *fiber.Ctx) error {
 	id, err := c.ParamsInt("id")
 	if err != nil {
@@ -99,10 +98,13 @@ func (udlc *UserDonationLogsController) Delete(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid ID"})
 	}
 
-	log.Println("Deleting donation log with ID:", id)
-	if err := udlc.DB.Model(&donation.UserDonationLogModel{}).Where("id = ?", id).Update("deleted_at", time.Now()).Error; err != nil {
+	log.Println("Permanently deleting donation log with ID:", id)
+
+	// Gunakan Unscoped().Delete() untuk menghapus tanpa soft delete
+	if err := udlc.DB.Unscoped().Where("id = ?", id).Delete(&donation.UserDonationLogModel{}).Error; err != nil {
 		log.Println("Error deleting donation log:", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete donation log"})
 	}
+
 	return c.JSON(fiber.Map{"message": "Donation log deleted successfully"})
 }

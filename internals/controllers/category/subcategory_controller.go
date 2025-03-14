@@ -37,7 +37,7 @@ func (sc *SubcategoryController) GetSubcategory(c *fiber.Ctx) error {
 }
 
 func (sc *SubcategoryController) GetSubcategoriesByCategory(c *fiber.Ctx) error {
-	categoryID := c.Params("categories_id")
+	categoryID := c.Params("category_id")
 	log.Printf("[INFO] Fetching subcategories with category ID: %s\n", categoryID)
 
 	var subcategories []category.SubcategoryModel

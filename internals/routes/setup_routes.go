@@ -1,11 +1,11 @@
 package routes
 
 import (
-	authRoutes "arabiya-syari-fiber/internals/routes/auth"
-	categoryRoutes "arabiya-syari-fiber/internals/routes/category"
-	DonationRoutes "arabiya-syari-fiber/internals/routes/donation"
-	UserRoutes "arabiya-syari-fiber/internals/routes/user"
-	utilsRoutes "arabiya-syari-fiber/internals/routes/utils" // Add this line.
+	"arabiya-syari-fiber/internals/routes/auth"
+	"arabiya-syari-fiber/internals/routes/category"
+	 "arabiya-syari-fiber/internals/routes/donation"
+	 "arabiya-syari-fiber/internals/routes/user"
+	 "arabiya-syari-fiber/internals/routes/utils" // Add this line.
 
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
@@ -13,11 +13,11 @@ import (
 
 // Register routes
 func SetupRoutes(app *fiber.App, db *gorm.DB) {
-	authRoutes.UserRoutes(app, db)
-	categoryRoutes.CategoryRoutes(app, db)
-	categoryRoutes.QuizzesRoutes(app, db)
-	UserRoutes.SetupRoutes(app, db)
-	DonationRoutes.DonationRoutes(app, db)
-	utilsRoutes.UtilsRoutes(app, db) // Add this line.
+	auth.UserRoutes(app, db)
+	category.CategoryRoutes(app, db)
+	category.QuizzesRoutes(app, db)
+	user.UsersProfileRoutes(app, db)
+	donation.DonationRoutes(app, db)
+	utils.UtilsRoutes(app, db) // Add this line.
 
 }

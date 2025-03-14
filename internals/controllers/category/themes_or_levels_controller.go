@@ -38,7 +38,7 @@ func (tc *ThemeOrLevelController) GetThemeOrLevel(c *fiber.Ctx) error {
 }
 
 func (tc *ThemeOrLevelController) GetThemesOrLevelsBySubcategory(c *fiber.Ctx) error {
-	subcategoryID := c.Params("subcategories_id")
+	subcategoryID := c.Params("subcategory_id")
 	log.Printf("[INFO] Fetching themes or levels for subcategory ID: %s\n", subcategoryID)
 
 	var themesOrLevels []category.ThemesOrLevelModel

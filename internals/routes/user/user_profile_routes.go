@@ -8,7 +8,7 @@ import (
 )
 
 // SetupRoutes: Register semua routes terkait Users Profile
-func SetupRoutes(app *fiber.App, db *gorm.DB) {
+func UsersProfileRoutes(app *fiber.App, db *gorm.DB) {
 	// Inisialisasi controller
 	usersProfileController := user.NewUsersProfileController(db)
 

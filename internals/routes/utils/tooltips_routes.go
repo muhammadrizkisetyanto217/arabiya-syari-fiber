@@ -1,18 +1,26 @@
-package routes
+package utils
 
 import (
-	tooltips "arabiya-syari-fiber/internals/controllers/utils"
+	"arabiya-syari-fiber/internals/controllers/utils"
 
+	"arabiya-syari-fiber/internals/controllers/user" // Middleware Auth
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
 
-// SetupRoutes menghubungkan routes dengan controller
+// 🔥 Setup Routes untuk Tooltips
 func UtilsRoutes(app *fiber.App, db *gorm.DB) {
-	tooltipsController := tooltips.NewTooltipsController(db)
+	// 🔒 Middleware Auth diaktifkan untuk seluruh API /api/utils/*
+	api := app.Group("/api", user.AuthMiddleware(db))
 
-	app.Post("/get-tooltips", tooltipsController.GetTooltips)
-	app.Post("/insert-tooltip", tooltipsController.InsertTooltip)
-	app.Get("/get-all-tooltips", tooltipsController.GetAllTooltips) // 🔥 Endpoint untuk mendapatkan semua tooltips
+	// 🛠️ Grup untuk utils (tooltips)
+	utilsRoutes := api.Group("/utils")
+
+	// 🎯 Inisialisasi Controller
+	tooltipsController := utils.NewTooltipsController(db)
+
+	// 🔥 Endpoint untuk tooltips
+	utilsRoutes.Post("/get-tooltips", tooltipsController.GetTooltips)
+	utilsRoutes.Post("/insert-tooltip", tooltipsController.InsertTooltip)
+	utilsRoutes.Get("/get-all-tooltips", tooltipsController.GetAllTooltips) // 🔥 Mendapatkan semua tooltips
 }
- 
