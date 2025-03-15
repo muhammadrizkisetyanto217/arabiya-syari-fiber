@@ -33,6 +33,14 @@ func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 	categoryRoutes.Put("/:id", categoryController.UpdateCategory)
 	categoryRoutes.Delete("/:id", categoryController.DeleteCategory)
 
+	publicCategoryRoutes := app.Group("/api/public/categories")
+	publicCategoryRoutes.Get("/", categoryController.GetCategories)
+	publicCategoryRoutes.Get("/:id", categoryController.GetCategory)
+	publicCategoryRoutes.Get("/difficulty/:difficulty_id", categoryController.GetCategoriesByDifficulty)
+	publicCategoryRoutes.Post("/", categoryController.CreateCategory)
+	publicCategoryRoutes.Put("/:id", categoryController.UpdateCategory)
+	publicCategoryRoutes.Delete("/:id", categoryController.DeleteCategory)
+
 	// 🎯 Subcategory Routes
 	subcategoryController := category.NewSubcategoryController(db)
 	subcategoryRoutes := api.Group("/subcategories")

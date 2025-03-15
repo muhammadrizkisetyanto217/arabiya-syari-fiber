@@ -17,6 +17,7 @@ type CategoryModel struct {
 }
 
 
+
 func (CategoryModel) TableName() string {
 	return "categories"
 }
