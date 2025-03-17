@@ -1,4 +1,4 @@
-package tooltips
+package utils
 
 import "time"
 

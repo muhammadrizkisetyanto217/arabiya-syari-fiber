@@ -2,7 +2,7 @@ package quizzes
 
 import (
 	"arabiya-syari-fiber/internals/models/quizzes"
-	tooltips "arabiya-syari-fiber/internals/models/utils"
+	"arabiya-syari-fiber/internals/models/utils"
 	"log"
 	"regexp"
 	"strconv"
@@ -58,60 +58,6 @@ func (rc *ReadingController) GetReadingsByUnit(c *fiber.Ctx) error {
 	return c.JSON(readings)
 }
 
-// Get a single reading by ID with Tooltips
-func (rc *ReadingController) GetReadingWithTooltips(c *fiber.Ctx) error {
-	id := c.Params("id")
-	log.Printf("[INFO] Fetching reading with ID: %s\n", id)
-
-	var reading quizzes.ReadingModel
-	if err := rc.DB.First(&reading, id).Error; err != nil {
-		log.Println("[ERROR] Reading not found:", err)
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Reading not found"})
-	}
-
-	// Fetch Tooltips
-	var tooltips []tooltips.Tooltip
-	if len(reading.TooltipsID) > 0 {
-		if err := rc.DB.Where("id = ANY(?)", pq.Array(reading.TooltipsID)).Find(&tooltips).Error; err != nil {
-			log.Println("[ERROR] Failed to fetch tooltips:", err)
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch tooltips"})
-		}
-	}
-
-	log.Printf("[SUCCESS] Retrieved reading with ID: %s\n", id)
-	return c.JSON(fiber.Map{
-		"reading":  reading,
-		"tooltips": tooltips,
-	})
-}
-
-// Get a onlyReading by ID with Tooltips
-func (rc *ReadingController) GetOnlyReadingTooltips(c *fiber.Ctx) error {
-	id := c.Params("id")
-	log.Printf("[INFO] Fetching reading with ID: %s\n", id)
-
-	var reading quizzes.ReadingModel
-	if err := rc.DB.First(&reading, id).Error; err != nil {
-		log.Println("[ERROR] Reading not found:", err)
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Reading not found"})
-	}
-
-	// Fetch Tooltips
-	var tooltips []tooltips.Tooltip
-	if len(reading.TooltipsID) > 0 {
-		if err := rc.DB.Where("id = ANY(?)", pq.Array(reading.TooltipsID)).Find(&tooltips).Error; err != nil {
-			log.Println("[ERROR] Failed to fetch tooltips:", err)
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch tooltips"})
-		}
-	}
-
-	log.Printf("[SUCCESS] Retrieved reading with ID: %s\n", id)
-	return c.JSON(fiber.Map{
-		// "reading":  reading,
-		"tooltips": tooltips,
-	})
-}
-
 // Create a new reading
 func (rc *ReadingController) CreateReading(c *fiber.Ctx) error {
 	log.Println("Creating a new reading")
@@ -158,8 +104,62 @@ func (rc *ReadingController) DeleteReading(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"message": "Reading deleted successfully"})
 }
 
+// Get a single reading by ID with Tooltips
+func (rc *ReadingController) GetReadingWithTooltips(c *fiber.Ctx) error {
+	id := c.Params("id")
+	log.Printf("[INFO] Fetching reading with ID: %s\n", id)
+
+	var reading quizzes.ReadingModel
+	if err := rc.DB.First(&reading, id).Error; err != nil {
+		log.Println("[ERROR] Reading not found:", err)
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Reading not found"})
+	}
+
+	// Fetch Tooltips
+	var tooltips []utils.Tooltip
+	if len(reading.TooltipsID) > 0 {
+		if err := rc.DB.Where("id = ANY(?)", pq.Array(reading.TooltipsID)).Find(&tooltips).Error; err != nil {
+			log.Println("[ERROR] Failed to fetch tooltips:", err)
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch tooltips"})
+		}
+	}
+
+	log.Printf("[SUCCESS] Retrieved reading with ID: %s\n", id)
+	return c.JSON(fiber.Map{
+		"reading":  reading,
+		"tooltips": tooltips,
+	})
+}
+
+// Get a onlyReading by ID with Tooltips
+func (rc *ReadingController) GetOnlyReadingTooltips(c *fiber.Ctx) error {
+	id := c.Params("id")
+	log.Printf("[INFO] Fetching reading with ID: %s\n", id)
+
+	var reading quizzes.ReadingModel
+	if err := rc.DB.First(&reading, id).Error; err != nil {
+		log.Println("[ERROR] Reading not found:", err)
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Reading not found"})
+	}
+
+	// Fetch Tooltips
+	var tooltips []utils.Tooltip
+	if len(reading.TooltipsID) > 0 {
+		if err := rc.DB.Where("id = ANY(?)", pq.Array(reading.TooltipsID)).Find(&tooltips).Error; err != nil {
+			log.Println("[ERROR] Failed to fetch tooltips:", err)
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch tooltips"})
+		}
+	}
+
+	log.Printf("[SUCCESS] Retrieved reading with ID: %s\n", id)
+	return c.JSON(fiber.Map{
+		// "reading":  reading,
+		"tooltips": tooltips,
+	})
+}
+
 // **📌 Fungsi untuk menandai keyword tanpa duplikasi untuk case insensitive**
-func (rc *ReadingController) MarkKeywords(text string, tooltips []tooltips.Tooltip) string {
+func (rc *ReadingController) MarkKeywords(text string, tooltips []utils.Tooltip) string {
 	log.Printf("[DEBUG] Original text: %s\n", text)
 
 	// 🔥 Simpan keyword yang sudah ditandai dalam bentuk lowercase untuk menghindari duplikasi
@@ -202,7 +202,6 @@ func (rc *ReadingController) MarkKeywords(text string, tooltips []tooltips.Toolt
 	return text
 }
 
-
 // **📌 Get Reading by ID dengan Tooltips yang Ditandai dan Update ke Database**
 func (rc *ReadingController) ConvertReadingWithTooltipsId(c *fiber.Ctx) error {
 	id := c.Params("id")
@@ -216,7 +215,7 @@ func (rc *ReadingController) ConvertReadingWithTooltipsId(c *fiber.Ctx) error {
 	}
 
 	// **📌 Ambil Tooltips yang Sesuai**
-	var tooltips []tooltips.Tooltip
+	var tooltips []utils.Tooltip
 	if len(reading.TooltipsID) > 0 {
 		query := rc.DB.Where("id = ANY(?)", pq.Array(reading.TooltipsID))
 		if err := query.Find(&tooltips).Error; err != nil {

@@ -4,22 +4,23 @@ import (
 	"log"
 
 	"arabiya-syari-fiber/internals/models/quizzes"
+	"arabiya-syari-fiber/internals/models/utils"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/lib/pq" // Untuk TEXT[] dalam PostgreSQL
 	"gorm.io/gorm"
 )
 
-type QuizQuestionController struct {
+type QuizzesQuestionController struct {
 	DB *gorm.DB
 }
 
-func NewQuizQuestionController(db *gorm.DB) *QuizQuestionController {
-	return &QuizQuestionController{DB: db}
+func NewQuizzesQuestionController(db *gorm.DB) *QuizzesQuestionController {
+	return &QuizzesQuestionController{DB: db}
 }
 
 // Get all quiz questions
-func (qqc *QuizQuestionController) GetQuizQuestions(c *fiber.Ctx) error {
+func (qqc *QuizzesQuestionController) GetQuizzesQuestions(c *fiber.Ctx) error {
 	log.Println("[INFO] Fetching all quiz questions")
 	var questions []quizzes.QuizQuestionModel
 	if err := qqc.DB.Find(&questions).Error; err != nil {
@@ -30,7 +31,7 @@ func (qqc *QuizQuestionController) GetQuizQuestions(c *fiber.Ctx) error {
 }
 
 // Get quiz question by ID
-func (qqc *QuizQuestionController) GetQuizQuestion(c *fiber.Ctx) error {
+func (qqc *QuizzesQuestionController) GetQuizzesQuestion(c *fiber.Ctx) error {
 	id := c.Params("id") // ✅ Pastikan `id` hanya dideklarasikan sekali
 	log.Println("[INFO] Fetching quiz question with ID:", id)
 
@@ -45,8 +46,8 @@ func (qqc *QuizQuestionController) GetQuizQuestion(c *fiber.Ctx) error {
 }
 
 // Get quiz questions by quiz ID
-func (qqc *QuizQuestionController) GetQuizQuestionsByQuizID(c *fiber.Ctx) error {
-	quizID := c.Params("quizId") // ✅ Pastikan `quizID` hanya dideklarasikan sekali
+func (qqc *QuizzesQuestionController) GetQuizzesQuestionsByQuizID(c *fiber.Ctx) error {
+	quizID := c.Params("quizzedId") // ✅ Pastikan `quizID` hanya dideklarasikan sekali
 	log.Printf("[INFO] Fetching questions for quiz_id: %s\n", quizID)
 
 	var questions []quizzes.QuizQuestionModel
@@ -61,7 +62,7 @@ func (qqc *QuizQuestionController) GetQuizQuestionsByQuizID(c *fiber.Ctx) error 
 }
 
 // Create a new quiz question
-func (qqc *QuizQuestionController) CreateQuizQuestion(c *fiber.Ctx) error {
+func (qqc *QuizzesQuestionController) CreateQuizzesQuestion(c *fiber.Ctx) error {
 	log.Println("[INFO] Creating a new quiz question")
 
 	var question quizzes.QuizQuestionModel
@@ -82,7 +83,7 @@ func (qqc *QuizQuestionController) CreateQuizQuestion(c *fiber.Ctx) error {
 }
 
 // Update an existing quiz question
-func (qqc *QuizQuestionController) UpdateQuizQuestion(c *fiber.Ctx) error {
+func (qqc *QuizzesQuestionController) UpdateQuizzesQuestion(c *fiber.Ctx) error {
 	id := c.Params("id") // ✅ Pastikan `id` hanya dideklarasikan sekali
 	log.Println("[INFO] Updating quiz question with ID:", id)
 
@@ -110,7 +111,7 @@ func (qqc *QuizQuestionController) UpdateQuizQuestion(c *fiber.Ctx) error {
 }
 
 // Delete a quiz question
-func (qqc *QuizQuestionController) DeleteQuizQuestion(c *fiber.Ctx) error {
+func (qqc *QuizzesQuestionController) DeleteQuizzesQuestion(c *fiber.Ctx) error {
 	id := c.Params("id") // ✅ Pastikan `id` hanya dideklarasikan sekali
 	log.Println("[INFO] Deleting quiz question with ID:", id)
 
@@ -121,4 +122,55 @@ func (qqc *QuizQuestionController) DeleteQuizQuestion(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(fiber.Map{"message": "Quiz question deleted successfully"})
+}
+
+// GetQuizQuestionWithTooltips mengambil quiz question beserta tooltips berdasarkan ID
+func (qc *QuizzesQuestionController) GetQuizzesQuestionWithTooltips(c *fiber.Ctx) error {
+	id := c.Params("id")
+	log.Printf("[INFO] Fetching quiz question with ID: %s\n", id)
+
+	var quizQuestion quizzes.QuizQuestionModel
+	if err := qc.DB.First(&quizQuestion, id).Error; err != nil {
+		log.Println("[ERROR] Quiz question not found:", err)
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Quiz question not found"})
+	}
+
+	var tooltips []utils.Tooltip
+	if len(quizQuestion.TooltipsID) > 0 {
+		if err := qc.DB.Where("id = ANY(?)", pq.Array(quizQuestion.TooltipsID)).Find(&tooltips).Error; err != nil {
+			log.Println("[ERROR] Failed to fetch tooltips:", err)
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch tooltips"})
+		}
+	}
+
+	log.Printf("[SUCCESS] Retrieved quiz question with ID: %s\n", id)
+	return c.JSON(fiber.Map{
+		"quiz_question": quizQuestion,
+		"tooltips":      tooltips,
+	})
+}
+
+// GetOnlyQuizQuestionTooltips hanya mengambil tooltips berdasarkan ID quiz question
+func (qc *QuizzesQuestionController) GetOnlyQuizzesQuestionTooltips(c *fiber.Ctx) error {
+	id := c.Params("id")
+	log.Printf("[INFO] Fetching only tooltips for quiz question ID: %s\n", id)
+
+	var quizQuestion quizzes.QuizQuestionModel
+	if err := qc.DB.First(&quizQuestion, id).Error; err != nil {
+		log.Println("[ERROR] Quiz question not found:", err)
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Quiz question not found"})
+	}
+
+	var tooltips []utils.Tooltip
+	if len(quizQuestion.TooltipsID) > 0 {
+		if err := qc.DB.Where("id = ANY(?)", pq.Array(quizQuestion.TooltipsID)).Find(&tooltips).Error; err != nil {
+			log.Println("[ERROR] Failed to fetch tooltips:", err)
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch tooltips"})
+		}
+	}
+
+	log.Printf("[SUCCESS] Retrieved only tooltips for quiz question ID: %s\n", id)
+	return c.JSON(fiber.Map{
+		"tooltips": tooltips,
+	})
 }

@@ -27,7 +27,6 @@ func QuizzesRoutes(app *fiber.App, db *gorm.DB) {
 	readingRoutes.Get("/:id/convertTooltips", readingController.ConvertReadingWithTooltipsId)
 	readingRoutes.Get("/:id/onlyTooltips", readingController.GetOnlyReadingTooltips)
 
-
 	// 🔥 Section Quizzes Routes
 	sectionQuizzesController := quizzes.NewSectionQuizController(db)
 	sectionQuizzesRoutes := api.Group("/section-quizzes")
@@ -49,14 +48,16 @@ func QuizzesRoutes(app *fiber.App, db *gorm.DB) {
 	quizRoutes.Delete("/:id", quizController.DeleteQuiz)
 
 	// 📝 Quiz Questions Routes
-	quizQuestionController := quizzes.NewQuizQuestionController(db)
-	quizQuestionRoutes := api.Group("/quiz-questions")
-	quizQuestionRoutes.Get("/", quizQuestionController.GetQuizQuestions)
-	quizQuestionRoutes.Get("/:id", quizQuestionController.GetQuizQuestion)
-	quizQuestionRoutes.Get("/quiz/:quizId", quizQuestionController.GetQuizQuestionsByQuizID)
-	quizQuestionRoutes.Post("/", quizQuestionController.CreateQuizQuestion)
-	quizQuestionRoutes.Put("/:id", quizQuestionController.UpdateQuizQuestion)
-	quizQuestionRoutes.Delete("/:id", quizQuestionController.DeleteQuizQuestion)
+	quizQuestionController := quizzes.NewQuizzesQuestionController(db)
+	quizQuestionRoutes := api.Group("/quizzes-questions")
+	quizQuestionRoutes.Get("/", quizQuestionController.GetQuizzesQuestions)
+	quizQuestionRoutes.Get("/:id", quizQuestionController.GetQuizzesQuestion)
+	quizQuestionRoutes.Get("/quizzes/:quizzedId", quizQuestionController.GetQuizzesQuestionsByQuizID)
+	quizQuestionRoutes.Post("/", quizQuestionController.CreateQuizzesQuestion)
+	quizQuestionRoutes.Put("/:id", quizQuestionController.UpdateQuizzesQuestion)
+	quizQuestionRoutes.Delete("/:id", quizQuestionController.DeleteQuizzesQuestion)
+	quizQuestionRoutes.Get("/:id/quizQuestionTooltips", quizQuestionController.GetQuizzesQuestionWithTooltips)
+	quizQuestionRoutes.Get("/:id/onlyTooltips", quizQuestionController.GetOnlyQuizzesQuestionTooltips)
 
 	// 🎓 Exam Routes
 	examController := quizzes.NewExamController(db)
