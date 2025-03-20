@@ -3,9 +3,10 @@ package routes
 import (
 	"arabiya-syari-fiber/internals/routes/auth"
 	"arabiya-syari-fiber/internals/routes/category"
-	 "arabiya-syari-fiber/internals/routes/donation"
-	 "arabiya-syari-fiber/internals/routes/user"
-	 "arabiya-syari-fiber/internals/routes/utils" // Add this line.
+	"arabiya-syari-fiber/internals/routes/donation"
+	"arabiya-syari-fiber/internals/routes/user"
+	"arabiya-syari-fiber/internals/routes/utils" // Add this line.
+	"arabiya-syari-fiber/internals/routes/report_user"
 
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
@@ -19,5 +20,6 @@ func SetupRoutes(app *fiber.App, db *gorm.DB) {
 	user.UsersProfileRoutes(app, db)
 	donation.DonationRoutes(app, db)
 	utils.UtilsRoutes(app, db) // Add this line.
+	report_user.ReportUserRoutes(app, db)
 
 }

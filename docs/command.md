@@ -10,7 +10,7 @@ Masukan number untuk mengarahkan mau berapa banyak file yang di up/down. Misal 1
 muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % migrate -database "postgresql://postgres:qXdMRsMSGEgQvVrLuBjmUAGkytJwsaWk@trolley.proxy.rlwy.net:59123/railway" -path internals/database/migrations up
 
 **DOWN**
-muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % migrate -database "postgresql://postgres:qXdMRsMSGEgQvVrLuBjmUAGkytJwsaWk@trolley.proxy.rlwy.net:59123/railway" -path internals/database/migrations up
+muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % migrate -database "postgresql://postgres:qXdMRsMSGEgQvVrLuBjmUAGkytJwsaWk@trolley.proxy.rlwy.net:59123/railway" -path internals/database/migrations down
 
 # Dirty migrasi
 muhammadrizkisetyanto@MacBook-Air-Muhammad arabiya-syari-fiber-1 % migrate -database "postgresql://postgres:qXdMRsMSGEgQvVrLuBjmUAGkytJwsaWk@trolley.proxy.rlwy.net:59123/railway" -path internals/database/migrations force 20250221005048
