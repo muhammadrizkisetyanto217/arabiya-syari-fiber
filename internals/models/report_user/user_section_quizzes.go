@@ -13,13 +13,11 @@ import (
 type UserSectionQuizzesModel struct {
 	ID           uint          `gorm:"primaryKey;autoIncrement" json:"id"`
 	UserID       uint          `gorm:"not null" json:"user_id"`
-	SectionID    uint          `gorm:"column:section_quizzes_id;not null" json:"section_id"`
+	SectionID    uint          `gorm:"column:section_quizzes_id;not null" json:"section_quizzes_id"`
 	CompleteQuiz pq.Int64Array `gorm:"type:integer[]" json:"complete_quiz"`
+	TotalQuiz    int           `gorm:"default:0" json:"total_quiz"`
 	CreatedAt    time.Time     `gorm:"default:current_timestamp" json:"created_at"`
 }
-
-
-
 
 func (UserSectionQuizzesModel) TableName() string {
 	return "user_section_quizzes"

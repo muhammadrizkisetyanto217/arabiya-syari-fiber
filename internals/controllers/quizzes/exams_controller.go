@@ -17,18 +17,25 @@ func NewExamController(db *gorm.DB) *ExamController {
 	return &ExamController{DB: db}
 }
 
-// ✅ Get all exams
+// GET all exams
 func (ec *ExamController) GetExams(c *fiber.Ctx) error {
 	log.Println("[INFO] Fetching all exams")
 	var exams []quizzes.ExamModel
+
 	if err := ec.DB.Find(&exams).Error; err != nil {
 		log.Println("[ERROR] Failed to fetch exams:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch exams"})
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to fetch exams"})
 	}
-	return c.JSON(exams)
+
+	log.Printf("[SUCCESS] Retrieved %d exams\n", len(exams))
+	return c.JSON(fiber.Map{
+		"message": "Exams fetched successfully",
+		"total":   len(exams),
+		"data":    exams,
+	})
 }
 
-// ✅ Get exam by ID
+// GET exam by ID
 func (ec *ExamController) GetExam(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("[INFO] Fetching exam with ID:", id)
@@ -36,12 +43,16 @@ func (ec *ExamController) GetExam(c *fiber.Ctx) error {
 	var exam quizzes.ExamModel
 	if err := ec.DB.First(&exam, id).Error; err != nil {
 		log.Println("[ERROR] Exam not found:", err)
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Exam not found"})
+		return c.Status(404).JSON(fiber.Map{"error": "Exam not found"})
 	}
-	return c.JSON(exam)
+
+	return c.JSON(fiber.Map{
+		"message": "Exam fetched successfully",
+		"data":    exam,
+	})
 }
 
-// ✅ Get exams by unit_id
+// GET exams by unit_id
 func (ec *ExamController) GetExamsByUnitID(c *fiber.Ctx) error {
 	unitID := c.Params("unitId")
 	log.Printf("[INFO] Fetching exams for unit_id: %s\n", unitID)
@@ -49,40 +60,45 @@ func (ec *ExamController) GetExamsByUnitID(c *fiber.Ctx) error {
 	var exams []quizzes.ExamModel
 	if err := ec.DB.Where("unit_id = ?", unitID).Find(&exams).Error; err != nil {
 		log.Printf("[ERROR] Failed to fetch exams for unit_id %s: %v\n", unitID, err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch exams"})
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to fetch exams"})
 	}
 
 	log.Printf("[SUCCESS] Retrieved %d exams for unit_id %s\n", len(exams), unitID)
-	return c.JSON(exams)
+	return c.JSON(fiber.Map{
+		"message": "Exams fetched successfully by unit ID",
+		"total":   len(exams),
+		"data":    exams,
+	})
 }
 
-
-// ✅ Create a new exam
+// POST create a new exam
 func (ec *ExamController) CreateExam(c *fiber.Ctx) error {
 	log.Println("[INFO] Creating a new exam")
-	var exam quizzes.ExamModel
 
-	// Parsing JSON ke model
+	var exam quizzes.ExamModel
 	if err := c.BodyParser(&exam); err != nil {
 		log.Println("[ERROR] Invalid request body:", err)
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid request"})
 	}
 
-	// Validasi manual sebelum menyimpan
 	if err := exam.Validate(); err != nil {
 		log.Println("[ERROR] Validation failed:", err)
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Validation failed", "details": err.Error()})
+		return c.Status(400).JSON(fiber.Map{"error": "Validation failed", "details": err.Error()})
 	}
 
 	if err := ec.DB.Create(&exam).Error; err != nil {
 		log.Println("[ERROR] Failed to create exam:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to create exam"})
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to create exam"})
 	}
 
-	return c.Status(fiber.StatusCreated).JSON(exam)
+	log.Printf("[SUCCESS] Exam created: ID=%d\n", exam.ID)
+	return c.Status(201).JSON(fiber.Map{
+		"message": "Exam created successfully",
+		"data":    exam,
+	})
 }
 
-// ✅ Update an existing exam
+// PUT update exam
 func (ec *ExamController) UpdateExam(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("[INFO] Updating exam with ID:", id)
@@ -90,38 +106,44 @@ func (ec *ExamController) UpdateExam(c *fiber.Ctx) error {
 	var exam quizzes.ExamModel
 	if err := ec.DB.First(&exam, id).Error; err != nil {
 		log.Println("[ERROR] Exam not found:", err)
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Exam not found"})
+		return c.Status(404).JSON(fiber.Map{"error": "Exam not found"})
 	}
 
 	var requestData quizzes.ExamModel
 	if err := c.BodyParser(&requestData); err != nil {
 		log.Println("[ERROR] Invalid request body:", err)
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid request"})
 	}
 
-	// Validasi sebelum update
 	if err := requestData.Validate(); err != nil {
 		log.Println("[ERROR] Validation failed:", err)
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Validation failed", "details": err.Error()})
+		return c.Status(400).JSON(fiber.Map{"error": "Validation failed", "details": err.Error()})
 	}
 
 	if err := ec.DB.Model(&exam).Updates(requestData).Error; err != nil {
 		log.Println("[ERROR] Failed to update exam:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to update exam"})
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to update exam"})
 	}
 
-	return c.JSON(exam)
+	log.Printf("[SUCCESS] Exam updated: ID=%s\n", id)
+	return c.JSON(fiber.Map{
+		"message": "Exam updated successfully",
+		"data":    exam,
+	})
 }
 
-// ✅ Delete an exam
+// DELETE exam
 func (ec *ExamController) DeleteExam(c *fiber.Ctx) error {
 	id := c.Params("id")
 	log.Println("[INFO] Deleting exam with ID:", id)
 
 	if err := ec.DB.Delete(&quizzes.ExamModel{}, id).Error; err != nil {
 		log.Println("[ERROR] Failed to delete exam:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete exam"})
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to delete exam"})
 	}
 
-	return c.JSON(fiber.Map{"message": "Exam deleted successfully"})
+	log.Printf("[SUCCESS] Exam with ID %s deleted\n", id)
+	return c.JSON(fiber.Map{
+		"message": "Exam deleted successfully",
+	})
 }

@@ -31,4 +31,22 @@ func ReportUserRoutes(app *fiber.App, db *gorm.DB) {
 	userSectionQuizzesController := report_user.NewUserSectionQuizzesController(db)
 	userSectionQuizzesRoutes := api.Group("/user_section_quizzes")
 	userSectionQuizzesRoutes.Get("/:user_id", userSectionQuizzesController.GetUserSectionQuizzes)
+
+	// 📖 User Reading Routes
+	userReadingController := report_user.NewUserReadingController(db)
+	userReadingRoutes := api.Group("/user_readings")
+	userReadingRoutes.Post("/", userReadingController.Create)
+	userReadingRoutes.Get("/", userReadingController.GetAll)
+
+	// 📦 User Units Routes
+	userUnitController := report_user.NewUserUnitController(db)
+	userUnitRoutes := api.Group("/user_units")
+	userUnitRoutes.Get("/:user_id", userUnitController.GetUserUnitsByUserID)
+
+	// 📝 User Evaluation Routes
+	userEvaluationController := report_user.NewUserEvaluationController(db)
+	userEvaluationRoutes := api.Group("/user_evaluations")
+	userEvaluationRoutes.Post("/", userEvaluationController.Create)
+	userEvaluationRoutes.Get("/:user_id", userEvaluationController.GetByUserID)
+
 }

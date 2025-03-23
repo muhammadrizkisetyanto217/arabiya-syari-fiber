@@ -20,90 +20,119 @@ func NewDonationLevelsController(db *gorm.DB) *DonationLevelsController {
 
 // Get all donation levels
 func (dlc *DonationLevelsController) GetAll(c *fiber.Ctx) error {
-	log.Println("Fetching all donation levels")
+	log.Println("[INFO] Fetching all donation levels")
+
 	var levels []donation.DonationLevelsTypeModel
 	if err := dlc.DB.Find(&levels).Error; err != nil {
-		log.Println("Error fetching donation levels:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch donation levels"})
+		log.Println("[ERROR] Failed to fetch donation levels:", err)
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to fetch donation levels"})
 	}
-	return c.JSON(levels)
+
+	log.Printf("[SUCCESS] Retrieved %d donation levels\n", len(levels))
+	return c.JSON(fiber.Map{
+		"message": "Donation levels fetched successfully",
+		"total":   len(levels),
+		"data":    levels,
+	})
 }
 
-// Get a specific donation level by ID
+// Get donation level by ID
 func (dlc *DonationLevelsController) GetByID(c *fiber.Ctx) error {
 	id, err := c.ParamsInt("id")
 	if err != nil {
-		log.Println("Invalid ID format:", err)
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid ID"})
+		log.Println("[ERROR] Invalid ID format:", err)
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid ID"})
 	}
 
-	log.Println("Fetching donation level with ID:", id)
+	log.Printf("[INFO] Fetching donation level with ID: %d\n", id)
+
 	var level donation.DonationLevelsTypeModel
 	if err := dlc.DB.First(&level, id).Error; err != nil {
-		log.Println("Donation level not found:", err)
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Donation level not found"})
+		log.Println("[ERROR] Donation level not found:", err)
+		return c.Status(404).JSON(fiber.Map{"error": "Donation level not found"})
 	}
-	return c.JSON(level)
+
+	return c.JSON(fiber.Map{
+		"message": "Donation level fetched successfully",
+		"data":    level,
+	})
 }
 
-// Create a new donation level
+// Create donation level
 func (dlc *DonationLevelsController) Create(c *fiber.Ctx) error {
-	log.Println("Creating a new donation level")
-	var level donation.DonationLevelsTypeModel
+	log.Println("[INFO] Creating a new donation level")
 
+	var level donation.DonationLevelsTypeModel
 	if err := c.BodyParser(&level); err != nil {
-		log.Println("Invalid request body:", err)
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
+		log.Println("[ERROR] Invalid request body:", err)
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid request"})
 	}
 
 	if err := dlc.DB.Create(&level).Error; err != nil {
-		log.Println("Error creating donation level:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to create donation level"})
+		log.Println("[ERROR] Failed to create donation level:", err)
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to create donation level"})
 	}
-	return c.Status(fiber.StatusCreated).JSON(level)
+
+	log.Printf("[SUCCESS] Donation level created: ID=%d\n", level.ID)
+	return c.Status(201).JSON(fiber.Map{
+		"message": "Donation level created successfully",
+		"data":    level,
+	})
 }
 
-// Update a donation level
+// Update donation level
 func (dlc *DonationLevelsController) Update(c *fiber.Ctx) error {
 	id, err := c.ParamsInt("id")
 	if err != nil {
-		log.Println("Invalid ID format:", err)
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid ID"})
+		log.Println("[ERROR] Invalid ID format:", err)
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid ID"})
 	}
 
-	log.Println("Updating donation level with ID:", id)
+	log.Printf("[INFO] Updating donation level with ID: %d\n", id)
+
 	var level donation.DonationLevelsTypeModel
 	if err := dlc.DB.First(&level, id).Error; err != nil {
-		log.Println("Donation level not found:", err)
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Donation level not found"})
+		log.Println("[ERROR] Donation level not found:", err)
+		return c.Status(404).JSON(fiber.Map{"error": "Donation level not found"})
 	}
 
 	var input donation.DonationLevelsTypeModel
 	if err := c.BodyParser(&input); err != nil {
-		log.Println("Invalid request body:", err)
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
+		log.Println("[ERROR] Invalid request body:", err)
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid request"})
 	}
 
-	// Update hanya field yang dikirim
 	if err := dlc.DB.Model(&level).Updates(input).Error; err != nil {
-		log.Println("Error updating donation level:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to update donation level"})
+		log.Println("[ERROR] Failed to update donation level:", err)
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to update donation level"})
 	}
-	return c.JSON(level)
+
+	log.Printf("[SUCCESS] Donation level updated: ID=%d\n", level.ID)
+	return c.JSON(fiber.Map{
+		"message": "Donation level updated successfully",
+		"data":    level,
+	})
 }
 
-// Soft delete a donation level
+// Soft delete donation level
 func (dlc *DonationLevelsController) Delete(c *fiber.Ctx) error {
 	id, err := c.ParamsInt("id")
 	if err != nil {
-		log.Println("Invalid ID format:", err)
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid ID"})
+		log.Println("[ERROR] Invalid ID format:", err)
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid ID"})
 	}
 
-	log.Println("Deleting donation level with ID:", id)
-	if err := dlc.DB.Model(&donation.DonationLevelsTypeModel{}).Where("id = ?", id).Update("deleted_at", time.Now()).Error; err != nil {
-		log.Println("Error deleting donation level:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete donation level"})
+	log.Printf("[INFO] Deleting donation level with ID: %d\n", id)
+
+	if err := dlc.DB.Model(&donation.DonationLevelsTypeModel{}).
+		Where("id = ?", id).
+		Update("deleted_at", time.Now()).Error; err != nil {
+		log.Println("[ERROR] Failed to delete donation level:", err)
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to delete donation level"})
 	}
-	return c.JSON(fiber.Map{"message": "Donation level deleted successfully"})
+
+	log.Printf("[SUCCESS] Donation level with ID %d deleted\n", id)
+	return c.JSON(fiber.Map{
+		"message": "Donation level deleted successfully",
+	})
 }

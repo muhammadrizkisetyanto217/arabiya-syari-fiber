@@ -2,7 +2,7 @@ package quizzes
 
 import (
 	"time"
-
+	"gorm.io/gorm"
 )
 
 type QuizModel struct {
@@ -26,3 +26,28 @@ func (QuizModel) TableName() string {
 	return "quizzes"
 }
 
+
+// Hook AfterSave untuk memperbarui total_quiz di UserSectionQuizzesModel
+func (q *QuizModel) AfterSave(tx *gorm.DB) (err error) {
+	err = tx.Exec(`
+		UPDATE user_section_quizzes
+		SET total_quiz = (
+			SELECT COUNT(*) FROM quizzes WHERE section_quizzes_id = ?
+		)
+		WHERE section_quizzes_id = ?
+	`, q.SectionQuizID, q.SectionQuizID).Error
+	return
+}
+
+
+// Hook AfterDelete untuk memperbarui total_quiz di UserSectionQuizzesModel setelah delete
+func (q *QuizModel) AfterDelete(tx *gorm.DB) (err error) {
+	err = tx.Exec(`
+		UPDATE user_section_quizzes
+		SET total_quiz = (
+			SELECT COUNT(*) FROM quizzes WHERE section_quizzes_id = ?
+		)
+		WHERE section_quizzes_id = ?
+	`, q.SectionQuizID, q.SectionQuizID).Error
+	return
+}

@@ -7,7 +7,7 @@ import (
 	"arabiya-syari-fiber/internals/models/utils"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/lib/pq" // Untuk TEXT[] dalam PostgreSQL
+	"github.com/lib/pq"
 	"gorm.io/gorm"
 )
 
@@ -19,158 +19,226 @@ func NewQuizzesQuestionController(db *gorm.DB) *QuizzesQuestionController {
 	return &QuizzesQuestionController{DB: db}
 }
 
-// Get all quiz questions
+// GET all quiz questions
 func (qqc *QuizzesQuestionController) GetQuizzesQuestions(c *fiber.Ctx) error {
 	log.Println("[INFO] Fetching all quiz questions")
+
 	var questions []quizzes.QuizQuestionModel
 	if err := qqc.DB.Find(&questions).Error; err != nil {
 		log.Println("[ERROR] Failed to fetch quiz questions:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch quiz questions"})
+		return c.Status(500).JSON(fiber.Map{
+			"status":  false,
+			"message": "Failed to fetch quiz questions",
+		})
 	}
-	return c.JSON(questions)
+
+	log.Printf("[SUCCESS] Retrieved %d quiz questions\n", len(questions))
+	return c.JSON(fiber.Map{
+		"status":  true,
+		"message": "All quiz questions fetched successfully",
+		"total":   len(questions),
+		"data":    questions,
+	})
 }
 
-// Get quiz question by ID
+// GET single quiz question
 func (qqc *QuizzesQuestionController) GetQuizzesQuestion(c *fiber.Ctx) error {
-	id := c.Params("id") // ✅ Pastikan `id` hanya dideklarasikan sekali
-	log.Println("[INFO] Fetching quiz question with ID:", id)
+	id := c.Params("id")
+	log.Printf("[INFO] Fetching quiz question by ID: %s\n", id)
 
 	var question quizzes.QuizQuestionModel
-	err := qqc.DB.First(&question, id).Error
-	if err != nil {
+	if err := qqc.DB.First(&question, id).Error; err != nil {
 		log.Println("[ERROR] Quiz question not found:", err)
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Quiz question not found"})
+		return c.Status(404).JSON(fiber.Map{
+			"status":  false,
+			"message": "Quiz question not found",
+		})
 	}
 
-	return c.JSON(question)
+	return c.JSON(fiber.Map{
+		"status":  true,
+		"message": "Quiz question fetched successfully by ID",
+		"data":    question,
+	})
 }
 
-// Get quiz questions by quiz ID
+// GET quiz questions by quiz_id
 func (qqc *QuizzesQuestionController) GetQuizzesQuestionsByQuizID(c *fiber.Ctx) error {
-	quizID := c.Params("quizzedId") // ✅ Pastikan `quizID` hanya dideklarasikan sekali
-	log.Printf("[INFO] Fetching questions for quiz_id: %s\n", quizID)
+	quizID := c.Params("quizzedId")
+	log.Printf("[INFO] Fetching quiz questions for quizzes_id: %s\n", quizID)
 
 	var questions []quizzes.QuizQuestionModel
-	err := qqc.DB.Where("quizzes_id = ?", quizID).Find(&questions).Error
-	if err != nil {
-		log.Printf("[ERROR] Failed to fetch questions for quiz_id %s: %v\n", quizID, err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch questions"})
+	if err := qqc.DB.Where("quizzes_id = ?", quizID).Find(&questions).Error; err != nil {
+		log.Printf("[ERROR] Failed to fetch quiz questions for quizzes_id %s: %v\n", quizID, err)
+		return c.Status(500).JSON(fiber.Map{
+			"status":  false,
+			"message": "Failed to fetch quiz questions by quiz ID",
+		})
 	}
 
-	log.Printf("[SUCCESS] Retrieved %d questions for quiz_id %s\n", len(questions), quizID)
-	return c.JSON(questions)
+	log.Printf("[SUCCESS] Retrieved %d quiz questions for quizzes_id %s\n", len(questions), quizID)
+	return c.JSON(fiber.Map{
+		"status":  true,
+		"message": "Quiz questions fetched successfully by quiz ID",
+		"total":   len(questions),
+		"data":    questions,
+	})
 }
 
-// Create a new quiz question
+// POST create quiz question
 func (qqc *QuizzesQuestionController) CreateQuizzesQuestion(c *fiber.Ctx) error {
 	log.Println("[INFO] Creating a new quiz question")
 
 	var question quizzes.QuizQuestionModel
 	if err := c.BodyParser(&question); err != nil {
 		log.Println("[ERROR] Invalid request body:", err)
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
+		return c.Status(400).JSON(fiber.Map{
+			"status":  false,
+			"message": "Invalid request",
+		})
 	}
 
-	// Pastikan nilai array dikonversi dengan benar
 	question.QuestionAnswer = pq.StringArray(question.QuestionAnswer)
 
 	if err := qqc.DB.Create(&question).Error; err != nil {
 		log.Println("[ERROR] Failed to create quiz question:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to create quiz question"})
+		return c.Status(500).JSON(fiber.Map{
+			"status":  false,
+			"message": "Failed to create quiz question",
+		})
 	}
 
-	return c.Status(fiber.StatusCreated).JSON(question)
+	log.Printf("[SUCCESS] Quiz question created with ID: %d\n", question.ID)
+	return c.Status(201).JSON(fiber.Map{
+		"status":  true,
+		"message": "Quiz question created successfully",
+		"data":    question,
+	})
 }
 
-// Update an existing quiz question
+// PUT update quiz question
 func (qqc *QuizzesQuestionController) UpdateQuizzesQuestion(c *fiber.Ctx) error {
-	id := c.Params("id") // ✅ Pastikan `id` hanya dideklarasikan sekali
-	log.Println("[INFO] Updating quiz question with ID:", id)
+	id := c.Params("id")
+	log.Printf("[INFO] Updating quiz question with ID: %s\n", id)
 
 	var question quizzes.QuizQuestionModel
-	err := qqc.DB.First(&question, id).Error
-	if err != nil {
+	if err := qqc.DB.First(&question, id).Error; err != nil {
 		log.Println("[ERROR] Quiz question not found:", err)
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Quiz question not found"})
+		return c.Status(404).JSON(fiber.Map{
+			"status":  false,
+			"message": "Quiz question not found",
+		})
 	}
 
 	if err := c.BodyParser(&question); err != nil {
 		log.Println("[ERROR] Invalid request body:", err)
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
+		return c.Status(400).JSON(fiber.Map{
+			"status":  false,
+			"message": "Invalid request",
+		})
 	}
 
-	// Pastikan array tetap dalam format `pq.StringArray`
 	question.QuestionAnswer = pq.StringArray(question.QuestionAnswer)
 
 	if err := qqc.DB.Save(&question).Error; err != nil {
 		log.Println("[ERROR] Failed to update quiz question:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to update quiz question"})
+		return c.Status(500).JSON(fiber.Map{
+			"status":  false,
+			"message": "Failed to update quiz question",
+		})
 	}
 
-	return c.JSON(question)
+	log.Printf("[SUCCESS] Quiz question with ID %s updated\n", id)
+	return c.JSON(fiber.Map{
+		"status":  true,
+		"message": "Quiz question updated successfully",
+		"data":    question,
+	})
 }
 
-// Delete a quiz question
+// DELETE quiz question
 func (qqc *QuizzesQuestionController) DeleteQuizzesQuestion(c *fiber.Ctx) error {
-	id := c.Params("id") // ✅ Pastikan `id` hanya dideklarasikan sekali
-	log.Println("[INFO] Deleting quiz question with ID:", id)
+	id := c.Params("id")
+	log.Printf("[INFO] Deleting quiz question with ID: %s\n", id)
 
-	err := qqc.DB.Delete(&quizzes.QuizQuestionModel{}, id).Error
-	if err != nil {
+	if err := qqc.DB.Delete(&quizzes.QuizQuestionModel{}, id).Error; err != nil {
 		log.Println("[ERROR] Failed to delete quiz question:", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete quiz question"})
+		return c.Status(500).JSON(fiber.Map{
+			"status":  false,
+			"message": "Failed to delete quiz question",
+		})
 	}
 
-	return c.JSON(fiber.Map{"message": "Quiz question deleted successfully"})
+	log.Printf("[SUCCESS] Quiz question with ID %s deleted\n", id)
+	return c.JSON(fiber.Map{
+		"status":  true,
+		"message": "Quiz question deleted successfully",
+	})
 }
 
-// GetQuizQuestionWithTooltips mengambil quiz question beserta tooltips berdasarkan ID
-func (qc *QuizzesQuestionController) GetQuizzesQuestionWithTooltips(c *fiber.Ctx) error {
+// GET quiz question + tooltips
+func (qqc *QuizzesQuestionController) GetQuizzesQuestionWithTooltips(c *fiber.Ctx) error {
 	id := c.Params("id")
-	log.Printf("[INFO] Fetching quiz question with ID: %s\n", id)
+	log.Printf("[INFO] Fetching quiz question with tooltips, ID: %s\n", id)
 
-	var quizQuestion quizzes.QuizQuestionModel
-	if err := qc.DB.First(&quizQuestion, id).Error; err != nil {
+	var question quizzes.QuizQuestionModel
+	if err := qqc.DB.First(&question, id).Error; err != nil {
 		log.Println("[ERROR] Quiz question not found:", err)
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Quiz question not found"})
+		return c.Status(404).JSON(fiber.Map{
+			"status":  false,
+			"message": "Quiz question not found",
+		})
 	}
 
 	var tooltips []utils.Tooltip
-	if len(quizQuestion.TooltipsID) > 0 {
-		if err := qc.DB.Where("id = ANY(?)", pq.Array(quizQuestion.TooltipsID)).Find(&tooltips).Error; err != nil {
+	if len(question.TooltipsID) > 0 {
+		if err := qqc.DB.Where("id = ANY(?)", pq.Array(question.TooltipsID)).Find(&tooltips).Error; err != nil {
 			log.Println("[ERROR] Failed to fetch tooltips:", err)
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch tooltips"})
+			return c.Status(500).JSON(fiber.Map{
+				"status":  false,
+				"message": "Failed to fetch tooltips",
+			})
 		}
 	}
 
-	log.Printf("[SUCCESS] Retrieved quiz question with ID: %s\n", id)
+	log.Printf("[SUCCESS] Retrieved quiz question and tooltips for ID: %s\n", id)
 	return c.JSON(fiber.Map{
-		"quiz_question": quizQuestion,
+		"status":        true,
+		"message":       "Quiz question and tooltips fetched successfully",
+		"quiz_question": question,
 		"tooltips":      tooltips,
 	})
 }
 
-// GetOnlyQuizQuestionTooltips hanya mengambil tooltips berdasarkan ID quiz question
-func (qc *QuizzesQuestionController) GetOnlyQuizzesQuestionTooltips(c *fiber.Ctx) error {
+// GET only tooltips by quiz question ID
+func (qqc *QuizzesQuestionController) GetOnlyQuizzesQuestionTooltips(c *fiber.Ctx) error {
 	id := c.Params("id")
-	log.Printf("[INFO] Fetching only tooltips for quiz question ID: %s\n", id)
+	log.Printf("[INFO] Fetching tooltips only for quiz question ID: %s\n", id)
 
-	var quizQuestion quizzes.QuizQuestionModel
-	if err := qc.DB.First(&quizQuestion, id).Error; err != nil {
+	var question quizzes.QuizQuestionModel
+	if err := qqc.DB.First(&question, id).Error; err != nil {
 		log.Println("[ERROR] Quiz question not found:", err)
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Quiz question not found"})
+		return c.Status(404).JSON(fiber.Map{
+			"status":  false,
+			"message": "Quiz question not found",
+		})
 	}
 
 	var tooltips []utils.Tooltip
-	if len(quizQuestion.TooltipsID) > 0 {
-		if err := qc.DB.Where("id = ANY(?)", pq.Array(quizQuestion.TooltipsID)).Find(&tooltips).Error; err != nil {
+	if len(question.TooltipsID) > 0 {
+		if err := qqc.DB.Where("id = ANY(?)", pq.Array(question.TooltipsID)).Find(&tooltips).Error; err != nil {
 			log.Println("[ERROR] Failed to fetch tooltips:", err)
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch tooltips"})
+			return c.Status(500).JSON(fiber.Map{
+				"status":  false,
+				"message": "Failed to fetch tooltips",
+			})
 		}
 	}
 
-	log.Printf("[SUCCESS] Retrieved only tooltips for quiz question ID: %s\n", id)
+	log.Printf("[SUCCESS] Retrieved tooltips only for quiz question ID: %s\n", id)
 	return c.JSON(fiber.Map{
+		"status":   true,
+		"message":  "Tooltips fetched successfully",
 		"tooltips": tooltips,
 	})
 }
