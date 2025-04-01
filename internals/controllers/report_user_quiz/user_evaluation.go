@@ -1,4 +1,4 @@
-package report_user
+package report_user_quiz
 
 import (
 	"github.com/gofiber/fiber/v2"

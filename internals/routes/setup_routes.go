@@ -21,5 +21,5 @@ func SetupRoutes(app *fiber.App, db *gorm.DB) {
 	donation.DonationRoutes(app, db)
 	utils.UtilsRoutes(app, db) // Add this line.
 	report_user.ReportUserRoutes(app, db)
-
+	
 }

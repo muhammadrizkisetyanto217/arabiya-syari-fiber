@@ -1,4 +1,4 @@
-package report_user
+package report_user_quiz
 
 import (
 	"arabiya-syari-fiber/internals/models/report_user"

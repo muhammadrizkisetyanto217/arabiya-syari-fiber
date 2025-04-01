@@ -1,13 +1,13 @@
-CREATE TABLE user_quizzes (
+-- Buat tabel section_quizzes
+CREATE TABLE IF NOT EXISTS section_quizzes (
     id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
-    section_quiz_id INT NOT NULL,
-    attempt INT NOT NULL DEFAULT 1,
-    percentage_grade FLOAT NOT NULL DEFAULT 0,
-    time_duration INT NOT NULL DEFAULT 0,
-    point INT NOT NULL DEFAULT 0,
+    name_quizzes VARCHAR(50) NOT NULL,
+    status VARCHAR(10) CHECK (status IN ('active', 'pending', 'archived')) DEFAULT 'pending',
+    materials_quizzes TEXT NOT NULL,
+    icon_url VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_section_quiz FOREIGN KEY (section_quiz_id) REFERENCES section_quizzes(id) ON DELETE CASCADE,
-    UNIQUE (user_id, section_quiz_id)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP,
+    created_by INT REFERENCES users(id) ON DELETE CASCADE,
+    unit_id INT REFERENCES units(id) ON DELETE CASCADE
 );
