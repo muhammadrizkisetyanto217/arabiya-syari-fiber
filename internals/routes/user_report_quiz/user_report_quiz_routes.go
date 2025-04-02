@@ -1,7 +1,7 @@
 package report_user
 
 import (
-	"arabiya-syari-fiber/internals/controllers/report_user_quiz"
+	"arabiya-syari-fiber/internals/controllers/user_report_quiz"
 	"arabiya-syari-fiber/internals/controllers/user" // Middleware Auth
 
 	"github.com/gofiber/fiber/v2"

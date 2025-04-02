@@ -3,11 +3,12 @@ package progress_user
 import "time"
 
 type UserPointLog struct {
-	ID          uint      `gorm:"primaryKey"`
-	UserID      uint      `gorm:"not null"`
-	Points      int       `gorm:"not null"`
-	Description string    `gorm:"size:255;not null"`
-	CreatedAt   time.Time `gorm:"autoCreateTime"`
+	ID         uint      `gorm:"primaryKey"`
+	UserID     uint      `gorm:"not null"`
+	Points     int       `gorm:"not null"`
+	SourceType string    `gorm:"size:50"`   // "quiz", "exam", dst.
+	SourceID   uint
+	CreatedAt  time.Time `gorm:"autoCreateTime"`
 }
 
 func (UserPointLog) TableName() string {

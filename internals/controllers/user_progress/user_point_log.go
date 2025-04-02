@@ -17,7 +17,7 @@ func NewUserPointLogController(db *gorm.DB) *UserPointLogController {
 }
 
 // GetUserPointLogs mengambil semua log poin berdasarkan user_id
-func (ctrl *UserPointLogController) GetUserPointLogs(c *fiber.Ctx) error {
+func (ctrl *UserPointLogController) GetUserPointLogsByUserID(c *fiber.Ctx) error {
 	userID, err := c.ParamsInt("user_id")
 	if err != nil {
 		log.Println("Invalid user ID:", err)
