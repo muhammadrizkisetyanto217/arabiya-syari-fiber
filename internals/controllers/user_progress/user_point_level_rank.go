@@ -1,7 +1,7 @@
-package progress_user
+package user_progress
 
 import (
-	"arabiya-syari-fiber/internals/models/progress_user" // ✅ Import modelnya
+	"arabiya-syari-fiber/internals/models/progress_user"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
@@ -11,7 +11,6 @@ import (
 type UserPointLevelRankController struct {
 	DB *gorm.DB
 }
-
 
 func NewUserPointLevelRankController(db *gorm.DB) *UserPointLevelRankController {
 	return &UserPointLevelRankController{DB: db}
@@ -26,7 +25,7 @@ func (ctrl *UserPointLevelRankController) GetUserPointLevelRankByUserID(c *fiber
 		})
 	}
 
-	var rank []progress_user.UserPointLevelRank
+	var rank progress_user.UserPointLevelRank
 	if err := ctrl.DB.Where("user_id = ?", userID).First(&rank).Error; err != nil {
 		log.Println("[ERROR] Data not found:", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{

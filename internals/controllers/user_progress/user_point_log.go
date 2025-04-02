@@ -1,4 +1,4 @@
-package progress_user
+package user_progress
 
 import (
 	"arabiya-syari-fiber/internals/models/progress_user"
