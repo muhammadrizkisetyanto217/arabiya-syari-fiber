@@ -147,28 +147,225 @@ func logUserPoint(tx *gorm.DB, userID uint, points int, quizID uint) {
 	}
 }
 
+// func incrementAmountTotalQuiz(tx *gorm.DB, userID uint, point int) {
+// 	var rank progress_user.UserPointLevelRank
+// 	if err := tx.Where("user_id = ?", userID).First(&rank).Error; err != nil {
+// 		if err == gorm.ErrRecordNotFound {
+// 			rank = progress_user.UserPointLevelRank{
+// 				UserID:          userID,
+// 				AmountTotalQuiz: point,
+// 			}
+// 			if err := tx.Create(&rank).Error; err != nil {
+// 				log.Println("[ERROR] Gagal create user_point_level_rank:", err)
+// 			} else {
+// 				log.Println("[INFO] Created new user_point_level_rank")
+// 			}
+// 		} else {
+// 			log.Println("[ERROR] Fetch rank error:", err)
+// 		}
+// 	} else {
+// 		if err := tx.Model(&rank).
+// 			Update("amount_total_quiz", gorm.Expr("amount_total_quiz + ?", point)).Error; err != nil {
+// 			log.Println("[ERROR] Gagal update total point:", err)
+// 		} else {
+// 			log.Println("[INFO] Updated existing user_point_level_rank (incremented)")
+// 		}
+// 	}
+// }
+
+// func incrementAmountTotalQuiz(tx *gorm.DB, userID uint, point int) {
+// 	var rank progress_user.UserPointLevelRank
+// 	if err := tx.Where("user_id = ?", userID).First(&rank).Error; err != nil {
+// 		if err == gorm.ErrRecordNotFound {
+// 			// Ambil level default (id=1)
+// 			var level progress_user.LevelPointRequirement
+// 			if err := tx.First(&level, 1).Error; err != nil {
+// 				log.Println("[ERROR] Gagal ambil level ID 1:", err)
+// 				return
+// 			}
+
+// 			rank = progress_user.UserPointLevelRank{
+// 				UserID:          userID,
+// 				AmountTotalQuiz: point,
+// 				LevelID:         level.ID,
+// 				MaxPointLevel:   level.MaxPointLevel,
+// 				IconURL:         level.IconURL,
+// 			}
+
+// 			if err := tx.Create(&rank).Error; err != nil {
+// 				log.Println("[ERROR] Gagal create user_point_level_rank:", err)
+// 			} else {
+// 				log.Println("[INFO] Created new user_point_level_rank dengan level ID 1")
+// 			}
+// 		} else {
+// 			log.Println("[ERROR] Fetch rank error:", err)
+// 		}
+// 	} else {
+// 		// Sudah ada, cukup update point saja
+// 		if err := tx.Model(&rank).
+// 			Update("amount_total_quiz", gorm.Expr("amount_total_quiz + ?", point)).Error; err != nil {
+// 			log.Println("[ERROR] Gagal update total point:", err)
+// 		} else {
+// 			log.Println("[INFO] Updated existing user_point_level_rank (incremented)")
+// 		}
+// 	}
+// }
+
+// func incrementAmountTotalQuiz(tx *gorm.DB, userID uint, point int) {
+// 	var rank progress_user.UserPointLevelRank
+// 	if err := tx.Where("user_id = ?", userID).First(&rank).Error; err != nil {
+// 		if err == gorm.ErrRecordNotFound {
+// 			// Ambil level default (id=1)
+// 			var level progress_user.LevelPointRequirement
+// 			if err := tx.First(&level, 1).Error; err != nil {
+// 				log.Println("[ERROR] Gagal ambil level ID 1:", err)
+// 				return
+// 			}
+
+// 			rank = progress_user.UserPointLevelRank{
+// 				UserID:          userID,
+// 				AmountTotalQuiz: point,
+// 				LevelID:         level.ID,
+// 				MaxPointLevel:   level.MaxPointLevel,
+// 				IconURL:         level.IconURL,
+// 			}
+
+// 			if err := tx.Create(&rank).Error; err != nil {
+// 				log.Println("[ERROR] Gagal create user_point_level_rank:", err)
+// 			} else {
+// 				log.Println("[INFO] Created new user_point_level_rank dengan level ID 1")
+// 			}
+// 		} else {
+// 			log.Println("[ERROR] Fetch rank error:", err)
+// 		}
+// 	} else {
+// 		// Update jumlah point
+// 		if err := tx.Model(&rank).
+// 			Update("amount_total_quiz", gorm.Expr("amount_total_quiz + ?", point)).Error; err != nil {
+// 			log.Println("[ERROR] Gagal update total point:", err)
+// 			return
+// 		}
+
+// 		// Refresh data rank setelah update point
+// 		if err := tx.Where("user_id = ?", userID).First(&rank).Error; err != nil {
+// 			log.Println("[ERROR] Gagal ambil data rank setelah update:", err)
+// 			return
+// 		}
+
+// 		// Cek apakah perlu upgrade level
+// 		if rank.AmountTotalQuiz > rank.MaxPointLevel {
+// 			var nextLevel progress_user.LevelPointRequirement
+// 			if err := tx.
+// 				Where("max_point_level > ?", rank.MaxPointLevel).
+// 				Order("max_point_level ASC").
+// 				First(&nextLevel).Error; err != nil {
+// 				log.Println("[INFO] Tidak ada level lebih tinggi, tetap di level sekarang")
+// 				return
+// 			}
+
+// 			// Update ke level berikutnya
+// 			if err := tx.Model(&rank).Updates(map[string]interface{}{
+// 				"level_id":        nextLevel.ID,
+// 				"max_point_level": nextLevel.MaxPointLevel,
+// 				"icon_url":        nextLevel.IconURL,
+// 			}).Error; err != nil {
+// 				log.Println("[ERROR] Gagal upgrade level:", err)
+// 			} else {
+// 				log.Printf("[INFO] User ID %d naik level ke %s", userID, nextLevel.NameLevel)
+// 			}
+// 		} else {
+// 			log.Println("[INFO] Updated existing user_point_level_rank (incremented)")
+// 		}
+// 	}
+// }
+
 func incrementAmountTotalQuiz(tx *gorm.DB, userID uint, point int) {
 	var rank progress_user.UserPointLevelRank
 	if err := tx.Where("user_id = ?", userID).First(&rank).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
+			// Ambil level dan rank default
+			var level progress_user.LevelPointRequirement
+			var rankReq progress_user.RankLevelRequirement
+
+			if err := tx.First(&level, 1).Error; err != nil {
+				log.Println("[ERROR] Gagal ambil level ID 1:", err)
+				return
+			}
+			if err := tx.First(&rankReq, 1).Error; err != nil {
+				log.Println("[ERROR] Gagal ambil rank ID 1:", err)
+				return
+			}
+
+			// Inisialisasi rank user baru
 			rank = progress_user.UserPointLevelRank{
 				UserID:          userID,
 				AmountTotalQuiz: point,
+				LevelID:         level.ID,
+				MaxPointLevel:   level.MaxPointLevel,
+				IconURLLevel:    level.IconURL,
+				RankID:          rankReq.ID,
+				MaxLevelRank:    rankReq.MaxLevel,
+				IconURLRank:     rankReq.IconURL,
 			}
+
 			if err := tx.Create(&rank).Error; err != nil {
 				log.Println("[ERROR] Gagal create user_point_level_rank:", err)
 			} else {
-				log.Println("[INFO] Created new user_point_level_rank")
+				log.Println("[INFO] Created new user_point_level_rank (Level 1, Rank 1)")
 			}
+			return
 		} else {
 			log.Println("[ERROR] Fetch rank error:", err)
+			return
+		}
+	}
+
+	// Tambah poin
+	if err := tx.Model(&rank).
+		Update("amount_total_quiz", gorm.Expr("amount_total_quiz + ?", point)).Error; err != nil {
+		log.Println("[ERROR] Gagal update total point:", err)
+		return
+	}
+
+	// Ambil ulang data rank setelah update
+	if err := tx.Where("user_id = ?", userID).First(&rank).Error; err != nil {
+		log.Println("[ERROR] Gagal ambil data rank setelah update:", err)
+		return
+	}
+
+	// Cek upgrade level
+	needUpdate := false
+	var nextLevel progress_user.LevelPointRequirement
+	if rank.AmountTotalQuiz > rank.MaxPointLevel {
+		if err := tx.Where("max_point_level > ?", rank.MaxPointLevel).
+			Order("max_point_level ASC").First(&nextLevel).Error; err == nil {
+			rank.LevelID = nextLevel.ID
+			rank.MaxPointLevel = nextLevel.MaxPointLevel
+			rank.IconURLLevel = nextLevel.IconURL
+			needUpdate = true
+			log.Printf("[INFO] User ID %d naik LEVEL ke %s", userID, nextLevel.NameLevel)
+		}
+	}
+
+	// Cek upgrade rank
+	var nextRank progress_user.RankLevelRequirement
+	if int(rank.LevelID) > rank.MaxLevelRank {
+		if err := tx.Where("max_level > ?", rank.MaxLevelRank).
+			Order("max_level ASC").First(&nextRank).Error; err == nil {
+			rank.RankID = nextRank.ID
+			rank.MaxLevelRank = nextRank.MaxLevel
+			rank.IconURLRank = nextRank.IconURL
+			needUpdate = true
+			log.Printf("[INFO] User ID %d naik RANK ke %s", userID, nextRank.NameRank)
+		}
+	}
+
+	// Simpan perubahan jika ada
+	if needUpdate {
+		if err := tx.Save(&rank).Error; err != nil {
+			log.Println("[ERROR] Gagal update rank/level:", err)
 		}
 	} else {
-		if err := tx.Model(&rank).
-			Update("amount_total_quiz", gorm.Expr("amount_total_quiz + ?", point)).Error; err != nil {
-			log.Println("[ERROR] Gagal update total point:", err)
-		} else {
-			log.Println("[INFO] Updated existing user_point_level_rank (incremented)")
-		}
+		log.Println("[INFO] Updated existing user_point_level_rank (incremented)")
 	}
 }

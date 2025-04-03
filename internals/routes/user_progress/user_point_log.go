@@ -11,6 +11,7 @@ func UserPointLogRoutes(app *fiber.App, db *gorm.DB) {
 	controllerPointLogs := user_progress.NewUserPointLogController(db)
 	controllerGetUserPointLevelRank := user_progress.NewUserPointLevelRankController(db)
 	controllerLevel := user_progress.NewLevelPointRequirementController(db)
+	controllerRank := user_progress.NewRankLevelRequirementController(db)
 
 	// User Point Logs
 	app.Get("/api/user_point_logs/:user_id", controllerPointLogs.GetUserPointLogsByUserID)
@@ -24,4 +25,11 @@ func UserPointLogRoutes(app *fiber.App, db *gorm.DB) {
 	app.Post("/api/level_point_requirements", controllerLevel.CreateLevel)
 	app.Put("/api/level_point_requirements/:id", controllerLevel.UpdateLevel)
 	app.Delete("/api/level_point_requirements/:id", controllerLevel.DeleteLevel)
+
+	// Rank Level Requirement Routes
+	app.Get("/api/rank_level_requirements", controllerRank.GetAll)
+	app.Get("/api/rank_level_requirements/:id", controllerRank.GetByID)
+	app.Post("/api/rank_level_requirements", controllerRank.Create)
+	app.Put("/api/rank_level_requirements/:id", controllerRank.Update)
+	app.Delete("/api/rank_level_requirements/:id", controllerRank.Delete)
 }
