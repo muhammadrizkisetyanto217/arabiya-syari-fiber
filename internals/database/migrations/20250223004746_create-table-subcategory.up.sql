@@ -11,5 +11,3 @@ CREATE TABLE IF NOT EXISTS subcategories (
     deleted_at TIMESTAMP,
     categories_id INT REFERENCES categories(id)
 )
-
-

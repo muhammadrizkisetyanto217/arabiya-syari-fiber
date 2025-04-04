@@ -64,4 +64,7 @@ func CategoryRoutes(app *fiber.App, db *gorm.DB) {
 	unitRoutes.Post("/", unitController.CreateUnit)
 	unitRoutes.Put("/:id", unitController.UpdateUnit)
 	unitRoutes.Delete("/:id", unitController.DeleteUnit)
+
+
+	
 }

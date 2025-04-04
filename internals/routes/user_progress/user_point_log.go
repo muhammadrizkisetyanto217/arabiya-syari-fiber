@@ -14,22 +14,22 @@ func UserPointLogRoutes(app *fiber.App, db *gorm.DB) {
 	controllerRank := user_progress.NewRankLevelRequirementController(db)
 
 	// User Point Logs
-	app.Get("/api/user_point_logs/:user_id", controllerPointLogs.GetUserPointLogsByUserID)
+	app.Get("/api/user-point-logs/:user_id", controllerPointLogs.GetUserPointLogsByUserID)
 
 	// User Progress (Total Quiz & Level)
-	app.Get("/api/user_progress/:user_id", controllerGetUserPointLevelRank.GetUserPointLevelRankByUserID)
+	app.Get("/api/user-progress/:user_id", controllerGetUserPointLevelRank.GetUserPointLevelRankByUserID)
 
 	// Level Point Requirement Routes
-	app.Get("/api/level_point_requirements", controllerLevel.GetLevels)
-	app.Get("/api/level_point_requirements/:id", controllerLevel.GetLevel)
-	app.Post("/api/level_point_requirements", controllerLevel.CreateLevel)
-	app.Put("/api/level_point_requirements/:id", controllerLevel.UpdateLevel)
-	app.Delete("/api/level_point_requirements/:id", controllerLevel.DeleteLevel)
+	app.Get("/api/level-point-requirements", controllerLevel.GetLevels)
+	app.Get("/api/level-point-requirements/:id", controllerLevel.GetLevel)
+	app.Post("/api/level-point-requirements", controllerLevel.CreateLevel)
+	app.Put("/api/level-point-requirements/:id", controllerLevel.UpdateLevel)
+	app.Delete("/api/level-point-requirements/:id", controllerLevel.DeleteLevel)
 
 	// Rank Level Requirement Routes
-	app.Get("/api/rank_level_requirements", controllerRank.GetAll)
-	app.Get("/api/rank_level_requirements/:id", controllerRank.GetByID)
-	app.Post("/api/rank_level_requirements", controllerRank.Create)
-	app.Put("/api/rank_level_requirements/:id", controllerRank.Update)
-	app.Delete("/api/rank_level_requirements/:id", controllerRank.Delete)
+	app.Get("/api/rank-level-requirements", controllerRank.GetAll)
+	app.Get("/api/rank-level-requirements/:id", controllerRank.GetByID)
+	app.Post("/api/rank-level-requirements", controllerRank.Create)
+	app.Put("/api/rank-level-requirements/:id", controllerRank.Update)
+	app.Delete("/api/rank-level-requirements/:id", controllerRank.Delete)
 }

@@ -1,0 +1,392 @@
+[
+    {
+        "id": 4000,
+        "keyword": "jibril",
+        "description_short": "Malaikat penyampai wahyu.",
+        "description_long": "Jibril adalah malaikat yang bertugas menyampaikan wahyu dari Allah kepada para nabi dan rasul. Ia dikenal sebagai Ar-Ruh Al-Amin (Ruh yang terpercaya) dan Ruh Al-Qudus (Ruh yang suci). Dalam Al-Qur'an, tugas Jibril disebutkan dalam Surah Asy-Syu'ara ayat 193: 'Yang dibawa turun oleh Ar-Ruh Al-Amin (Jibril).' (QS. Asy-Syu'ara: 193)."
+    },
+    {
+        "id": 4001,
+        "keyword": "mikail",
+        "description_short": "Malaikat pembagi rezeki.",
+        "description_long": "Mikail adalah malaikat yang bertugas menurunkan hujan, menumbuhkan tumbuh-tumbuhan, dan mengatur rezeki bagi makhluk hidup. Namanya disebut dalam Al-Qur'an pada Surah Al-Baqarah ayat 98: 'Barangsiapa menjadi musuh Allah, malaikat-malaikat-Nya, rasul-rasul-Nya, Jibril dan Mikail, maka sesungguhnya Allah musuh bagi orang-orang kafir.' (QS. Al-Baqarah: 98)."
+    },
+    {
+        "id": 4002,
+        "keyword": "israfil",
+        "description_short": "Malaikat peniup sangkakala.",
+        "description_long": "Israfil adalah malaikat yang bertugas meniup sangkakala pada hari kiamat sebagai tanda dimulainya hari kebangkitan. Meskipun namanya tidak disebutkan secara langsung dalam Al-Qur'an, tugasnya dijelaskan dalam Surah Az-Zumar ayat 68: 'Dan sangkakala pun ditiup, maka matilah semua (makhluk) yang di langit dan di bumi kecuali mereka yang dikehendaki Allah. Kemudian ditiup sekali lagi (sangkakala itu) maka seketika itu mereka bangun (dari kuburnya) menunggu (keputusan Allah).' (QS. Az-Zumar: 68)."
+    },
+    {
+        "id": 4003,
+        "keyword": "izrail",
+        "description_short": "Malaikat pencabut nyawa.",
+        "description_long": "Izrail, dikenal sebagai Malaikat Maut, bertugas mencabut nyawa setiap makhluk hidup saat ajalnya tiba. Dalam Al-Qur'an, tugasnya disebutkan dalam Surah As-Sajdah ayat 11: 'Katakanlah, 'Malaikat maut yang diserahi untuk (mencabut nyawa)mu akan mematikan kamu, kemudian kepada Tuhanmu, kamu akan dikembalikan.' (QS. As-Sajdah: 11)."
+    },
+    {
+        "id": 4004,
+        "keyword": "munkar",
+        "description_short": "Malaikat penanya di alam kubur.",
+        "description_long": "Munkar adalah malaikat yang bertugas menanyai orang yang telah meninggal di dalam kubur mengenai amal perbuatannya selama hidup. Tugasnya disebutkan dalam hadits yang diriwayatkan oleh Tirmidzi: 'Apabila mayat atau salah seorang dari kalian sudah dikuburkan, ia akan didatangi dua malaikat hitam dan biru, salah satunya Munkar dan yang lainnya Nakir...' (HR. Tirmidzi)."
+    },
+    {
+        "id": 4005,
+        "keyword": "nakir",
+        "description_short": "Malaikat penanya di alam kubur.",
+        "description_long": "Nakir, bersama dengan Munkar, bertugas menanyai orang yang telah meninggal di dalam kubur tentang amal perbuatannya selama hidup. Tugasnya disebutkan dalam hadits yang diriwayatkan oleh Tirmidzi: 'Apabila mayat atau salah seorang dari kalian sudah dikuburkan, ia akan didatangi dua malaikat hitam dan biru, salah satunya Munkar dan yang lainnya Nakir...' (HR. Tirmidzi)."
+    },
+    {
+        "id": 4006,
+        "keyword": "raqib",
+        "description_short": "Malaikat pencatat amal baik.",
+        "description_long": "Raqib adalah malaikat yang bertugas mencatat amal baik manusia. Dalam Al-Qur'an, tugasnya disebutkan dalam Surah Qaf ayat 17-18: '(Ingatlah) ketika dua malaikat mencatat amal perbuatannya, seorang duduk di sebelah kanan dan yang lain duduk di sebelah kiri. Tiada suatu ucapan pun yang diucapkannya melainkan ada di dekatnya malaikat pengawas yang selalu hadir.' (QS. Qaf: 17-18)."
+    },
+    {
+        "id": 4007,
+        "keyword": "atid",
+        "description_short": "Malaikat pencatat amal buruk.",
+        "description_long": "Atid adalah malaikat yang bertugas mencatat amal buruk manusia. Dalam Al-Qur'an, tugasnya disebutkan dalam Surah Qaf ayat 17-18: '(Ingatlah) ketika dua malaikat mencatat amal perbuatannya, seorang duduk di sebelah kanan dan yang lain duduk di sebelah kiri. Tiada suatu ucapan pun yang diucapkannya melainkan ada di dekatnya malaikat pengawas yang selalu hadir.' (QS. Qaf: 17-18)."
+    },
+    {
+        "id": 4008,
+        "keyword": "malik",
+        "description_short": "Malaikat penjaga neraka.",
+        "description_long": "Malik adalah malaikat yang bertugas menjaga pintu neraka. Namanya disebut dalam Al-Qur'an pada Surah Az-Zukhruf ayat 77: 'Dan mereka berseru, 'Wahai (Malaikat) Malik! Biarlah Tuhanmu mematikan kami saja.' Dia menjawab, 'Sungguh, kamu akan tetap tinggal (di neraka ini).' (QS. Az-Zukhruf: 77)."
+    },
+    {
+        "id": 4009,
+        "keyword": "ridwan",
+        "description_short": "Malaikat penjaga surga.",
+        "description_long": "Ridwan adalah malaikat yang bertugas menjaga pintu surga dan menyambut para penghuni surga dengan penuh keramahan. Meskipun namanya tidak disebutkan secara langsung dalam Al-Qur'an atau hadits shahih, dalam literatur Islam, Ridwan dikenal sebagai penjaga surga yang menyambut orang-orang beriman."
+    },
+    {
+        "id": 4010,
+        "keyword": "adam",
+        "description_short": "Nabi pertama dan manusia pertama.",
+        "description_long": "Nabi Adam adalah manusia pertama yang diciptakan oleh Allah dan juga nabi pertama dalam Islam. Ia diciptakan dari tanah, diajari nama-nama segala sesuatu oleh Allah, dan dijadikan khalifah di bumi. Kisahnya disebutkan dalam Surah Al-Baqarah ayat 30: 'Sesungguhnya Aku hendak menjadikan seorang khalifah di muka bumi...' (QS. Al-Baqarah: 30) dan Surah Al-A'raf ayat 11–25."
+    },
+    {
+        "id": 4011,
+        "keyword": "idris",
+        "description_short": "Nabi yang sangat sabar dan rajin menulis.",
+        "description_long": "Nabi Idris dikenal sebagai nabi yang sangat sabar, tekun, dan rajin dalam menulis serta berdakwah. Ia adalah nabi pertama yang mengenalkan tulisan dan ilmu pengetahuan. Dalam Al-Qur'an disebutkan dalam Surah Maryam ayat 56-57: 'Dan ceritakanlah (Muhammad) kisah Idris di dalam Kitab (Al-Qur'an). Sesungguhnya ia adalah seorang yang sangat mencintai kebenaran dan seorang nabi. Dan Kami telah mengangkatnya ke martabat yang tinggi.' (QS. Maryam: 56-57)."
+    },
+    {
+        "id": 4012,
+        "keyword": "nuh",
+        "description_short": "Nabi yang membangun kapal untuk menyelamatkan umatnya.",
+        "description_long": "Nabi Nuh adalah rasul pertama yang diutus kepada kaumnya untuk menyeru kepada tauhid. Ia berdakwah selama 950 tahun, namun hanya sedikit yang mengikuti. Ia diperintahkan membangun kapal besar untuk menyelamatkan pengikutnya dari banjir besar. Kisahnya disebutkan dalam Surah Hud ayat 36-37: 'Dan diwahyukan kepada Nuh, 'Bahwa sekali-kali tidak akan beriman di antara kaummu kecuali orang yang telah beriman, maka janganlah engkau bersedih hati atas apa yang mereka perbuat. Dan buatlah kapal itu dengan pengawasan dan petunjuk wahyu Kami...' (QS. Hud: 36-37)."
+    },
+    {
+        "id": 4013,
+        "keyword": "hud",
+        "description_short": "Nabi yang diutus kepada kaum 'Ad.",
+        "description_long": "Nabi Hud diutus kepada kaum 'Ad yang sombong dan membangkang terhadap perintah Allah. Ia menyeru mereka untuk menyembah Allah semata, namun mereka menolak hingga akhirnya ditimpa angin yang sangat dingin dan menghancurkan. Kisahnya terdapat dalam Surah Hud ayat 50–60 dan Al-A'raf ayat 65–72."
+    },
+    {
+        "id": 4014,
+        "keyword": "shalih",
+        "description_short": "Nabi yang membawa mukjizat unta.",
+        "description_long": "Nabi Shalih diutus kepada kaum Tsamud. Ia membawa mukjizat berupa unta betina yang keluar dari batu besar, namun mereka mendustakan dan membunuh unta itu. Akhirnya Allah menghancurkan mereka dengan gempa yang dahsyat. Kisahnya disebutkan dalam Surah Asy-Syu'ara ayat 141–158 dan Hud ayat 61–68."
+    },
+    {
+        "id": 4015,
+        "keyword": "ibrahim",
+        "description_short": "Nabi yang dikenal sebagai Khalilullah.",
+        "description_long": "Nabi Ibrahim adalah bapak para nabi dan dikenal sebagai Khalilullah (kekasih Allah). Ia menegakkan tauhid dan menentang penyembahan berhala. Kisahnya disebutkan dalam banyak ayat, seperti Surah Al-Baqarah ayat 124–132, Surah Al-An'am ayat 74–83, dan Surah Ash-Shaffat ayat 99–111."
+    },
+    {
+        "id": 4016,
+        "keyword": "luth",
+        "description_short": "Nabi yang diutus kepada kaum sodomi.",
+        "description_long": "Nabi Luth adalah keponakan Nabi Ibrahim dan diutus kepada kaum Sodom yang melakukan perbuatan homoseksual. Ia memperingatkan mereka, namun mereka tetap membangkang. Allah akhirnya menghancurkan mereka dengan hujan batu dan membalikkan kota mereka. Kisahnya disebut dalam Surah Hud ayat 77–83 dan Al-A'raf ayat 80–84."
+    },
+    {
+        "id": 4017,
+        "keyword": "ismail",
+        "description_short": "Putra Nabi Ibrahim yang taat.",
+        "description_long": "Nabi Ismail adalah putra Nabi Ibrahim dari Hajar. Ia dikenal karena ketaatannya kepada Allah dan bapaknya, termasuk saat peristiwa perintah penyembelihan. Allah mengganti sembelihan itu dengan seekor hewan. Kisahnya disebutkan dalam Surah Ash-Shaffat ayat 100–111."
+    },
+    {
+        "id": 4018,
+        "keyword": "ishaq",
+        "description_short": "Anak kedua Nabi Ibrahim, ayah dari Ya'qub.",
+        "description_long": "Nabi Ishaq adalah putra Nabi Ibrahim dari Sarah dan merupakan ayah dari Nabi Ya'qub. Ia diberi kabar gembira sebagai anugerah dari Allah setelah usia tua. Namanya disebutkan dalam Surah Ash-Shaffat ayat 112–113 dan Hud ayat 71–73."
+    },
+    {
+        "id": 4019,
+        "keyword": "ya'qub",
+        "description_short": "Nabi yang juga dikenal dengan nama Israel.",
+        "description_long": "Nabi Ya'qub adalah putra Nabi Ishaq dan ayah dari Nabi Yusuf. Ia memiliki keturunan yang banyak, dari mana lahir Bani Israil. Ia dikenal dengan kesabarannya dan keteguhannya dalam menghadapi ujian. Kisahnya disebutkan dalam Surah Yusuf dan Al-Baqarah ayat 132–133."
+    },
+    {
+        "id": 4020,
+        "keyword": "yusuf",
+        "description_short": "Nabi yang dikenal karena ketampanan dan kesabarannya.",
+        "description_long": "Nabi Yusuf adalah putra Nabi Ya'qub yang diberi karunia berupa mimpi, takwil mimpi, dan ketampanan luar biasa. Ia dijual sebagai budak dan akhirnya menjadi pejabat Mesir. Kisah lengkapnya ada dalam Surah Yusuf ayat 1–111."
+    },
+    {
+        "id": 4021,
+        "keyword": "ayyub",
+        "description_short": "Nabi yang sangat sabar dalam menghadapi ujian.",
+        "description_long": "Nabi Ayyub terkenal karena kesabarannya saat menghadapi penyakit dan kehilangan harta serta keluarganya. Ia tetap bersyukur kepada Allah hingga akhirnya disembuhkan. Kisahnya terdapat dalam Surah Shad ayat 41–44 dan Al-Anbiya ayat 83–84."
+    },
+    {
+        "id": 4022,
+        "keyword": "syu'aib",
+        "description_short": "Nabi yang diutus kepada kaum Madyan.",
+        "description_long": "Nabi Syu'aib diutus kepada kaum Madyan yang suka menipu dalam takaran dan timbangan. Ia menyeru mereka untuk berlaku jujur dan menyembah Allah. Mereka mendustakan Syu'aib hingga ditimpa azab. Kisahnya ada dalam Surah Hud ayat 84–95 dan Al-A'raf ayat 85–93."
+    },
+    {
+        "id": 4023,
+        "keyword": "musa",
+        "description_short": "Nabi yang menerima Taurat dan membelah laut.",
+        "description_long": "Nabi Musa diutus kepada Bani Israil dan Fir’aun. Ia menerima kitab Taurat dan diberi banyak mukjizat, termasuk membelah Laut Merah. Kisahnya sangat banyak disebut dalam Al-Qur'an, di antaranya dalam Surah Al-Qashash, Surah Taha, dan Al-A’raf ayat 103–160."
+    },
+    {
+        "id": 4024,
+        "keyword": "harun",
+        "description_short": "Saudara Musa yang diangkat sebagai nabi.",
+        "description_long": "Nabi Harun adalah saudara Nabi Musa yang diangkat sebagai nabi untuk membantu Musa dalam menyampaikan dakwah kepada Fir’aun. Namanya disebut dalam Surah Taha ayat 29–36 dan Al-A’raf ayat 142."
+    },
+    {
+        "id": 4025,
+        "keyword": "dzulkifli",
+        "description_short": "Nabi yang sabar dan taat.",
+        "description_long": "Nabi Dzulkifli dikenal karena kesabaran dan ketaatannya dalam menjalankan perintah Allah. Namanya disebut dalam Surah Al-Anbiya ayat 85–86 dan Shad ayat 48."
+    },
+    {
+        "id": 4026,
+        "keyword": "daud",
+        "description_short": "Nabi sekaligus raja yang bijaksana.",
+        "description_long": "Nabi Daud adalah nabi dan raja yang diberi kitab Zabur serta suara merdu. Ia dikenal adil dalam memimpin dan ahli ibadah. Kisahnya disebutkan dalam Surah Shad ayat 17–26 dan Al-Baqarah ayat 251."
+    },
+    {
+        "id": 4027,
+        "keyword": "sulaiman",
+        "description_short": "Nabi yang bisa berbicara dengan hewan dan jin.",
+        "description_long": "Nabi Sulaiman adalah putra Nabi Daud. Ia diberi mukjizat dapat berbicara dengan hewan dan menguasai jin. Ia juga diberi kerajaan yang sangat besar. Kisahnya terdapat dalam Surah An-Naml ayat 15–44 dan Shad ayat 30–40."
+    },
+    {
+        "id": 4028,
+        "keyword": "ilyas",
+        "description_short": "Nabi yang menyeru kaumnya menyembah Allah.",
+        "description_long": "Nabi Ilyas diutus kepada kaum yang menyembah berhala Ba’al. Ia menyeru mereka untuk kembali kepada tauhid. Kisahnya disebut dalam Surah Ash-Shaffat ayat 123–132 dan Al-An’am ayat 85."
+    },
+    {
+        "id": 4029,
+        "keyword": "alya-sa'",
+        "description_short": "Nabi yang melanjutkan dakwah Ilyas.",
+        "description_long": "Nabi Alyasa’ (Al-Yasa) adalah penerus dakwah Nabi Ilyas. Ia dikenal sebagai nabi yang sabar dan beramal shaleh. Namanya disebut dalam Surah Shad ayat 48 dan Al-An’am ayat 86."
+    },
+    {
+        "id": 4030,
+        "keyword": "yunus",
+        "description_short": "Nabi yang ditelan ikan besar.",
+        "description_long": "Nabi Yunus pernah meninggalkan kaumnya dan akhirnya ditelan oleh ikan besar. Ia berdoa dalam perut ikan dan diselamatkan oleh Allah. Doanya dikenal sebagai dzikir Nabi Yunus. Kisahnya disebut dalam Surah As-Saffat ayat 139–148 dan Surah Al-Anbiya ayat 87–88."
+    },
+    {
+        "id": 4031,
+        "keyword": "zakariya",
+        "description_short": "Nabi yang dikaruniai anak di usia tua.",
+        "description_long": "Nabi Zakariya adalah ayah Nabi Yahya. Ia memohon kepada Allah agar diberi keturunan, dan doanya dikabulkan meskipun ia sudah tua. Kisahnya disebut dalam Surah Maryam ayat 2–15 dan Ali Imran ayat 38–41."
+    },
+    {
+        "id": 4032,
+        "keyword": "yahya",
+        "description_short": "Nabi yang shaleh sejak kecil.",
+        "description_long": "Nabi Yahya adalah putra Nabi Zakariya, dikenal sebagai anak yang suci dan taat sejak kecil. Ia juga termasuk nabi yang disiapkan untuk menyambut kedatangan Nabi Isa. Kisahnya disebut dalam Surah Maryam ayat 12–15 dan Ali Imran ayat 39."
+    },
+    {
+        "id": 4033,
+        "keyword": "isa",
+        "description_short": "Nabi yang lahir tanpa ayah dan diberi Injil.",
+        "description_long": "Nabi Isa adalah nabi yang dilahirkan tanpa ayah melalui Maryam, dan diberi kitab Injil. Ia melakukan banyak mukjizat dengan izin Allah, seperti menyembuhkan orang buta dan menghidupkan orang mati. Kisahnya disebut dalam Surah Ali Imran ayat 45–52 dan Surah Maryam ayat 16–36."
+    },
+    {
+        "id": 4034,
+        "keyword": "muhammad",
+        "description_short": "Nabi terakhir dan penutup para rasul.",
+        "description_long": "Nabi Muhammad ﷺ adalah nabi terakhir yang diutus untuk seluruh umat manusia. Ia menerima wahyu berupa Al-Qur'an melalui Malaikat Jibril dan menjadi teladan sempurna dalam akhlak dan kepemimpinan. Kisah hidupnya tersebar dalam Al-Qur’an seperti Surah Al-Ahzab ayat 40: 'Muhammad itu sekali-kali bukanlah bapak dari seorang laki-laki di antara kamu, tetapi dia adalah Rasulullah dan penutup nabi-nabi.'"
+    },
+    {
+        "id": 4035,
+        "keyword": "khidir",
+        "description_short": "Tokoh saleh yang memiliki ilmu laduni dari Allah.",
+        "description_long": "Khidir adalah sosok misterius yang memiliki ilmu langsung dari Allah (ilmu laduni) dan dikisahkan dalam pertemuannya dengan Nabi Musa. Ia melakukan berbagai tindakan yang tampak aneh, namun memiliki hikmah besar. Kisah lengkapnya disebut dalam Surah Al-Kahfi ayat 60–82."
+    },
+    {
+        "id": 4036,
+        "keyword": "luqman",
+        "description_short": "Orang saleh yang diberi hikmah oleh Allah.",
+        "description_long": "Luqman bukan seorang nabi, tetapi disebut dalam Al-Qur’an sebagai hamba yang diberi hikmah. Ia dikenal dengan nasihat-nasihat bijaknya kepada anaknya tentang tauhid, akhlak, dan adab. Kisahnya terdapat dalam Surah Luqman ayat 12–19."
+    },
+    {
+        "id": 4037,
+        "keyword": "uzair",
+        "description_short": "Tokoh yang dihidupkan kembali setelah wafat selama 100 tahun.",
+        "description_long": "Uzair adalah seorang saleh dari Bani Israil yang disebut dalam Al-Qur’an karena dihidupkan kembali setelah wafat selama seratus tahun, sebagai tanda kekuasaan Allah. Kisahnya disebut dalam Surah Al-Baqarah ayat 259."
+    },
+    {
+        "id": 4038,
+        "keyword": "dzulqarnain",
+        "description_short": "Penguasa adil yang membangun dinding untuk menghalau Ya'juj dan Ma'juj.",
+        "description_long": "Dzulqarnain adalah tokoh dalam Al-Qur'an yang digambarkan sebagai penguasa yang adil dan beriman. Ia melakukan perjalanan ke berbagai penjuru bumi dan membangun tembok besar untuk menghalau Ya’juj dan Ma’juj. Kisahnya disebut dalam Surah Al-Kahfi ayat 83–98."
+    },
+    {
+        "id": 4039,
+        "keyword": "qarun",
+        "description_short": "Orang kaya dari kaum Musa yang sombong.",
+        "description_long": "Qarun adalah sosok dari kaum Musa yang sangat kaya, namun sombong dan kufur terhadap nikmat Allah. Ia dibinasakan oleh Allah bersama hartanya. Kisahnya disebut dalam Surah Al-Qashash ayat 76–82."
+    },
+    {
+        "id": 4040,
+        "keyword": "samiri",
+        "description_short": "Pembuat patung anak sapi dari kaum Musa.",
+        "description_long": "Samiri adalah sosok dari kaum Nabi Musa yang membuat patung anak sapi dari emas untuk disembah oleh Bani Israil saat Musa naik ke Gunung Sinai. Kisahnya disebut dalam Surah Taha ayat 85–97."
+    },
+    {
+        "id": 4041,
+        "keyword": "fir'aun",
+        "description_short": "Raja Mesir yang zalim dan mengaku sebagai tuhan.",
+        "description_long": "Fir’aun adalah simbol kezaliman dan kesombongan dalam Al-Qur’an. Ia menindas Bani Israil dan menolak dakwah Nabi Musa hingga akhirnya ditenggelamkan di Laut Merah. Kisahnya terdapat dalam Surah Al-Qashash, Surah Taha, dan Al-A’raf."
+    },
+    {
+        "id": 4042,
+        "keyword": "hammam",
+        "description_short": "Penasihat Fir’aun yang sombong.",
+        "description_long": "Haman adalah menteri Fir’aun yang juga menentang Nabi Musa. Ia diperintahkan membangun menara tinggi untuk menantang Allah. Kisahnya disebut dalam Surah Al-Qashash ayat 6 dan 38."
+    },
+    {
+        "id": 4043,
+        "keyword": "asiyah",
+        "description_short": "Istri Fir’aun yang beriman.",
+        "description_long": "Asiyah adalah istri Fir’aun yang beriman kepada Allah dan membela Musa. Ia disebut dalam Al-Qur’an sebagai teladan wanita beriman. Kisahnya terdapat dalam Surah At-Tahrim ayat 11."
+    },
+    {
+        "id": 4044,
+        "keyword": "mariam",
+        "description_short": "Ibu Nabi Isa yang suci dan mulia.",
+        "description_long": "Maryam adalah ibu dari Nabi Isa dan wanita yang dipilih dan disucikan oleh Allah. Ia menjadi satu-satunya wanita yang disebutkan namanya dalam Al-Qur’an dan dijadikan teladan bagi semua wanita beriman. Kisahnya disebut dalam Surah Maryam dan Ali Imran."
+    },
+    {
+        "id": 4045,
+        "keyword": "luqman",
+        "description_short": "Tokoh bijak yang menasihati anaknya.",
+        "description_long": "Luqman adalah seorang tokoh bijak yang dikenal dalam Al-Qur'an karena nasihat-nasihat berhikmahnya kepada anaknya. Ia menasihati anaknya untuk tidak menyekutukan Allah, berbakti kepada orang tua, dan berakhlak mulia. Kisahnya tertuang dalam Surah Luqman ayat 12–19."
+    },
+    {
+        "id": 4046,
+        "keyword": "maryam",
+        "description_short": "Ibu Nabi Isa yang suci dan mulia.",
+        "description_long": "Maryam adalah wanita suci yang dipilih oleh Allah dan diberi mukjizat berupa kelahiran Nabi Isa tanpa ayah. Ia adalah satu-satunya wanita yang disebutkan namanya dalam Al-Qur'an, bahkan menjadi nama surah tersendiri: Surah Maryam. Kisahnya terdapat dalam Surah Maryam ayat 16–36 dan Ali Imran ayat 42–47."
+    },
+    {
+        "id": 4047,
+        "keyword": "firaun",
+        "description_short": "Raja Mesir yang zalim dan menentang Musa.",
+        "description_long": "Firaun adalah raja Mesir yang mengaku sebagai tuhan dan menindas Bani Israil. Ia menolak ajakan Nabi Musa untuk beriman, hingga akhirnya ditenggelamkan di Laut Merah. Kisahnya disebutkan dalam banyak surah, seperti Surah Al-Qashash, Yunus, dan Thaha."
+    },
+    {
+        "id": 4048,
+        "keyword": "qarun",
+        "description_short": "Orang kaya yang sombong di zaman Musa.",
+        "description_long": "Qarun adalah seorang yang sangat kaya raya namun sombong dan tidak bersyukur. Ia berasal dari kaum Musa. Karena kesombongannya, Allah membenamkan dirinya dan hartanya ke dalam bumi. Kisahnya disebutkan dalam Surah Al-Qashash ayat 76–82."
+    },
+    {
+        "id": 4049,
+        "keyword": "haman",
+        "description_short": "Penasehat Firaun yang mendukung kezaliman.",
+        "description_long": "Haman adalah menteri dan penasehat kepercayaan Firaun yang turut mendukung kekufuran dan kezaliman terhadap Nabi Musa dan Bani Israil. Namanya disebut dalam beberapa surah, seperti Surah Al-Qashash dan Al-Mu’min."
+    },
+    {
+        "id": 4050,
+        "keyword": "samiri",
+        "description_short": "Tokoh yang membuat patung anak sapi.",
+        "description_long": "Samiri adalah tokoh dari Bani Israil yang membuat patung anak sapi untuk disembah ketika Nabi Musa pergi menerima wahyu. Perbuatannya menyesatkan banyak orang dari jalan yang benar. Kisahnya disebut dalam Surah Thaha ayat 85–97."
+    },
+    {
+        "id": 4051,
+        "keyword": "talut",
+        "description_short": "Raja yang memimpin Bani Israil.",
+        "description_long": "Talut adalah raja yang dipilih oleh Allah untuk memimpin Bani Israil dalam menghadapi Jalut. Ia dikenal sebagai pemimpin yang kuat dan berilmu. Kisahnya terdapat dalam Surah Al-Baqarah ayat 246–251."
+    },
+    {
+        "id": 4052,
+        "keyword": "jalut",
+        "description_short": "Musuh besar Bani Israil yang dikalahkan Daud.",
+        "description_long": "Jalut adalah pemimpin pasukan kafir yang sangat kuat, namun akhirnya dikalahkan oleh Nabi Daud dalam pertempuran. Kisah ini menunjukkan kekuatan iman dan keberanian melawan kezaliman. Tercantum dalam Surah Al-Baqarah ayat 251."
+    },
+    {
+        "id": 4053,
+        "keyword": "ashabul kahfi",
+        "description_short": "Pemuda yang tidur di gua selama 309 tahun.",
+        "description_long": "Ashabul Kahfi adalah sekelompok pemuda beriman yang lari dari kekejaman penguasa kafir dan bersembunyi di dalam gua. Allah menidurkan mereka selama 309 tahun. Kisah mereka terdapat dalam Surah Al-Kahfi ayat 9–26."
+    },
+    {
+        "id": 4054,
+        "keyword": "dzulqarnain",
+        "description_short": "Raja adil yang menjelajah timur dan barat.",
+        "description_long": "Dzulqarnain adalah seorang raja saleh yang diberi kekuasaan luas oleh Allah. Ia melakukan perjalanan ke timur dan barat, serta membangun dinding untuk menghalangi Ya’juj dan Ma’juj. Kisahnya terdapat dalam Surah Al-Kahfi ayat 83–98."
+    },
+    {
+        "id": 4055,
+        "keyword": "istri musa",
+        "description_short": "Putri Nabi Syu’aib yang dinikahi Musa.",
+        "description_long": "Istri Nabi Musa adalah salah satu dari dua putri Nabi Syu’aib yang diberikan kepada Musa sebagai istri setelah Musa membantu mereka memberi minum hewan ternak. Kisah pertemuan dan pernikahan mereka disebutkan dalam Surah Al-Qashash ayat 23–28."
+    },
+    {
+        "id": 4056,
+        "keyword": "azazil",
+        "description_short": "Nama Iblis sebelum ia membangkang.",
+        "description_long": "Azazil adalah nama yang diyakini sebagian ulama sebagai nama asli Iblis sebelum ia membangkang perintah Allah untuk sujud kepada Adam. Meskipun tidak disebutkan secara langsung dalam Al-Qur'an, narasi ini muncul dalam riwayat-riwayat Israiliyyat. Kisah pembangkangan Iblis terdapat dalam Surah Al-A’raf ayat 11–18."
+    },
+    {
+        "id": 4057,
+        "keyword": "iblis",
+        "description_short": "Makhluk dari jin yang membangkang kepada Allah.",
+        "description_long": "Iblis adalah makhluk dari golongan jin yang membangkang perintah Allah untuk sujud kepada Nabi Adam. Karena kesombongannya, ia dikutuk dan dikeluarkan dari rahmat Allah. Kisahnya disebut dalam Surah Al-A’raf ayat 11–18 dan Surah Sad ayat 71–85."
+    },
+    {
+        "id": 4058,
+        "keyword": "ya’juj dan ma’juj",
+        "description_short": "Bangsa perusak yang akan keluar menjelang kiamat.",
+        "description_long": "Ya’juj dan Ma’juj adalah dua bangsa besar yang suka membuat kerusakan di bumi. Mereka dikurung di balik tembok besar oleh Dzulqarnain dan akan keluar menjelang kiamat. Kisah mereka disebut dalam Surah Al-Kahfi ayat 94–99 dan Surah Al-Anbiya ayat 96."
+    },
+    {
+        "id": 4059,
+        "keyword": "burung hud-hud",
+        "description_short": "Burung Nabi Sulaiman yang menyampaikan berita dari Ratu Saba'.",
+        "description_long": "Burung Hud-Hud adalah burung yang bekerja untuk Nabi Sulaiman dan membawakan berita tentang Ratu Saba’ dan kaumnya yang menyembah matahari. Kisahnya disebut dalam Surah An-Naml ayat 20–28."
+    },
+    {
+        "id": 4060,
+        "keyword": "semut nabi sulaiman",
+        "description_short": "Semut yang berbicara agar kaumnya tidak terinjak.",
+        "description_long": "Semut dalam kisah Nabi Sulaiman berbicara memperingatkan kaumnya agar masuk ke sarang supaya tidak terinjak oleh pasukan Sulaiman. Nabi Sulaiman mendengarnya dan tersenyum. Kisahnya disebut dalam Surah An-Naml ayat 18–19."
+    },
+    {
+        "id": 4061,
+        "keyword": "ashif bin barkhiya",
+        "description_short": "Orang yang membawa singgasana Ratu Saba’ dalam sekejap.",
+        "description_long": "Ashif bin Barkhiya adalah seorang saleh dari pengikut Nabi Sulaiman yang memiliki ilmu dari Kitab dan mampu memindahkan singgasana Ratu Saba’ dalam sekejap. Kisah ini disebut dalam Surah An-Naml ayat 40."
+    },
+    {
+        "id": 4062,
+        "keyword": "rajulun min al-qasr",
+        "description_short": "Lelaki dari keluarga Fir’aun yang menyembunyikan imannya.",
+        "description_long": "Laki-laki dari keluarga Fir’aun yang beriman kepada Musa namun menyembunyikan keimanannya, ia berbicara membela Musa di hadapan Fir’aun. Kisahnya disebut dalam Surah Ghafir ayat 28–45."
+    },
+    {
+        "id": 4063,
+        "keyword": "haman",
+        "description_short": "Menteri Fir’aun yang sombong.",
+        "description_long": "Haman adalah menteri Fir’aun yang membantunya dalam menentang Nabi Musa. Ia diperintahkan membangun menara tinggi untuk menantang langit dan Allah. Kisahnya disebut dalam Surah Al-Qashash ayat 6 dan 38."
+    },
+    {
+        "id": 4064,
+        "keyword": "anak sapi samiri",
+        "description_short": "Patung anak sapi dari emas yang disembah Bani Israil.",
+        "description_long": "Anak sapi buatan Samiri adalah patung dari emas yang mengeluarkan suara seperti sapi, disembah oleh Bani Israil saat Musa naik ke gunung. Kisah ini disebut dalam Surah Taha ayat 83–97."
+    }
+]

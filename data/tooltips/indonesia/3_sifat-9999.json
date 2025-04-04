@@ -1,0 +1,188 @@
+[
+    {
+        "id": 7000,
+        "keyword": "ikhlas",
+        "description_short": "Sikap tulus dalam beribadah hanya karena Allah.",
+        "description_long": "Ikhlas adalah amalan hati yang sangat penting dalam Islam, yakni melakukan suatu ibadah atau perbuatan hanya untuk mengharap ridha Allah semata, bukan karena pujian manusia atau tujuan duniawi. Allah hanya menerima amal yang ikhlas. Dalam Al-Qur'an, keikhlasan dijelaskan dalam Surah Al-Bayyinah ayat 5."
+    },
+    {
+        "id": 7001,
+        "keyword": "sabar",
+        "description_short": "Sikap menahan diri dalam menghadapi ujian dan cobaan.",
+        "description_long": "Sabar dalam Islam merupakan kunci kemenangan hidup. Sabar tidak hanya saat mendapat musibah, tetapi juga dalam menjalankan ketaatan dan menjauhi maksiat. Allah menjanjikan pahala tak terbatas bagi orang-orang yang sabar. Banyak ayat menekankan pentingnya sabar, seperti dalam Surah Al-Baqarah ayat 153 dan 155–157."
+    },
+    {
+        "id": 7002,
+        "keyword": "tawakal",
+        "description_short": "Sikap berserah diri kepada Allah setelah berikhtiar.",
+        "description_long": "Tawakal adalah meletakkan seluruh kepercayaan kepada Allah setelah melakukan usaha atau ikhtiar semaksimal mungkin. Tawakal bukan pasrah tanpa usaha, tetapi kombinasi antara usaha dan penyerahan total kepada Allah. Disebutkan dalam Surah Al-Imran ayat 159 dan At-Talaq ayat 3."
+    },
+    {
+        "id": 7003,
+        "keyword": "jujur",
+        "description_short": "Sifat berkata benar dan tidak menipu.",
+        "description_long": "Jujur atau shidq adalah salah satu akhlak utama dalam Islam. Kejujuran mencakup kejujuran dalam ucapan, tindakan, dan niat. Rasulullah dikenal sebagai Al-Amin karena kejujurannya. Allah memerintahkan untuk berkata jujur dalam Surah At-Taubah ayat 119 dan An-Nisa ayat 135."
+    },
+    {
+        "id": 7004,
+        "keyword": "zuhud",
+        "description_short": "Sikap tidak bergantung pada dunia dan mencintai akhirat.",
+        "description_long": "Zuhud adalah sikap tidak terpaut hati kepada dunia walaupun memilikinya. Bukan berarti meninggalkan dunia, tetapi menjadikan akhirat sebagai tujuan utama. Orang zuhud hidup sederhana dan lebih fokus pada ibadah. Rasulullah SAW mencontohkan hidup zuhud dalam banyak hadis, seperti dalam riwayat Tirmidzi tentang keindahan zuhud."
+    },
+    {
+        "id": 7005,
+        "keyword": "ridha",
+        "description_short": "Sikap menerima ketetapan Allah dengan lapang dada.",
+        "description_long": "Ridha adalah kondisi hati yang menerima dengan ikhlas segala keputusan dan takdir dari Allah, baik berupa nikmat maupun ujian. Orang yang ridha terhadap ketetapan Allah akan mendapatkan ketenangan jiwa dan dicintai oleh-Nya. Sifat ini ditegaskan dalam Surah At-Taubah ayat 100 dan Al-Bayyinah ayat 8."
+    },
+    {
+        "id": 7006,
+        "keyword": "tawadhu",
+        "description_short": "Sikap rendah hati dan tidak sombong.",
+        "description_long": "Tawadhu adalah sifat merendah yang muncul dari keimanan, bukan karena kurang percaya diri. Orang yang tawadhu tidak meremehkan orang lain meski punya kelebihan. Rasulullah SAW adalah teladan terbaik dalam sifat tawadhu. Dalam Surah Al-Furqan ayat 63 dijelaskan ciri-ciri hamba Allah yang tawadhu."
+    },
+    {
+        "id": 7007,
+        "keyword": "istiqamah",
+        "description_short": "Sikap teguh dalam ketaatan kepada Allah.",
+        "description_long": "Istiqamah berarti konsisten dan terus-menerus dalam menjalankan perintah Allah dan menjauhi larangan-Nya, tanpa tergoyahkan oleh godaan atau ujian. Sifat ini merupakan kunci keberhasilan dunia dan akhirat. Allah memuji orang yang istiqamah dalam Surah Fussilat ayat 30 dan Al-Ahqaf ayat 13."
+    },
+    {
+        "id": 7008,
+        "keyword": "syukur",
+        "description_short": "Sikap berterima kasih kepada Allah atas nikmat-Nya.",
+        "description_long": "Syukur adalah bentuk pengakuan atas nikmat Allah dengan hati, lisan, dan perbuatan. Orang yang bersyukur akan ditambah nikmatnya oleh Allah. Dalam Islam, syukur adalah bentuk ibadah yang menunjukkan kerendahan hati dan cinta kepada Allah. Dijelaskan dalam Surah Ibrahim ayat 7 dan Luqman ayat 12."
+    },
+    {
+        "id": 7009,
+        "keyword": "adil",
+        "description_short": "Sikap menempatkan sesuatu pada tempatnya secara benar dan seimbang.",
+        "description_long": "Adil adalah sifat utama dalam Islam yang mencerminkan kejujuran, keseimbangan, dan kebenaran dalam segala hal, baik dalam keputusan, perlakuan, maupun penilaian. Allah memerintahkan umat-Nya untuk berlaku adil, bahkan terhadap musuh. Surah Al-Maidah ayat 8 dan Surah An-Nahl ayat 90 menjadi dasar penting sifat ini."
+    },
+    {
+        "id": 7010,
+        "keyword": "aman",
+        "description_short": "Sikap yang menunjukkan rasa tenteram dan tidak menimbulkan bahaya.",
+        "description_long": "Aman dalam Islam berarti tidak mengganggu atau menimbulkan ketakutan kepada orang lain, baik secara fisik maupun mental. Orang yang beriman seharusnya menjadi sumber rasa aman di sekitarnya. Dalam Surah Quraisy ayat 4 disebutkan bahwa Allah memberikan rasa aman sebagai nikmat besar kepada kaum Quraisy."
+    },
+    {
+        "id": 7011,
+        "keyword": "lembut",
+        "description_short": "Sifat halus dalam tutur kata dan perbuatan.",
+        "description_long": "Lembut atau rifq adalah sifat yang dicintai Allah. Dalam berdakwah dan bergaul, kelembutan lebih efektif daripada kekerasan. Rasulullah dikenal sangat lembut dalam menghadapi umatnya. Dalam Surah Ali Imran ayat 159, Allah memuji kelembutan Nabi Muhammad SAW dalam membimbing umat."
+    },
+    {
+        "id": 7012,
+        "keyword": "dermawan",
+        "description_short": "Sifat suka memberi dan membantu tanpa pamrih.",
+        "description_long": "Dermawan atau karim adalah sifat yang sangat dianjurkan dalam Islam. Allah menyukai hamba-Nya yang suka berbagi, terutama kepada fakir miskin dan orang yang membutuhkan. Sifat ini menunjukkan kasih sayang dan empati. Tercantum dalam Surah Al-Baqarah ayat 261–262 dan Hadis tentang keutamaan sedekah."
+    },
+    {
+        "id": 7013,
+        "keyword": "tabah",
+        "description_short": "Sifat kuat dan tegar dalam menghadapi kesulitan.",
+        "description_long": "Tabah adalah bagian dari sabar, namun lebih fokus pada keteguhan hati saat tertimpa musibah atau tantangan hidup. Orang yang tabah tidak mudah menyerah dan tetap menjaga keimanannya. Dalam Surah Al-Baqarah ayat 45 dan 153, Allah memerintahkan untuk memohon pertolongan dengan sabar dan shalat."
+    },
+    {
+        "id": 7014,
+        "keyword": "juang",
+        "description_short": "Sifat pantang menyerah dalam memperjuangkan kebenaran.",
+        "description_long": "Sifat juang dalam Islam tercermin dalam semangat jihad, bukan hanya dalam pertempuran, tapi juga dalam menegakkan kebenaran, mencari ilmu, dan melawan hawa nafsu. Allah mencintai orang-orang yang bersungguh-sungguh di jalan-Nya, seperti disebutkan dalam Surah Al-Ankabut ayat 69."
+    },
+    {
+        "id": 7015,
+        "keyword": "pemurah",
+        "description_short": "Sifat senang memberi tanpa mengharapkan imbalan.",
+        "description_long": "Pemurah adalah sifat yang menunjukkan kelapangan hati dalam memberi kepada orang lain, baik dalam bentuk harta, waktu, maupun bantuan lainnya. Allah dan Rasul-Nya sangat mencintai orang yang pemurah, dan menjanjikan balasan berlipat ganda. Sifat ini tercermin dalam Surah Al-Baqarah ayat 245 dan berbagai hadis."
+    },
+    {
+        "id": 7016,
+        "keyword": "lapang-dada",
+        "description_short": "Sifat menerima kenyataan dan memaafkan dengan ikhlas.",
+        "description_long": "Lapang dada adalah sikap hati yang luas, tidak mudah tersinggung, dan mampu memaafkan kesalahan orang lain tanpa menyimpan dendam. Ini merupakan ciri orang yang matang imannya. Allah menjanjikan pahala besar bagi yang memaafkan, sebagaimana disebutkan dalam Surah Asy-Syura ayat 40."
+    },
+    {
+        "id": 7017,
+        "keyword": "pemaaf",
+        "description_short": "Sifat mudah memaafkan kesalahan orang lain.",
+        "description_long": "Pemaaf adalah sifat yang dianjurkan dalam Islam. Memaafkan adalah bagian dari akhlak Rasulullah SAW dan merupakan sifat para nabi. Allah sendiri Maha Pemaaf (Al-Afuw), dan mencintai hamba-hamba-Nya yang suka memaafkan. Terdapat dalam Surah Al-Imran ayat 134 dan Surah An-Nur ayat 22."
+    },
+    {
+        "id": 7018,
+        "keyword": "tegas",
+        "description_short": "Sifat kuat dan tidak ragu dalam membela kebenaran.",
+        "description_long": "Tegas berarti memiliki pendirian yang jelas dalam membela kebenaran dan menolak kebatilan, tanpa bersikap kasar. Seorang Muslim dituntut untuk tegas terhadap yang salah dan lembut terhadap sesama Muslim. Dalam Surah At-Tahrim ayat 9 disebutkan bahwa Nabi dan para pengikutnya bersikap tegas terhadap orang kafir."
+    },
+    {
+        "id": 7019,
+        "keyword": "taat",
+        "description_short": "Sifat patuh dan tunduk kepada Allah dan Rasul-Nya.",
+        "description_long": "Taat dalam Islam berarti mengikuti perintah Allah dan menjauhi larangan-Nya dengan penuh keikhlasan. Ketaatan adalah tanda keimanan yang benar. Orang yang taat dijanjikan keberuntungan dan rahmat oleh Allah. Terdapat dalam Surah An-Nisa ayat 59 dan Surah An-Nur ayat 52."
+    },
+    {
+        "id": 7020,
+        "keyword": "setia",
+        "description_short": "Sifat memegang teguh janji dan komitmen.",
+        "description_long": "Setia adalah sifat penting dalam Islam, terutama dalam menjaga janji, hubungan pernikahan, serta loyalitas kepada Allah dan Rasul-Nya. Seorang Muslim yang setia akan dipuji dan dipercaya dalam urusan agama maupun dunia. Disebutkan dalam Surah Al-Ma’idah ayat 1 dan Surah Al-Ahzab ayat 23."
+    },
+    {
+        "id": 7021,
+        "keyword": "sabar-tinggi",
+        "description_short": "Sifat sabar yang luar biasa dalam menghadapi ujian berat.",
+        "description_long": "Sabar tinggi adalah tingkatan tertinggi dari kesabaran yang ditunjukkan oleh para nabi dan orang-orang saleh dalam menghadapi ujian berat tanpa mengeluh. Allah memuji kesabaran seperti ini dalam Surah Sad ayat 44 dan Surah Yusuf ayat 90. Sifat ini juga merupakan bukti iman yang kuat."
+    },
+    {
+        "id": 7022,
+        "keyword": "lembut-hati",
+        "description_short": "Sifat peka, penuh kasih, dan tidak keras dalam ucapan maupun sikap.",
+        "description_long": "Lembut hati menunjukkan sifat kasih sayang, empati, dan pemaaf terhadap sesama. Rasulullah SAW dikenal sangat lembut hatinya terhadap umat. Dalam Surah Al-Imran ayat 159, Allah menegaskan bahwa dengan kelembutan hati Nabi, umat bisa dekat dan menerima dakwah dengan baik."
+    },
+    {
+        "id": 7023,
+        "keyword": "teliti",
+        "description_short": "Sifat cermat dan hati-hati dalam setiap tindakan.",
+        "description_long": "Teliti merupakan sifat yang dianjurkan dalam Islam, baik dalam urusan dunia maupun agama. Orang yang teliti akan terhindar dari kesalahan, menepati amanah, dan bersikap adil. Dalam Surah Al-Hujurat ayat 6, Allah memerintahkan agar seseorang meneliti informasi sebelum mengambil tindakan."
+    },
+    {
+        "id": 7024,
+        "keyword": "rendah-hati",
+        "description_short": "Sifat tidak menyombongkan diri atas nikmat yang dimiliki.",
+        "description_long": "Rendah hati adalah lawan dari sombong, dan merupakan ciri dari orang-orang beriman yang benar. Islam sangat menekankan pentingnya kerendahan hati dalam berinteraksi dengan siapa pun, tanpa membedakan status. Allah menyukai hamba yang tidak sombong, seperti dalam Surah Al-Furqan ayat 63 dan Surah Luqman ayat 18."
+    },
+    {
+        "id": 7025,
+        "keyword": "santun",
+        "description_short": "Sifat sopan dan berbudi pekerti dalam perkataan maupun perbuatan.",
+        "description_long": "Santun adalah bagian dari akhlak Islam yang mengajarkan kelembutan dalam berbicara dan bertindak. Rasulullah SAW dikenal sebagai sosok yang sangat santun dalam berinteraksi dengan siapa pun, termasuk musuhnya. Dalam Surah Al-Isra ayat 53, Allah memerintahkan agar berkata dengan perkataan yang baik kepada manusia."
+    },
+    {
+        "id": 7026,
+        "keyword": "rajin",
+        "description_short": "Sifat giat dalam melakukan amal baik dan ibadah.",
+        "description_long": "Rajin merupakan sifat yang mendekatkan seorang Muslim kepada keberkahan hidup, baik dalam bekerja, menuntut ilmu, maupun beribadah. Islam mendorong umatnya untuk menjauhi kemalasan dan selalu produktif. Dalam Surah Al-Insyirah ayat 7, Allah memerintahkan untuk terus berusaha setelah menyelesaikan satu urusan."
+    },
+    {
+        "id": 7027,
+        "keyword": "khusyuk",
+        "description_short": "Sifat khidmat dan fokus dalam ibadah.",
+        "description_long": "Khusyuk adalah kehadiran hati dan pikiran dalam ibadah, khususnya dalam shalat. Orang yang khusyuk akan merasakan kedekatan dengan Allah dan memperoleh ketenangan. Allah menyebutkan ciri orang beriman adalah mereka yang khusyuk dalam shalat, sebagaimana dalam Surah Al-Mu’minun ayat 1–2."
+    },
+    {
+        "id": 7028,
+        "keyword": "istiqamah-tinggi",
+        "description_short": "Konsistensi yang luar biasa dalam menjalankan agama.",
+        "description_long": "Istiqamah tinggi berarti selalu teguh dan stabil dalam menjalankan perintah Allah meskipun dalam keadaan sulit atau berat. Ini merupakan salah satu sifat utama yang membawa kepada keberhasilan dan keselamatan. Dalam Surah Fussilat ayat 30–32, Allah memberi kabar gembira kepada orang-orang yang istiqamah."
+    },
+    {
+        "id": 7029,
+        "keyword": "peka",
+        "description_short": "Sifat cepat tanggap terhadap keadaan sekitar dan sesama.",
+        "description_long": "Peka adalah sikap yang menunjukkan empati dan perhatian terhadap kondisi orang lain. Islam menganjurkan untuk peduli dan memperhatikan kebutuhan sesama Muslim, terutama yang lemah atau kesulitan. Rasulullah SAW bersabda bahwa sebaik-baik manusia adalah yang paling bermanfaat bagi orang lain."
+    },
+    {
+        "id": 7030,
+        "keyword": "tulus",
+        "description_short": "Sifat bersih hati tanpa niat tersembunyi.",
+        "description_long": "Tulus adalah sifat ikhlas dalam berbuat kebaikan tanpa mengharapkan balasan dari manusia. Dalam Islam, ketulusan merupakan bagian dari keikhlasan (ikhlas), dan menjadi pondasi amal yang diterima oleh Allah. Nilai tulus terlihat dalam amal yang konsisten dan bebas dari riya. Terdapat dalam Surah Al-Insan ayat 8–9."
+    }
+]

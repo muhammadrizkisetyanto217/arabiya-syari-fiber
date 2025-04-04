@@ -18,7 +18,7 @@ func NewUserQuizzesController(db *gorm.DB) *UserQuizzesController {
 	return &UserQuizzesController{DB: db}
 }
 
-func getAdditionalPoint(attempt int) int {
+func getAdditionalPointQuiz(attempt int) int {
 	switch attempt {
 	case 1:
 		return 20
@@ -53,7 +53,7 @@ func (uqc *UserQuizzesController) CreateOrUpdateUserQuiz(c *fiber.Ctx) error {
 
 	if err == gorm.ErrRecordNotFound {
 		attempt := 1
-		addPoint := getAdditionalPoint(attempt)
+		addPoint := getAdditionalPointQuiz(attempt)
 
 		userQuiz = report_user.UserQuizzesModel{
 			UserID:          input.UserID,
@@ -69,8 +69,8 @@ func (uqc *UserQuizzesController) CreateOrUpdateUserQuiz(c *fiber.Ctx) error {
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to save user quiz result"})
 		}
 
-		logUserPoint(tx, input.UserID, addPoint, input.QuizID)
-		incrementAmountTotalQuiz(tx, input.UserID, addPoint)
+		logUserPoint(tx, input.UserID, addPoint, input.QuizID, "Quiz")
+		HandleUserPointProgress(tx, input.UserID, addPoint)
 
 		log.Printf("[DONE] Quiz baru disimpan dalam %.2fs", time.Since(globalStart).Seconds())
 		return c.JSON(fiber.Map{
@@ -87,7 +87,7 @@ func (uqc *UserQuizzesController) CreateOrUpdateUserQuiz(c *fiber.Ctx) error {
 	}
 
 	userQuiz.Attempt += 1
-	addPoint := getAdditionalPoint(userQuiz.Attempt)
+	addPoint := getAdditionalPointQuiz(userQuiz.Attempt)
 	userQuiz.Point += addPoint
 
 	if input.PercentageGrade > userQuiz.PercentageGrade {
@@ -100,8 +100,8 @@ func (uqc *UserQuizzesController) CreateOrUpdateUserQuiz(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to update user quiz result"})
 	}
 
-	logUserPoint(tx, userQuiz.UserID, addPoint, userQuiz.QuizID)
-	incrementAmountTotalQuiz(tx, userQuiz.UserID, addPoint)
+	logUserPoint(tx, userQuiz.UserID, addPoint, userQuiz.QuizID, "Quiz")
+	HandleUserPointProgress(tx, userQuiz.UserID, addPoint)
 
 	log.Printf("[DONE] Quiz updated dalam %.2fs", time.Since(globalStart).Seconds())
 	return c.JSON(fiber.Map{
@@ -131,155 +131,24 @@ func (uqc *UserQuizzesController) GetUserQuizzes(c *fiber.Ctx) error {
 	log.Printf("[DONE] GetUserQuizzes dalam %.2fms", time.Since(start).Seconds()*1000)
 	return c.JSON(userQuizzes)
 }
-
-func logUserPoint(tx *gorm.DB, userID uint, points int, quizID uint) {
+func logUserPoint(tx *gorm.DB, userID uint, points int, sourceID uint, sourceType string) {
 	err := tx.Create(&progress_user.UserPointLog{
 		UserID:     userID,
 		Points:     points,
-		SourceType: "quiz",
-		SourceID:   quizID,
+		SourceType: sourceType, // fleksibel: "quiz", "evaluation", dst
+		SourceID:   sourceID,
 	}).Error
 
 	if err != nil {
 		log.Printf("[ERROR] Gagal insert user_point_log: %v", err)
 	} else {
-		log.Printf("[SUCCESS] Logged user point for user_id=%d, quiz_id=%d, points=%d", userID, quizID, points)
+		log.Printf("[SUCCESS] Logged user point for user_id=%d, source=%s, source_id=%d, points=%d",
+			userID, sourceType, sourceID, points)
 	}
 }
 
-// func incrementAmountTotalQuiz(tx *gorm.DB, userID uint, point int) {
-// 	var rank progress_user.UserPointLevelRank
-// 	if err := tx.Where("user_id = ?", userID).First(&rank).Error; err != nil {
-// 		if err == gorm.ErrRecordNotFound {
-// 			rank = progress_user.UserPointLevelRank{
-// 				UserID:          userID,
-// 				AmountTotalQuiz: point,
-// 			}
-// 			if err := tx.Create(&rank).Error; err != nil {
-// 				log.Println("[ERROR] Gagal create user_point_level_rank:", err)
-// 			} else {
-// 				log.Println("[INFO] Created new user_point_level_rank")
-// 			}
-// 		} else {
-// 			log.Println("[ERROR] Fetch rank error:", err)
-// 		}
-// 	} else {
-// 		if err := tx.Model(&rank).
-// 			Update("amount_total_quiz", gorm.Expr("amount_total_quiz + ?", point)).Error; err != nil {
-// 			log.Println("[ERROR] Gagal update total point:", err)
-// 		} else {
-// 			log.Println("[INFO] Updated existing user_point_level_rank (incremented)")
-// 		}
-// 	}
-// }
 
-// func incrementAmountTotalQuiz(tx *gorm.DB, userID uint, point int) {
-// 	var rank progress_user.UserPointLevelRank
-// 	if err := tx.Where("user_id = ?", userID).First(&rank).Error; err != nil {
-// 		if err == gorm.ErrRecordNotFound {
-// 			// Ambil level default (id=1)
-// 			var level progress_user.LevelPointRequirement
-// 			if err := tx.First(&level, 1).Error; err != nil {
-// 				log.Println("[ERROR] Gagal ambil level ID 1:", err)
-// 				return
-// 			}
-
-// 			rank = progress_user.UserPointLevelRank{
-// 				UserID:          userID,
-// 				AmountTotalQuiz: point,
-// 				LevelID:         level.ID,
-// 				MaxPointLevel:   level.MaxPointLevel,
-// 				IconURL:         level.IconURL,
-// 			}
-
-// 			if err := tx.Create(&rank).Error; err != nil {
-// 				log.Println("[ERROR] Gagal create user_point_level_rank:", err)
-// 			} else {
-// 				log.Println("[INFO] Created new user_point_level_rank dengan level ID 1")
-// 			}
-// 		} else {
-// 			log.Println("[ERROR] Fetch rank error:", err)
-// 		}
-// 	} else {
-// 		// Sudah ada, cukup update point saja
-// 		if err := tx.Model(&rank).
-// 			Update("amount_total_quiz", gorm.Expr("amount_total_quiz + ?", point)).Error; err != nil {
-// 			log.Println("[ERROR] Gagal update total point:", err)
-// 		} else {
-// 			log.Println("[INFO] Updated existing user_point_level_rank (incremented)")
-// 		}
-// 	}
-// }
-
-// func incrementAmountTotalQuiz(tx *gorm.DB, userID uint, point int) {
-// 	var rank progress_user.UserPointLevelRank
-// 	if err := tx.Where("user_id = ?", userID).First(&rank).Error; err != nil {
-// 		if err == gorm.ErrRecordNotFound {
-// 			// Ambil level default (id=1)
-// 			var level progress_user.LevelPointRequirement
-// 			if err := tx.First(&level, 1).Error; err != nil {
-// 				log.Println("[ERROR] Gagal ambil level ID 1:", err)
-// 				return
-// 			}
-
-// 			rank = progress_user.UserPointLevelRank{
-// 				UserID:          userID,
-// 				AmountTotalQuiz: point,
-// 				LevelID:         level.ID,
-// 				MaxPointLevel:   level.MaxPointLevel,
-// 				IconURL:         level.IconURL,
-// 			}
-
-// 			if err := tx.Create(&rank).Error; err != nil {
-// 				log.Println("[ERROR] Gagal create user_point_level_rank:", err)
-// 			} else {
-// 				log.Println("[INFO] Created new user_point_level_rank dengan level ID 1")
-// 			}
-// 		} else {
-// 			log.Println("[ERROR] Fetch rank error:", err)
-// 		}
-// 	} else {
-// 		// Update jumlah point
-// 		if err := tx.Model(&rank).
-// 			Update("amount_total_quiz", gorm.Expr("amount_total_quiz + ?", point)).Error; err != nil {
-// 			log.Println("[ERROR] Gagal update total point:", err)
-// 			return
-// 		}
-
-// 		// Refresh data rank setelah update point
-// 		if err := tx.Where("user_id = ?", userID).First(&rank).Error; err != nil {
-// 			log.Println("[ERROR] Gagal ambil data rank setelah update:", err)
-// 			return
-// 		}
-
-// 		// Cek apakah perlu upgrade level
-// 		if rank.AmountTotalQuiz > rank.MaxPointLevel {
-// 			var nextLevel progress_user.LevelPointRequirement
-// 			if err := tx.
-// 				Where("max_point_level > ?", rank.MaxPointLevel).
-// 				Order("max_point_level ASC").
-// 				First(&nextLevel).Error; err != nil {
-// 				log.Println("[INFO] Tidak ada level lebih tinggi, tetap di level sekarang")
-// 				return
-// 			}
-
-// 			// Update ke level berikutnya
-// 			if err := tx.Model(&rank).Updates(map[string]interface{}{
-// 				"level_id":        nextLevel.ID,
-// 				"max_point_level": nextLevel.MaxPointLevel,
-// 				"icon_url":        nextLevel.IconURL,
-// 			}).Error; err != nil {
-// 				log.Println("[ERROR] Gagal upgrade level:", err)
-// 			} else {
-// 				log.Printf("[INFO] User ID %d naik level ke %s", userID, nextLevel.NameLevel)
-// 			}
-// 		} else {
-// 			log.Println("[INFO] Updated existing user_point_level_rank (incremented)")
-// 		}
-// 	}
-// }
-
-func incrementAmountTotalQuiz(tx *gorm.DB, userID uint, point int) {
+func HandleUserPointProgress(tx *gorm.DB, userID uint, point int) {
 	var rank progress_user.UserPointLevelRank
 	if err := tx.Where("user_id = ?", userID).First(&rank).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {

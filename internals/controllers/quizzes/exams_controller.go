@@ -109,18 +109,20 @@ func (ec *ExamController) UpdateExam(c *fiber.Ctx) error {
 		return c.Status(404).JSON(fiber.Map{"error": "Exam not found"})
 	}
 
-	var requestData quizzes.ExamModel
-	if err := c.BodyParser(&requestData); err != nil {
+	// Pakai map untuk fleksibel (bisa update sebagian field)
+	var updateData map[string]interface{}
+	if err := c.BodyParser(&updateData); err != nil {
 		log.Println("[ERROR] Invalid request body:", err)
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid request"})
 	}
 
-	if err := requestData.Validate(); err != nil {
-		log.Println("[ERROR] Validation failed:", err)
-		return c.Status(400).JSON(fiber.Map{"error": "Validation failed", "details": err.Error()})
+	// Optional: bisa tambahkan validasi manual di sini kalau perlu
+
+	if len(updateData) == 0 {
+		return c.Status(400).JSON(fiber.Map{"error": "No fields to update"})
 	}
 
-	if err := ec.DB.Model(&exam).Updates(requestData).Error; err != nil {
+	if err := ec.DB.Model(&exam).Updates(updateData).Error; err != nil {
 		log.Println("[ERROR] Failed to update exam:", err)
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to update exam"})
 	}

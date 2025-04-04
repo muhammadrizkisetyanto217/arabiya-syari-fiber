@@ -1,0 +1,908 @@
+[
+    {
+        "id": 1,
+        "keyword": "sholat",
+        "description_short": "Ibadah wajib umat Islam",
+        "description_long": "Sholat adalah ibadah wajib yang dilakukan lima kali sehari sebagai bentuk ketaatan kepada Allah."
+    },
+    {
+        "id": 2,
+        "keyword": "puasa",
+        "description_short": "Ibadah menahan diri dari makan dan minum",
+        "description_long": "Puasa adalah ibadah wajib di bulan Ramadhan serta sunnah di hari-hari tertentu, dilakukan dengan menahan diri dari makan, minum, dan hawa nafsu dari fajar hingga maghrib."
+    },
+    {
+        "id": 3,
+        "keyword": "zakat",
+        "description_short": "Kewajiban mengeluarkan sebagian harta",
+        "description_long": "Zakat adalah kewajiban bagi umat Islam untuk mengeluarkan sebagian harta tertentu kepada golongan yang berhak menerima, sebagai bentuk kepedulian sosial dan penyucian harta."
+    },
+    {
+        "id": 4,
+        "keyword": "haji",
+        "description_short": "Ibadah ke Baitullah bagi yang mampu",
+        "description_long": "Haji adalah rukun Islam kelima, diwajibkan bagi setiap Muslim yang mampu secara finansial dan fisik, dilakukan di kota Makkah dengan serangkaian ibadah tertentu."
+    },
+    {
+        "id": 5,
+        "keyword": "umrah",
+        "description_short": "Ibadah ke Tanah Suci dengan rukun lebih ringan",
+        "description_long": "Umrah adalah ibadah sunnah yang dilakukan di Makkah dan memiliki kemiripan dengan haji, namun tidak memiliki waktu tertentu dan tanpa ritual wukuf di Arafah."
+    },
+    {
+        "id": 6,
+        "keyword": "tauhid",
+        "description_short": "Konsep keesaan Allah dalam Islam",
+        "description_long": "Tauhid adalah konsep fundamental dalam Islam yang menegaskan keesaan Allah. Tauhid terbagi menjadi tiga: Tauhid Rububiyah (kepercayaan bahwa Allah adalah satu-satunya pencipta), Tauhid Uluhiyah (hanya Allah yang berhak disembah), dan Tauhid Asma wa Sifat (mengimani nama-nama dan sifat Allah yang Maha Sempurna)."
+    },
+    {
+        "id": 7,
+        "keyword": "hadits",
+        "description_short": "Perkataan, perbuatan, dan persetujuan Nabi Muhammad",
+        "description_long": "Hadits adalah catatan tentang perkataan, perbuatan, dan persetujuan Nabi Muhammad SAW yang menjadi sumber hukum Islam kedua setelah Al-Qur'an."
+    },
+    {
+        "id": 8,
+        "keyword": "fiqh",
+        "description_short": "Ilmu tentang hukum Islam dalam kehidupan",
+        "description_long": "Fiqh adalah ilmu yang membahas hukum-hukum Islam berdasarkan Al-Qur’an dan hadits, mencakup ibadah, muamalah, pernikahan, dan berbagai aspek kehidupan lainnya."
+    },
+    {
+        "id": 9,
+        "keyword": "wudhu",
+        "description_short": "Tata cara bersuci sebelum sholat",
+        "description_long": "Wudhu adalah proses bersuci dengan menggunakan air yang dilakukan sebelum sholat dan ibadah lainnya untuk menghilangkan hadas kecil."
+    },
+    {
+        "id": 10,
+        "keyword": "syahadat",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 11,
+        "keyword": "fardhu",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 12,
+        "keyword": "sunnah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 13,
+        "keyword": "mubah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 14,
+        "keyword": "makruh",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 15,
+        "keyword": "haram",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 16,
+        "keyword": "iman",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 17,
+        "keyword": "ihsan",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 18,
+        "keyword": "islam",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 19,
+        "keyword": "pahala",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 20,
+        "keyword": "dosa",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 21,
+        "keyword": "allah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 22,
+        "keyword": "ta'ala",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 23,
+        "keyword": "malaikat",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 24,
+        "keyword": "kitab-kitab",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 25,
+        "keyword": "rasul",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 26,
+        "keyword": "nabi",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 27,
+        "keyword": "hari-kiamat",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 28,
+        "keyword": "hari-akhir",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 29,
+        "keyword": "qodha-dan-qodar",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 30,
+        "keyword": "syariah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 31,
+        "keyword": "hadist",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 32,
+        "keyword": "al-qur'an",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 33,
+        "keyword": "zabur",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 34,
+        "keyword": "injil",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 35,
+        "keyword": "taurat",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 36,
+        "keyword": "fiqh",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 37,
+        "keyword": "ushul-fiqh",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 38,
+        "keyword": "sejarah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 39,
+        "keyword": "siroh-nabawiyyah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 40,
+        "keyword": "tafsir",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 41,
+        "keyword": "ushul-tafsir",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 42,
+        "keyword": "mustholah-hadits",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 43,
+        "keyword": "fiqh-sunnah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 44,
+        "keyword": "mahzab",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 45,
+        "keyword": "surga",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 46,
+        "keyword": "neraka",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 47,
+        "keyword": "surga-firdaus",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 48,
+        "keyword": "neraka-jahannam",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 49,
+        "keyword": "adab",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 50,
+        "keyword": "ahlul-bait",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 51,
+        "keyword": "ahlul-kitab",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 52,
+        "keyword": "ahlus-sunnah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 53,
+        "keyword": "dunia",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 54,
+        "keyword": "akhirat",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 55,
+        "keyword": "akhlak",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 56,
+        "keyword": "asbabun-nuzul",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 57,
+        "keyword": "asmaul-husna",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 58,
+        "keyword": "taubat",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 59,
+        "keyword": "maksiat",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 60,
+        "keyword": "ayat",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 61,
+        "keyword": "ayat-kursi",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 62,
+        "keyword": "azab",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 63,
+        "keyword": "adzan",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 64,
+        "keyword": "iqomah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 65,
+        "keyword": "baitullah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 66,
+        "keyword": "makkah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 67,
+        "keyword": "madinah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 68,
+        "keyword": "masjid-haram",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 69,
+        "keyword": "masjid-nabawi",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 70,
+        "keyword": "masjid-aqsa",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 71,
+        "keyword": "baitul-mal",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 72,
+        "keyword": "basmalah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 73,
+        "keyword": "bid'ah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 74,
+        "keyword": "da'i",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 75,
+        "keyword": "ustadz",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 76,
+        "keyword": "ulama",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 77,
+        "keyword": "dakwah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 78,
+        "keyword": "dalil",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 79,
+        "keyword": "hujjah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 80,
+        "keyword": "dhuha",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 81,
+        "keyword": "subuh",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 82,
+        "keyword": "zuhur",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 83,
+        "keyword": "ashar",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 84,
+        "keyword": "magrib",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 84,
+        "keyword": "isya",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 85,
+        "keyword": "agama",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 86,
+        "keyword": "din",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 87,
+        "keyword": "doa",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 88,
+        "keyword": "dzikir",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 89,
+        "keyword": "tilawah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 90,
+        "keyword": "qiroah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 91,
+        "keyword": "idul-fitri",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 92,
+        "keyword": "idul-adha",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 93,
+        "keyword": "fajr",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 94,
+        "keyword": "fardhu-ain",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 95,
+        "keyword": "fardhu-kifayah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 96,
+        "keyword": "fatwa",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 97,
+        "keyword": "fitrah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 98,
+        "keyword": "hijab",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 99,
+        "keyword": "hijrah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 100,
+        "keyword": "ibadah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 101,
+        "keyword": "iblis",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 102,
+        "keyword": "syaitan",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 103,
+        "keyword": "jin",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 104,
+        "keyword": "jihad",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 105,
+        "keyword": "jum'at",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 106,
+        "keyword": "jumhur",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 107,
+        "keyword": "ka'bah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 108,
+        "keyword": "kafir",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 109,
+        "keyword": "munafik",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 110,
+        "keyword": "khamar",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 111,
+        "keyword": "khilafah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 112,
+        "keyword": "khutbah",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 113,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 114,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 115,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 116,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 117,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 118,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 119,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 120,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 121,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 122,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 123,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 124,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 125,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 126,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 127,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 128,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 129,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 130,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 131,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 132,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 133,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 134,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 135,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 136,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 137,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 138,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 139,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 140,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 141,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 142,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 143,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 144,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 145,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 146,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 147,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 148,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 149,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    },
+    {
+        "id": 150,
+        "keyword": "",
+        "description_short": "",
+        "description_long": ""
+    }
+]
