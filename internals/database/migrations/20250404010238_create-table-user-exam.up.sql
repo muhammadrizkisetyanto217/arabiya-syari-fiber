@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS user_exams (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    exam_id INTEGER NOT NULL,
+    attempt INTEGER NOT NULL DEFAULT 1,
+    percentage_grade REAL NOT NULL DEFAULT 0,
+    time_duration INTEGER NOT NULL DEFAULT 0,
+    point INTEGER NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    CONSTRAINT fk_exam FOREIGN KEY (exam_id) REFERENCES exams (id) ON DELETE CASCADE
+);
